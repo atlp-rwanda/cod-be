@@ -11,8 +11,7 @@
     "dbMigrate": "npx sequelize-cli db:migrate",
     "undoMigrate": "npx sequelize-cli db:migrate:undo",
     "makeSeed": "npx sequelize-cli db:seed:all",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "esw src --color",
+    "lint": "esw src --color --fix",
     "lint:watch":"npm run lint -- --watch"
   },
   "repository": {
