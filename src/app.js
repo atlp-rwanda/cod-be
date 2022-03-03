@@ -1,11 +1,41 @@
+/**
+ * Libraries
+ */
+
 import express from 'express';
 import dotenv  from 'dotenv';
-const app=express();
+
 dotenv.config();
-const port = process.env.PORT;
-app.listen(port,()=>{
-    console.log(`Server running on port: ${port}`);
-});
+
+const app = express()
+
+
+
+
+/**
+ * Express App
+ */
+
+app.use(express)
+
+
+/**
+ * Server Connection
+ */
+
+const connectServer = async () => {
+    try {
+        const port = process.env.PORT || 7000
+        app.listen(port, () => {
+            console.log('Barefoot Nomad Server Started & Listening on PORT: ' + port)
+            app.emit('appStarted')
+        })
+
+    } catch (error) {
+        console.error({Error: error})
+    }
+}
+
+connectServer()
 
 export default app;
-
