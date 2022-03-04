@@ -6,7 +6,8 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        unique: true
       },
       office_name: {
         type: Sequelize.STRING,
@@ -20,7 +21,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      state: {
+      province: {
         type: Sequelize.STRING,
         allowNull: false
       },
@@ -43,7 +44,8 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        unique: true
       },
       f_name: {
         type: Sequelize.STRING,
@@ -72,87 +74,7 @@ module.exports = {
       }
     });
     
-    await queryInterface.createTable('employees', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      user_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'users',
-          key: 'id'
-        }
-      },
-      emp_fname: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        references: {
-          model: 'users',
-          key: 'f_name'
-        }
-      },
-      emp_lname: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        references: {
-          model: 'users',
-          key: 'l_name'
-        }
-      },
-      emp_email: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true,
-        references: {
-          model: 'users',
-          key: 'email'
-        }
-      },
-      emp_role: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        references: {
-          model: 'users',
-          key: 'role'
-        }
-      },
-      office_id: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        references: {
-          model: 'offices',
-          key: 'id'
-        }
-      },
-      emp_office: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        references: {
-          model: 'offices',
-          key: 'office_name'
-        }
-      },
-      office_type: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        references: {
-          model: 'offices',
-          key: 'office_type'
-        }
-      },
-      created_at: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updated_at: {
-        allowNull: false,
-        type: Sequelize.DATE
-      }
-    });
+    
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropAllTables();
