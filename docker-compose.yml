@@ -12,6 +12,8 @@ services:
       - POSTGRES_DB=${DB_DATABASE}
     ports:
       - '5432:5432'
+    # ports:
+    #   - ${DB_PORT}:${DB_PORT}
     networks:
     - 'shared-network'
     volumes:
@@ -26,6 +28,8 @@ services:
 
     ports:
       - '3000:3000'
+    # ports:
+    #   - ${PORT}:${PORT}
     networks:
     - 'shared-network'
     depends_on:
