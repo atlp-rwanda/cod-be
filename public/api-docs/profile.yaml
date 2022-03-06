@@ -1,0 +1,66 @@
+definitions:        # Schema defination for request body
+  profile:
+    type: object
+    required: 
+      - gender
+      - birthdate
+    properties:
+      gender:
+        type: string
+      language:
+        type: string
+      currency:
+        type: string
+      location:
+        type: string
+        description: Where do you live
+      departement:
+        type: string
+      manager:
+        type: string
+      birthdate:
+        type: string
+paths:
+  /api/v1/user/profile/{userId}:          
+    put:                
+      tags:               
+        - Profile         # Value of the tag
+      summary: Update Profile
+      parameters:
+        - name: userId
+          in: path
+          description: The unique id of the user
+          required: true
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              $ref: '#/definitions/profile'          
+      responses:
+        '200':
+          description: Profile Updated Successfully
+        '500':
+          description: Internal server error
+        '409':
+          description: Already exists
+        '400':
+          description: Invalid data in the request            
+    get:                
+      tags:               
+        - Profile         # Value of the tag
+      summary: Update Profile
+      parameters:
+        - name: userId
+          in: path
+          description: The unique id of the user
+          required: true     
+      responses:
+        '200':
+          description: Success
+        '500':
+          description: Internal server error
+        '404':
+          description: Not found
+        '400':
+          description: Invalid data in the request    

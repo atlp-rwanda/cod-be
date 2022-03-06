@@ -13,6 +13,8 @@ import storeToken from '../services/storeToken';
 import * as forgotPasswordValidation from '../validations/forgotPasswordValidation';
 import * as resetPasswordValidation from '../validations/resetPasswordValidation';
 import sendPasswordVerification from '../services/forgotPassword';
+import {addProfile} from '../services/profileService'
+
 
 dotenv.config();
 const registerNew = async (requestBody, response, appUrl, next) => {
@@ -58,6 +60,16 @@ const registerNew = async (requestBody, response, appUrl, next) => {
           emailToken,
           response
         );
+
+         //  automatically create profile of the user after registration
+         const profileData = {
+          userId: user.id,
+        } 
+        try {
+          await addProfile(profileData)
+        } catch (error) {
+          response.json({Message: error})
+        }
       } else {
         ApplicationError.internalServerError(
           `An error occured failed`,
