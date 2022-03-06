@@ -34,10 +34,15 @@ const decodeRefreshToken = async (refreshToken) => {
     return null;
   }
 };
+const generateResetToken = async (paramsObject) => {
+  const token = jwt.sign(paramsObject, jwtToken, { expiresIn: '15m' });
+  return token;
+};
 
 export {
   generateAccessToken,
   generateRefreshToken,
   decodeAccessToken,
-  decodeRefreshToken
+  decodeRefreshToken,
+  generateResetToken
 };

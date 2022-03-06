@@ -1,3 +1,4 @@
+/* eslint-disable no-else-return */
 /* eslint-disable prefer-destructuring */
 import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
@@ -6,10 +7,12 @@ import * as userService from '../services/userService';
 import * as ApplicationError from '../utils/errors/applicationsErrors';
 import * as alreadyExists from '../utils/errors/alreadyExistError';
 import * as tokenGenerator from '../utils/helpers/generateToken';
-import sendVerification from '../services/userVerfication'
+import sendVerification from '../services/userVerfication';
 import { Users, LoggedInUser } from '../database/models';
 import storeToken from '../services/storeToken';
-
+import * as forgotPasswordValidation from '../validations/forgotPasswordValidation';
+import * as resetPasswordValidation from '../validations/resetPasswordValidation';
+import sendPasswordVerification from '../services/forgotPassword';
 
 dotenv.config();
 const registerNew = async (requestBody, response, appUrl, next) => {
@@ -18,11 +21,12 @@ const registerNew = async (requestBody, response, appUrl, next) => {
       validations.userSchema.registerSchema.validate(requestBody);
     if (!validate.error) {
       const findIfExist = await userService.findByEmail(requestBody.email);
-      if (findIfExist)
-        {return alreadyExists.emailAlreadyExists(
+      if (findIfExist) {
+        return alreadyExists.emailAlreadyExists(
           'Email Already Registered',
           response
-        );}
+        );
+      }
 
       const userData = {
         firstname: requestBody.firstname,
@@ -54,11 +58,12 @@ const registerNew = async (requestBody, response, appUrl, next) => {
           emailToken,
           response
         );
-      } else
-        {ApplicationError.internalServerError(
+      } else {
+        ApplicationError.internalServerError(
           `An error occured failed`,
           response
-        );}
+        );
+      }
     } else {
       ApplicationError.validationError(
         validate.error.details[0].context.label,
@@ -120,25 +125,122 @@ const refreshToken = async (req, res) => {
     if (!token) {
       return ApplicationError.validationError('Invalid refresh token', res);
     }
-    return res
-      .status(200)
-      .json({
-        ...token,
-        status: 200,
-        message: 'Access token created successfully'
-      });
+    return res.status(200).json({
+      ...token,
+      status: 200,
+      message: 'Access token created successfully'
+    });
   } catch (error) {
     return ApplicationError.validationError(error.message, res);
   }
 };
-const logout = async (req,res)=>{
+const logout = async (req, res) => {
   const userId = req.user.id;
   try {
-  await LoggedInUser.destroy({where: { user_id: userId }}); // delete the current refresh token from db
-    return res.status(204).send()
+    await LoggedInUser.destroy({ where: { user_id: userId } }); // delete the current refresh token from db
+    return res.status(204).send();
   } catch (error) {
-    return ApplicationError.internalServerError(`failed to logout`, res)
+    return ApplicationError.internalServerError(`failed to logout`, res);
   }
-}
+};
 
-export default {registerNew, verifyUser, login, refreshToken, logout};
+const forgotPassword = async (req, res, appUrl, next) => {
+  try {
+    const validate = forgotPasswordValidation.forgotPassword.validate(req);
+    if (!validate.error) {
+      const findIfUserExist = await userService.findByEmail(req.email);
+      if (findIfUserExist) {
+        if (findIfUserExist.googleId || findIfUserExist.facebookId) {
+          res.status(400).send({
+            status: 400,
+            data: { message: 'Please Log In Using Social Media' }
+          });
+          return ApplicationError.badRequestError(`Not A Casual User`, res);
+        }
+        if (findIfUserExist.isVerified) {
+          const resetToken = await tokenGenerator.generateResetToken({
+            email: findIfUserExist.email,
+            id: findIfUserExist.id
+          });
+          if (resetToken) {
+            findIfUserExist.email_token = resetToken;
+            await findIfUserExist.save();
+            const userEmail = findIfUserExist.email,
+              userName = findIfUserExist.firstname,
+              resetPasswordToken = findIfUserExist.email_token;
+            await sendPasswordVerification(
+              userEmail,
+              userName,
+              resetPasswordToken,
+              appUrl,
+              res
+            );
+          } else {
+            return ApplicationError.internalServerError(
+              `Unable To Generate Reset Token`,
+              res
+            );
+          }
+        } else {
+          return new Error(
+            ApplicationError.AuthorizationError(`User Is Not Verified`, res)
+          );
+        }
+      } else {
+        return new Error(ApplicationError.notFoundError(`User Not Found`, res));
+      }
+    } else {
+      ApplicationError.validationError(
+        validate.error.details[0].context.label,
+        res
+      );
+    }
+  } catch (error) {
+    console.log(error);
+    return next(error);
+  }
+};
+const resetPassword = async (req, res, emailToken, next) => {
+  try {
+    const user = await userService.findByResetToken(emailToken);
+    if (!user)
+      {return new Error(ApplicationError.notFoundError(`Token Not Found`, res));}
+    else {
+      const newUserPassword = {
+        password: req.password
+      };
+      const salt = await bcrypt.genSalt(10);
+      const validate = resetPasswordValidation.resetPassword.validate(req);
+      if (!validate.error) {
+        user.email_token = null;
+        user.password = await bcrypt.hash(newUserPassword.password, salt);
+        await user.save();
+        res.status(200).json({
+          status: 200,
+          data: {
+            Message: `Password Updated successfully`
+          }
+        });
+        console.log('Password Updated successfully');
+      } else
+        {return new Error(
+          ApplicationError.validationError(
+            validate.error.details[0].context.label,
+            res
+          )
+        );}
+    }
+  } catch (error) {
+    console.log(error);
+    return next(error);
+  }
+};
+export default {
+  registerNew,
+  verifyUser,
+  login,
+  refreshToken,
+  logout,
+  forgotPassword,
+  resetPassword
+};

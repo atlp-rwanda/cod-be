@@ -1,37 +1,39 @@
 /*eslint-disable*/
-import chai from "chai";
-import chaiHttp from "chai-http";
-import app from "../src/app";
-import { mock } from "sinon";
-import { googleCb ,facebookCb} from "../src/controllers/socialOauth.controller";
-import { userToken } from "../src/routes/socialOauth.route";
+import chai from 'chai';
+import chaiHttp from 'chai-http';
+import app from '../src/app';
+import { mock } from 'sinon';
+import {
+  googleCb,
+  facebookCb
+} from '../src/controllers/socialOauth.controller';
+import { userToken } from '../src/routes/socialOauth.route';
 
-var strategy = require("../src/app.js");
+var strategy = require('../src/app.js');
 const { expect } = chai;
 chai.use(chaiHttp);
 
 const mockUser = {
   uuid: 1,
-  fName: "John ",
-  lName: "Test",
-  email: "johntest@gmail.com",
+  fName: 'John ',
+  lName: 'Test',
+  email: 'johntest@gmail.com'
 };
 
-describe("passport-google-oauth", function () {
-  it("Should alias Strategy to OAuthStrategy using google", function () {
+describe('passport-google-oauth', function () {
+  it('Should alias Strategy to OAuthStrategy using google', function () {
     expect(strategy.Strategy).to.equal(strategy.OAuthStrategy);
-     });
-   });
+  });
+});
 
-describe("passport-facebook", function () {
-it("should alias Strategy to FacebookStrategy", function () {
+describe('passport-facebook', function () {
+  it('should alias Strategy to FacebookStrategy', function () {
     expect(strategy.Strategy).to.equal(strategy.FacebookStrategy);
-    });
-    });
+  });
+});
 
-describe("Google Endpoints", () => {
-
-  it("should login using google acount", (done) => {
+describe('Google Endpoints', () => {
+  it('should login using google acount', (done) => {
     chai
       .request(app)
       .get(`/auth/google`)
@@ -40,7 +42,7 @@ describe("Google Endpoints", () => {
         done();
       });
   });
-  it("Should not allow accessing callback route directly", (done) => {
+  it('Should not allow accessing callback route directly', (done) => {
     chai
       .request(app)
       .get(`auth/google/callback`)
@@ -50,24 +52,22 @@ describe("Google Endpoints", () => {
       });
   });
 
-  it("`Should invoke done  after finding or creating a user", async () => {
+  it('`Should invoke done  after finding or creating a user', async () => {
     const doneMock = mock();
     const mockUser = {
       _json: {
-        fName: "testuser1",
-        lName: "testuser",
-        email: "testUser@gmail.com",
-      },
+        fName: 'testuser1',
+        lName: 'testuser',
+        email: 'testUser@gmail.com'
+      }
     };
 
     await googleCb(null, null, mockUser, doneMock);
   });
-
 });
 
-describe("Facebook Endpoints", () => {
-
-  it("should login using facebook acount", (done) => {
+describe('Facebook Endpoints', () => {
+  it('should login using facebook acount', (done) => {
     chai
       .request(app)
       .get(`/auth/facebook`)
@@ -76,7 +76,7 @@ describe("Facebook Endpoints", () => {
         done();
       });
   });
-  it("Should not allow accessing callback route directly", (done) => {
+  it('Should not allow accessing callback route directly', (done) => {
     chai
       .request(app)
       .get(`auth/facebook/callback`)
@@ -86,17 +86,16 @@ describe("Facebook Endpoints", () => {
       });
   });
 
-  it("`Should invoke done  after finding or creating a user", async () => {
+  it('`Should invoke done  after finding or creating a user', async () => {
     const doneMock = mock();
     const mockUser = {
       _json: {
-        fName: "testuser1",
-        lName: "testuser",
-        email: "testUser@gmail.com",
-      },
+        fName: 'testuser1',
+        lName: 'testuser',
+        email: 'testUser@gmail.com'
+      }
     };
 
     await facebookCb(null, null, mockUser, doneMock);
   });
-
 });

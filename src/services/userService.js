@@ -32,4 +32,14 @@ const updateOrCreate = async (model, where, newItem) => {
   const item = await model.update(newItem, { where });
   return { item, created: false };
 };
-export { addUser, findByEmail, findByEmailToken, updateOrCreate };
+const findByResetToken = async (emailToken) => {
+  const user = await Users.findOne({ where: { email_token: emailToken } });
+  return user;
+};
+export {
+  addUser,
+  findByEmail,
+  findByEmailToken,
+  updateOrCreate,
+  findByResetToken
+};
