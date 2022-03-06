@@ -39,6 +39,7 @@ build/Release
 
 # Dependency directories
 node_modules/
+
 jspm_packages/
 
 # TypeScript v1 declaration files
@@ -71,6 +72,7 @@ typings/
 # dotenv environment variables file
 .env
 .env.test
+.env.development
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -81,7 +83,25 @@ typings/
 # Nuxt.js build / generate output
 .nuxt
 dist
-
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+build
+=======
+>>>>>>> 1304f5d (Merge Temp To My branch)
+=======
+build
+>>>>>>> 57e5fb6 (User_registration_JWT-181414599)
+=======
+build
+>>>>>>> e63bf2b (User_registration_JWT-181414599)
+=======
+>>>>>>> 1304f5d (Merge Temp To My branch)
+=======
+build
+>>>>>>> 57e5fb6 (User_registration_JWT-181414599)
 # Gatsby files
 .cache/
 # Comment in the public line in if your project uses Gatsby and *not* Next.js
@@ -102,3 +122,16 @@ dist
 
 # TernJS port file
 .tern-port
+<<<<<<< HEAD
+
+#editor
+.editorconfig
+
+#build folder
+build
+
+yarn.lock
+=======
+# express project build
+build/
+>>>>>>> 1304f5d (Merge Temp To My branch)

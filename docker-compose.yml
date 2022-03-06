@@ -1,0 +1,38 @@
+version: "3.3"
+
+services:
+  db:
+    container_name: 'postgres'
+    restart: 'always'
+    image: 'postgres'
+   
+    environment:
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    # ports:
+    #   - '5432:5432'
+    ports:
+      - ${DB_PORT}:${DB_PORT}
+    networks:
+    - 'shared-network'
+    volumes:
+      - ./:/usr/src/app/
+  
+  web:
+    container_name: 'codbn'
+    restart: 'unless-stopped'
+   
+    build:
+      context: .
+
+    # ports:
+    #   - '3000:3000'
+    ports:
+      - ${PORT}:${PORT}
+    networks:
+    - 'shared-network'
+    depends_on:
+      - db
+networks:
+  shared-network:
