@@ -5,9 +5,7 @@
 
 'use strict';
 
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class Users extends Model {
@@ -20,56 +18,59 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  Users.init({
-    id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
-      allowNull: false,
-      primaryKey: true
+  Users.init(
+    {
+      id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        allowNull: false,
+        primaryKey: true
+      },
+      firstname: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      lastname: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      email: {
+        unique: true,
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      roleId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: '4'
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      isVerified: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+      },
+      email_token: {
+        type: DataTypes.STRING,
+        defaultValue: false
+      },
+      createdAt: {
+        allowNull: false,
+        type: DataTypes.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: DataTypes.DATE
+      }
     },
-    firstname: {
-      type: DataTypes.STRING,
-      allowNull:false,
-    },
-    lastname: {
-      type: DataTypes.STRING,
-      allowNull:false,
-    },
-    email: {
-      unique:true,
-      type: DataTypes.STRING,
-      allowNull:false,
-    },
-    roleId: {
-      type: DataTypes.INTEGER,
-      allowNull:false,
-      defaultValue: "4",
-    },
-    password: {
-      type: DataTypes.STRING,
-      allowNull:false,
-    },
-    isVerified: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false
-    },
-    email_token: {
-      type: DataTypes.STRING,
-      defaultValue: false
-    },
-    createdAt: {
-      allowNull: false,
-      type: DataTypes.DATE
-    },
-    updatedAt: {
-      allowNull: false,
-      type: DataTypes.DATE
+    {
+      sequelize,
+      modelName: 'Users',
+      tableName: 'users',
+      timestamps: true
     }
-  }, {
-    sequelize,
-    modelName: 'Users',
-    tableName: 'users',
-    timestamps: true,
-  });
+  );
   return Users;
 };

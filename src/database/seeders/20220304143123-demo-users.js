@@ -32,7 +32,7 @@ module.exports = {
           isVerified: true,
           createdAt: new Date(),
           updatedAt: new Date()
-        },
+        }
       ],
       {}
     );

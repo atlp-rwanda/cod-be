@@ -25,27 +25,29 @@
 - Open Your Terminal & Run The Following Commands:
 - ```npm i```
 - ```npm run dev```
-
+- ```npm run dbMigrate```
 ### How To Add A New User: 
   - Open your Browser and visit ```http://localhost:<port>/api-docs``` and try to register a new user on `api/user/register` by editing the default values given.
   - You will see a JSON reponse with `emailToken` and `message` on successful registration
   - You can also use Postman and do a POST request on ```http://localhost:<port>/api/ user/register``` and post json data in the format 
   ```
   {
-    'firstname': "value",
-    'lastname': "value",
-    'email': "value",
-    'password': "value"
-  }
-  ```
-  - To Verify the newly registered user copy the `emailToken` and paste in the `api/user-verify?token={emailToken}` endpoint.
-  - After completing the step above you should see a JSON response which looks like this 
-  ```
+    'firstname':"value",
+    'lastname':"value",
+    'email':"value",
+    'password':"value"
+ }
+ ### How To Add Assign a role to a user 
+ -Login to your account with your email and password (Super Administrator) to a valid token for authentication 
+ -Using Postman  add ```http://localhost:<port>/api/v1/users/assignRole ``` in the url 
+ - Pass the token in the authorization header as Bearer token  
+ - Do a post request with the data in the following format 
   {
-    "Verified": true
+    "rolename":"value",
+    "user":""
   }
-  ```
- 
+  - rolename: The rolename as registered, check in migration file for role
+  - user: The user id of super Administrator(received in the response when login);
 ### Error handling in the application
 - Inside src/utils/errors has possible applications errors' handlers, you are free to
 use them and add your own whenever needed.

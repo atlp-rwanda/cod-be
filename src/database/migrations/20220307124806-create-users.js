@@ -10,20 +10,20 @@ export async function up(queryInterface, Sequelize) {
     },
     firstname: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: false
     },
     lastname: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: false
     },
     email: {
       unique: true,
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: false
     },
     password: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: false
     },
     isVerified: {
       type: Sequelize.BOOLEAN,
@@ -31,7 +31,7 @@ export async function up(queryInterface, Sequelize) {
     },
     roleId: {
       type: Sequelize.INTEGER,
-      defaultValue: "4",
+      defaultValue: '4'
     },
     createdAt: {
       allowNull: false,

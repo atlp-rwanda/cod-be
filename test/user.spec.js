@@ -1,6 +1,6 @@
-import chai, { expect, request, use,} from 'chai';
-import chaiHttp from "chai-http";
-import server from "../src/app";   
+import chai, { expect, request, use } from 'chai';
+import chaiHttp from 'chai-http';
+import server from '../src/app';
 import models from '../src/database/models';
 import * as userService from '../src/services/userService';
 
@@ -8,13 +8,27 @@ const { Users } = models;
 chai.should();
 
 use(chaiHttp);
-const user={firstname:'Faustin',lastname:'IYAREMYE',email:'testemail@me.com',password:'test1234@5678',
-}
-const invalidEmail={firstname:'Faustin',lastname:'IYAREMYE',email:'testemail',password:'test1234@5678'}
-const invalidPassword={firstname:'Faustin',lastname:'IYAREMYE',email:'testemail@me.com',password:'test123'}
+const user = {
+  firstname: 'Faustin',
+  lastname: 'IYAREMYE',
+  email: 'testemail@me.com',
+  password: 'test1234@5678'
+};
+const invalidEmail = {
+  firstname: 'Faustin',
+  lastname: 'IYAREMYE',
+  email: 'testemail',
+  password: 'test1234@5678'
+};
+const invalidPassword = {
+  firstname: 'Faustin',
+  lastname: 'IYAREMYE',
+  email: 'testemail@me.com',
+  password: 'test123'
+};
 describe('/POST  register endpoint', () => {
-  after(async()=>{
-    await Users.destroy({where: { email: `${user.email}` }});
+  after(async () => {
+    await Users.destroy({ where: { email: `${user.email}` } });
   });
   it('It should register a new user', async () => {
     const res = await request(server).post('/api/user/register').send(user);
@@ -25,18 +39,22 @@ describe('/POST  register endpoint', () => {
     const res = await request(server).post('/api/user/register').send(user);
     expect(res).to.have.status(409);
   });
-  it('It should return the password does not include in the response',async()=>{
-    const userInstance=await userService.findByEmail(user.email);
+  it('It should return the password does not include in the response', async () => {
+    const userInstance = await userService.findByEmail(user.email);
     expect(userInstance.password).to.equal(undefined);
   });
-  it('It should return invalid email',async()=>{
-    const res = await request(server).post('/api/user/register').send(invalidEmail);
+  it('It should return invalid email', async () => {
+    const res = await request(server)
+      .post('/api/user/register')
+      .send(invalidEmail);
     expect(res).to.have.status(400);
     expect(res.body).to.have.property('Error');
   });
-  it('It should return invalid password',async()=>{
-    const res = await request(server).post('/api/user/register').send(invalidPassword);
+  it('It should return invalid password', async () => {
+    const res = await request(server)
+      .post('/api/user/register')
+      .send(invalidPassword);
     expect(res).to.have.status(400);
     expect(res.body).to.have.property('Error');
   });
-})
+});

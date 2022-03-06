@@ -26,36 +26,40 @@ describe('Login testing ', () => {
     email: 'random@gmail.com',
     password: 'pswd123'
   };
- 
+
   it('When users provide valid refresh token get both access token and refresh token', async () => {
-    await Users.create({...randomUser});
+    await Users.create({ ...randomUser });
     const res = await chai
       .request(app)
       .post('/api/user/login')
-      .send({ ...credentials});
-    const res2 = await chai.request(app)
-    .post('/api/user/refresh')
-    .send({refreshTokenKey:res.body.refreshToken})
-    
+      .send({ ...credentials });
+    const res2 = await chai
+      .request(app)
+      .post('/api/user/refresh')
+      .send({ refreshTokenKey: res.body.refreshToken });
+
     expect(res2).to.have.property('status', 200);
     expect(res2).to.have.property('body');
-    expect(res2.body).to.have.property('message', 'Access token created successfully');
-    expect(res2.body).to.have.property("accessToken");
-    expect(res2.body).to.have.property("refreshToken");
-    
+    expect(res2.body).to.have.property(
+      'message',
+      'Access token created successfully'
+    );
+    expect(res2.body).to.have.property('accessToken');
+    expect(res2.body).to.have.property('refreshToken');
   });
   it('When user provide invalid refreshToken', async () => {
-    await Users.create({...randomUser});
+    await Users.create({ ...randomUser });
     const res = await chai
       .request(app)
       .post('/api/user/login')
-      .send({ ...credentials});
-    const res2 = await chai.request(app)
-    .post('/api/user/refresh')
-    .send({refreshTokenKey:`${res.body.refreshToken}1`})
-    
+      .send({ ...credentials });
+    const res2 = await chai
+      .request(app)
+      .post('/api/user/refresh')
+      .send({ refreshTokenKey: `${res.body.refreshToken}1` });
+
     expect(res2).to.have.property('status', 400);
     expect(res2).to.have.property('body');
     expect(res2.body).to.have.property('Error', 'Invalid refresh token');
   });
-})
+});
