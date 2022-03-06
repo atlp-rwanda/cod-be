@@ -27,15 +27,24 @@
 - ```npm run dev```
 
 ### How To Add A New User: 
-  - Open your Browser and visit ```http://localhost:<port>/api-docs``` and choose try on api/user/register by editing the default values given.
-  - You will see a JSON reponse with token and message on successful registration
+  - Open your Browser and visit ```http://localhost:<port>/api-docs``` and try to register a new user on `api/user/register` by editing the default values given.
+  - You will see a JSON reponse with `emailToken` and `message` on successful registration
   - You can also use Postman and do a POST request on ```http://localhost:<port>/api/ user/register``` and post json data in the format 
+  ```
   {
-    'firstname':"value",
-    'lastname':"value",
-    'email':"value",
-    'password':"value"
- }
+    'firstname': "value",
+    'lastname': "value",
+    'email': "value",
+    'password': "value"
+  }
+  ```
+  - To Verify the newly registered user copy the `emailToken` and paste in the `api/user-verify?token={emailToken}` endpoint.
+  - After completing the step above you should see a JSON response which looks like this 
+  ```
+  {
+    "Verified": true
+  }
+  ```
  
 ### Error handling in the application
 - Inside src/utils/errors has possible applications errors' handlers, you are free to

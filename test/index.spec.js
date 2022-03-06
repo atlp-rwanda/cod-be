@@ -1,14 +1,14 @@
 import chai from "chai";
 import chaiHttp from "chai-http";
-import server from "../src/app.js";   
+import server from "../src/app";   
 
-//Assertion 
+// Assertion 
 chai.should();
 
-//Enable endpoints testing
+// Enable endpoints testing
 chai.use(chaiHttp);
 
-//Test if Root End Point is Working
+// Test if Root End Point is Working
 describe('/GET root endpoint', () => {
   it('it should GET root endpoint', (done) => {
     chai.request(server)

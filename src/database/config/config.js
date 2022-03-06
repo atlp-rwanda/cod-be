@@ -9,18 +9,18 @@ module.exports = {
     host: process.env.DB_HOST,
     dialect: 'postgres',
     dialectOptions: {
-    ssl: {"require":false,
-    rejectUnauthorized: false,
+      ssl: { "require":true,
+      rejectUnauthorized: false,
   }}
   },
   "test": {
-    username: 'rbldgkgttnwews',
-    password: '7b059e68301070a4c87ae47e12142f7c879f974c15f9977d5c69c793732320fd',
-    database: 'da18lmatmcie1a',
-    host: 'ec2-52-86-123-180.compute-1.amazonaws.com',
+    username: process.env.TEST_DB_USERNAME,
+    password: process.env.TEST_DB_PASSWORD,
+    database: process.env.TEST_DB_NAME,
+    host: process.env.TEST_DB_HOST,
     dialect: 'postgres',
-    dialectOptions: { 
-      ssl: {"require":true,
+    dialectOptions: {
+      ssl: { "require":true,
       rejectUnauthorized: false,
     }}
   },
@@ -31,7 +31,7 @@ module.exports = {
     host: process.env.DB_HOST,
     dialect: 'postgres',
     dialectOptions: {
-      ssl: {"require":true,
+      ssl: { "require":true,
       rejectUnauthorized: false,
     }}
   }

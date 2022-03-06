@@ -11,7 +11,7 @@ const options = {
       description: 'Barefoot Nomad REST API For Barefoot Nomad App\n This API Will Manage:\n 1. CRUD Operations\n 2. User Authentication & Authorisation'
     },
     servers: [{ url: `${process.env.APP_URL}:${process.env.PORT}` },
-      { url: 'herokuapp.com' }],
+      { url: 'https://cod-be-staging.herokuapp.com/' }],
     paths: {},
     security: [
       {
