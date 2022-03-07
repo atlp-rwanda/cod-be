@@ -7,7 +7,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-require("dotenv-flow/config");
+require("dotenv/config");
 
 var _express = _interopRequireWildcard(require("express"));
 
@@ -25,7 +25,7 @@ function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && 
 
 function cov_2gzde8lj7q() {
   var path = "/Users/andelarwanda/Desktop/ ALTP6/cod-be/src/app.js";
-  var hash = "b50aeae043880ce43bc9ef72b7eb36ee80706b09";
+  var hash = "6d02295f3f31de05fb886ec0f64f72ccbd530874";
   var global = new Function("return this")();
   var gcv = "__coverage__";
   var coverageData = {
@@ -33,132 +33,142 @@ function cov_2gzde8lj7q() {
     statementMap: {
       "0": {
         start: {
-          line: 24,
+          line: 21,
           column: 12
         },
         end: {
-          line: 24,
+          line: 21,
           column: 21
         }
       },
       "1": {
         start: {
-          line: 25,
+          line: 22,
           column: 0
         },
         end: {
-          line: 25,
-          column: 15
+          line: 22,
+          column: 16
         }
       },
       "2": {
         start: {
-          line: 29,
+          line: 24,
           column: 0
         },
         end: {
-          line: 29,
-          column: 25
+          line: 24,
+          column: 26
         }
       },
       "3": {
         start: {
-          line: 30,
+          line: 25,
           column: 0
         },
         end: {
-          line: 30,
-          column: 25
+          line: 25,
+          column: 26
         }
       },
       "4": {
         start: {
-          line: 38,
+          line: 31,
           column: 22
         },
         end: {
-          line: 47,
+          line: 43,
           column: 1
         }
       },
       "5": {
         start: {
-          line: 39,
+          line: 32,
           column: 23
         },
         end: {
-          line: 39,
+          line: 32,
           column: 39
         }
       },
       "6": {
         start: {
-          line: 40,
+          line: 33,
           column: 4
         },
         end: {
-          line: 46,
+          line: 42,
           column: 6
         }
       },
       "7": {
         start: {
-          line: 41,
+          line: 34,
           column: 8
         },
         end: {
-          line: 41,
-          column: 87
+          line: 34,
+          column: 97
         }
       },
       "8": {
         start: {
-          line: 42,
+          line: 35,
           column: 8
         },
         end: {
-          line: 42,
-          column: 43
+          line: 39,
+          column: 10
         }
       },
       "9": {
         start: {
-          line: 43,
-          column: 8
+          line: 36,
+          column: 12
         },
         end: {
-          line: 43,
-          column: 54
+          line: 36,
+          column: 67
         }
       },
       "10": {
         start: {
-          line: 44,
-          column: 8
+          line: 38,
+          column: 12
         },
         end: {
-          line: 44,
-          column: 36
+          line: 38,
+          column: 78
         }
       },
       "11": {
         start: {
-          line: 45,
+          line: 40,
           column: 8
         },
         end: {
-          line: 45,
-          column: 30
+          line: 40,
+          column: 36
         }
       },
       "12": {
         start: {
-          line: 49,
+          line: 41,
+          column: 8
+        },
+        end: {
+          line: 41,
+          column: 33
+        }
+      },
+      "13": {
+        start: {
+          line: 45,
           column: 0
         },
         end: {
-          line: 49,
-          column: 15
+          line: 45,
+          column: 16
         }
       }
     },
@@ -167,49 +177,97 @@ function cov_2gzde8lj7q() {
         name: "(anonymous_0)",
         decl: {
           start: {
-            line: 38,
+            line: 31,
             column: 22
           },
           end: {
-            line: 38,
+            line: 31,
             column: 23
           }
         },
         loc: {
           start: {
-            line: 38,
+            line: 31,
             column: 28
           },
           end: {
-            line: 47,
+            line: 43,
             column: 1
           }
         },
-        line: 38
+        line: 31
       },
       "1": {
         name: "(anonymous_1)",
         decl: {
           start: {
-            line: 40,
-            column: 35
+            line: 33,
+            column: 27
           },
           end: {
-            line: 40,
-            column: 36
+            line: 33,
+            column: 28
           }
         },
         loc: {
           start: {
-            line: 40,
-            column: 47
+            line: 33,
+            column: 39
           },
           end: {
-            line: 46,
+            line: 42,
             column: 5
           }
         },
-        line: 40
+        line: 33
+      },
+      "2": {
+        name: "(anonymous_2)",
+        decl: {
+          start: {
+            line: 35,
+            column: 45
+          },
+          end: {
+            line: 35,
+            column: 46
+          }
+        },
+        loc: {
+          start: {
+            line: 35,
+            column: 52
+          },
+          end: {
+            line: 37,
+            column: 9
+          }
+        },
+        line: 35
+      },
+      "3": {
+        name: "(anonymous_3)",
+        decl: {
+          start: {
+            line: 37,
+            column: 18
+          },
+          end: {
+            line: 37,
+            column: 19
+          }
+        },
+        loc: {
+          start: {
+            line: 37,
+            column: 25
+          },
+          end: {
+            line: 39,
+            column: 9
+          }
+        },
+        line: 37
       }
     },
     branchMap: {},
@@ -226,15 +284,18 @@ function cov_2gzde8lj7q() {
       "9": 0,
       "10": 0,
       "11": 0,
-      "12": 0
+      "12": 0,
+      "13": 0
     },
     f: {
       "0": 0,
-      "1": 0
+      "1": 0,
+      "2": 0,
+      "3": 0
     },
     b: {},
     _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
-    hash: "b50aeae043880ce43bc9ef72b7eb36ee80706b09"
+    hash: "6d02295f3f31de05fb886ec0f64f72ccbd530874"
   };
   var coverage = global[gcv] || (global[gcv] = {});
 
@@ -274,26 +335,28 @@ const connectServer = () => {
   cov_2gzde8lj7q().f[0]++;
   const serverPort = (cov_2gzde8lj7q().s[5]++, process.env.PORT);
   cov_2gzde8lj7q().s[6]++;
-  app.listen({
-    port: serverPort
-  }, async () => {
+  app.listen(serverPort, async () => {
     cov_2gzde8lj7q().f[1]++;
     cov_2gzde8lj7q().s[7]++;
-    console.log('Barefoot Nomad Server Started & Listening on PORT: ' + serverPort);
+    console.log('\nBarefoot Nomad Server Started & Listening on PORT: ' + serverPort + '\n');
     cov_2gzde8lj7q().s[8]++;
-    await _models.sequelize.sync({
-      force: true
+    await _models.sequelize.authenticate().then(res => {
+      cov_2gzde8lj7q().f[2]++;
+      cov_2gzde8lj7q().s[9]++;
+      console.log('\nBarefoot Nomad Database Connected! \n');
+    }).catch(err => {
+      cov_2gzde8lj7q().f[3]++;
+      cov_2gzde8lj7q().s[10]++;
+      console.log('\n!!! Barefoot Nomad Database Not Connected !!! \n');
     });
-    cov_2gzde8lj7q().s[9]++;
-    console.log('Barefoot Nomad Database Synced!');
-    cov_2gzde8lj7q().s[10]++;
-    (0, _swagger.default)(app, serverPort);
     cov_2gzde8lj7q().s[11]++;
-    app.emit('appStarted');
+    (0, _swagger.default)(app, serverPort);
+    cov_2gzde8lj7q().s[12]++;
+    app.emit('appStarted \n');
   });
 };
 
-cov_2gzde8lj7q().s[12]++;
+cov_2gzde8lj7q().s[13]++;
 connectServer();
 var _default = app;
 exports.default = _default;

@@ -31,7 +31,7 @@ const options = {
        },
      },
     apis: ['../../src/routes/*.js']
-}
+};
 
 // initialize swagger-jsdoc
 const swaggerSpec = swaggerJSDoc(options);
