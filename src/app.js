@@ -2,39 +2,44 @@
  * Libraries
  */
 
-import express from 'express';
-import dotenv  from 'dotenv';
+import 'dotenv-flow/config'
+import express, {json} from 'express'
+import swaggerDocs from '../public/api-docs/swagger'
+import { sequelize, offices } from './database/models'
 
+/**
+ * Routes
+ */
 
-dotenv.config();
-
-const app = express()
-
-
-
+import indexRouter from './routes/index'
+import officeRoute from './routes/offices'
 
 /**
  * Express App
  */
 
-app.use(express)
+const app = express()
+app.use(json())
 
+app.use('/', indexRouter)
+app.use('/', officeRoute)
 
 /**
  * Server Connection
  */
 
-const connectServer = async () => {
-    try {
-        const port = process.env.PORT
-        app.listen(port, () => {
-            console.log('Barefoot Nomad Server Started & Listening on PORT: ' + port)
-            app.emit('appStarted')
+const connectServer = () => {
+    const serverPort = process.env.PORT
+    app.listen({port: serverPort}, async () => {
+        console.log('\nBarefoot Nomad Server Started & Listening on PORT: ' + serverPort + '\n')
+        await sequelize.authenticate().then( res => {
+            console.log('\nBarefoot Nomad Database Connected! \n')
+        }).catch( err => {
+            console.log('\n!!! Barefoot Nomad Database Not Connected !!! \n')
         })
-
-    } catch (error) {
-        console.error({Error: error})
-    }
+        swaggerDocs(app, serverPort)
+        app.emit('appStarted \n')
+    })
 }
 
 connectServer()
