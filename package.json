@@ -4,9 +4,9 @@
   "description": "COD Barefoot Nomad Backend Development",
   "main": "index.js",
   "scripts": {
-    "build": "babel ./src/app.js -d build",
-    "start": "npm run build && node build/app.js",
-    "dev": "nodemon --exec babel-node src/app.js",
+    "build": "babel ./src/index.js -d build",
+    "start": "npm run build && node build/index.js",
+    "dev": "nodemon --exec babel-node src/index.js",
     "createDb": "npx sequelize db:create",
     "dbMigrate": "npx sequelize-cli db:migrate",
     "undoMigrate": "npx sequelize-cli db:migrate:undo",

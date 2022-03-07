@@ -34,11 +34,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    office_name: {
+    officeName: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    office_type: {
+    officeType: {
       type: DataTypes.STRING,
       allowNull: false
     }

@@ -25,19 +25,19 @@ module.exports = {
         type: DataTypes.STRING,
         allowNull: false
       },
-      office_name: {
+      officeName: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      office_type: {
+      officeType: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      created_at: {
+      createdAt: {
         allowNull: false,
         type: DataTypes.DATE
       },
-      updated_at: {
+      updatedAt: {
         allowNull: false,
         type: DataTypes.DATE
       }

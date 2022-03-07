@@ -5,38 +5,41 @@ module.exports = {
     
       await queryInterface.bulkInsert('offices', [
         {
-          id: 1,
-          office_name: 'Barefoot Nomad Head Quarters',
-          office_type: 'Head Quarters',
+          id: 99,
+          uuid: 'b66cfc7c-be2c-41f5-b459-e888bfe881a6',
+          officeName: 'Barefoot Nomad Head Quarters',
+          officeType: 'Head Quarters',
           country: 'Rwanda',
-          province: 'Kigali',
+          state: 'Kigali',
           address: 'KK 774 St',
-          created_at: new Date(),
-          updated_at: new Date(),
+          createdAt: new Date(),
+          updatedAt: new Date(),
 
         },
 
         {
-          id: 2,
-          office_name: 'Barefoot Nomad Nyarutarama Branch',
-          office_type: 'Branch',
+          id: 100,
+          uuid: 'b66cfc7c-be2c-41f5-b459-e888bfe881a7',
+          officeName: 'Barefoot Nomad Nyarutarama Branch',
+          officeType: 'Branch',
           country: 'Rwanda',
-          province: 'Kigali',
+          state: 'Kigali',
           address: 'KG 774 St',
-          created_at: new Date(),
-          updated_at: new Date(),
+          createdAt: new Date(),
+          updatedAt: new Date(),
 
         },
-
+        
         {
-          id: 3,
-          office_name: 'Barefoot Nomad Gisenyi Branch',
-          office_type: 'Branch',
+          id: 102,
+          uuid: 'b66cfc7c-be2c-41f5-b459-e888bfe881a8',
+          officeName: 'Barefoot Nomad Gisenyi Branch',
+          officeType: 'Branch',
           country: 'Rwanda',
-          province: 'Western',
+          state: 'Western',
           address: 'WR 774 St',
-          created_at: new Date(),
-          updated_at: new Date(),
+          createdAt: new Date(),
+          updatedAt: new Date(),
 
         },
         
