@@ -10,7 +10,10 @@
     "createDb": "npx sequelize db:create",
     "dbMigrate": "npx sequelize-cli db:migrate",
     "undoMigrate": "npx sequelize-cli db:migrate:undo",
-    "makeSeed": "npx sequelize-cli db:seed:all"
+    "makeSeed": "npx sequelize-cli db:seed:all",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "esw src --color",
+    "lint:watch":"npm run lint -- --watch"
   },
   "repository": {
     "type": "git",
@@ -46,6 +49,13 @@
     "babel-plugin-istanbul": "^6.1.1",
     "cross-env": "^7.0.3",
     "nodemon": "^2.0.15",
-    "sequelize-cli": "^6.4.1"
+    "sequelize-cli": "^6.4.1",
+    "eslint": "^8.10.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.29.2",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "eslint-watch": "^8.0.0"
   }
 }

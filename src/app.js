@@ -5,7 +5,7 @@
 import 'dotenv-flow/config'
 import express, {json} from 'express'
 import swaggerDocs from '../public/api-docs/swagger'
-import { sequelize, offices } from './database/models'
+import { sequelize } from './database/models'
 
 /**
  * Routes
