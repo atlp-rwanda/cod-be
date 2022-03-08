@@ -1,10 +1,11 @@
-import express from 'express'
-const indexRouter = express.Router()
+import express from 'express';
 
-// Creating Routes 
+const indexRouter = express.Router();
+
+// Creating Routes
 
 indexRouter.get('/', (req, res) => {
-    res.send({Message: 'Barefoot Nomad API' })
-})
+  res.send({ Message: 'Barefoot Nomad API' });
+});
 
-export default indexRouter
+export default indexRouter;

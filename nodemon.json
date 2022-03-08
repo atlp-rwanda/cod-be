@@ -6,10 +6,6 @@
     ],
     "verbose": true,
     "execMap": {
-<<<<<<< HEAD
-      "js": "javascript"
-    }
-=======
       "js": "node --harmony"
     },
     "events": {
@@ -22,5 +18,4 @@
       "NODE_ENV": "development"
     },
     "ext": "js,json"
->>>>>>> ch-setup-PostgresDB_and_Sequelize-181414543
   }
