@@ -1,5 +1,26 @@
 {
+    "restartable": "rs",
+    "ignore": [
+      ".git",
+      "node_modules/**/node_modules"
+    ],
+    "verbose": true,
     "execMap": {
+<<<<<<< HEAD
       "js": "javascript"
     }
+=======
+      "js": "node --harmony"
+    },
+    "events": {
+      "restart": "osascript -e 'display notification \"App restarted due to:\n'$FILENAME'\" with title \"nodemon\"'"
+    },
+    "watch": [
+      "src/*.js"
+    ],
+    "env": {
+      "NODE_ENV": "development"
+    },
+    "ext": "js,json"
+>>>>>>> ch-setup-PostgresDB_and_Sequelize-181414543
   }
