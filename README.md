@@ -61,3 +61,7 @@
   - ```http://localhost:<port>/api-docs```
   - N.B: <port> Is Equal To The Port Value You Set In Your .env file
   - Remember To Document Any End Point You Create
+  - ### (/offices/new) EndPoint:
+  - This Endpoint Creates A New Barefoot Nomad Office
+  - ### (/offices) EndPoint:
+  - This Endpoint Returns All Barefoot Nomad Offices
