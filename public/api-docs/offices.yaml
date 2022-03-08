@@ -1,0 +1,43 @@
+definitions:        # Schema defination for request body
+  offices:
+    type: object
+    properties:
+      country:
+        type: string
+      state:
+        type: string
+      address:
+        type: string
+      officeName:
+        type: string
+      officeType:
+        type: string
+
+paths:
+  /offices/new:           # path of your endpoint
+    post:                 # endpoint request type (post request)
+      tags:               # Tag property
+        - Offices         # Value of the tag
+      summary: Creates A New Office
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              $ref: '#/definitions/offices'          
+      responses:          # server responses
+        '201':
+          description: An Object With Created Office Detail
+  /offices:
+    get:
+      tags:               # Tag property
+        - Offices         # Value of the tag
+      summary: Returns A List Of All Offices.
+      description: Optional extended description in CommonMark or HTML
+      responses:
+        '200':
+          description: A JSON Array Of All Offices
+          content:
+            application/json:
+              schema: 
+                $ref: '#/definitions/offices'

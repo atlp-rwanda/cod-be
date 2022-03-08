@@ -57,3 +57,7 @@
     }
       ```
 
+### Barefoot Nomad API Documentation
+  - ```http://localhost:<port>/api-docs```
+  - N.B: <port> Is Equal To The Port Value You Set In Your .env file
+  - Remember To Document Any End Point You Create
