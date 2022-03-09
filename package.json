@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon --exec babel-node ./src/index",
-    "lint": "esw src --color",
+    "lint": "esw src --color --fix",
     "lint:watch":"npm run lint -- --watch"
   },
   "repository": {
