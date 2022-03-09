@@ -1,6 +1,6 @@
 [![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
 ![example workflow](https://github.com/atlp-rwanda/cod-be/actions/workflows/node.js.yml/badge.svg)
-![Coverage Badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/atlp-rwanda/fc852272be18bb21d4a7418ab58e2edc/raw/cod-be__heads_main.json)
+![Coverage Badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/atlp-rwanda/fc852272be18bb21d4a7418ab58e2edc/raw/cod-be__heads_ch-integrate-coveralls-code-coverage-service.json)
 # cod-be
 # COD Barefoot Nomad Backend Development Server And DataBase Setup
 
