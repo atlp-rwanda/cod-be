@@ -5,13 +5,12 @@ name: CI
 
 on:
   push:
-    branches: [ develop ]
+    branches: [develop]
   pull_request:
-    branches: [ develop ]
+    branches: [develop]
 
 jobs:
   build:
-
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -20,37 +19,37 @@ jobs:
         node-version: [14.x]
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }} on ${{ matrix.os }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }} on ${{ matrix.os }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    # basically npm install but only installs from package-lock
-    - run: npm ci
-    - run: npm run coverage
+      # basically npm install but only installs from package-lock
+      - run: npm ci
+      - run: npm test
 
-    # Only run the coverage once
-    - if: ${{ matrix.node-version == '14.x' }}
-      name: Get Coverage for badge
-      run: |
-        SUMMARY="$(npm test -- --coverageReporters='text-summary' | tail -2 | head -1)"
-        TOKENS=($SUMMARY)
-        echo "COVERAGE=$(echo ${TOKENS[2]})" >> $GITHUB_ENV
-        REF=${{ github.ref }}
-        echo "github.ref: $REF"
-        IFS='/' read -ra PATHS <<< "$REF"
-        BRANCH_NAME="${PATHS[1]}_${PATHS[2]}"
-        echo $BRANCH_NAME
-        echo "BRANCH=$(echo ${BRANCH_NAME})" >> $GITHUB_ENV
-    - if: ${{ matrix.node-version == '14.x' }}
-      name: Create the Badge
-      uses: schneegans/dynamic-badges-action@v1.0.0
-      with:
-        auth: ${{ secrets.GIST_SECRET }}
-        gistID: fc852272be18bb21d4a7418ab58e2edc
-        filename: cod-be__${{ env.BRANCH }}.json
-        label: Test Coverage
-        message: ${{ env.COVERAGE }}
-        color: 'blue,555,daf'
-        namedLogo: mocha
+      # Only run the coverage once
+      - if: ${{ matrix.node-version == '14.x' }}
+        name: Get Coverage for badge
+        run: |
+          SUMMARY="$(npm test -- --coverageReporters='text-summary' | tail -2 | head -1)"
+          TOKENS=($SUMMARY)
+          echo "COVERAGE=$(echo ${TOKENS[2]})" >> $GITHUB_ENV
+          REF=${{ github.ref }}
+          echo "github.ref: $REF"
+          IFS='/' read -ra PATHS <<< "$REF"
+          BRANCH_NAME="${PATHS[1]}_${PATHS[2]}"
+          echo $BRANCH_NAME
+          echo "BRANCH=$(echo ${BRANCH_NAME})" >> $GITHUB_ENV
+      - if: ${{ matrix.node-version == '14.x' }}
+        name: Create the Badge
+        uses: schneegans/dynamic-badges-action@v1.0.0
+        with:
+          auth: ${{ secrets.GIST_SECRET }}
+          gistID: fc852272be18bb21d4a7418ab58e2edc
+          filename: cod-be__${{ env.BRANCH }}.json
+          label: Test Coverage
+          message: ${{ env.COVERAGE }}
+          color: 'blue,555,daf'
+          namedLogo: mocha
