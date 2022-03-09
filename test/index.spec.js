@@ -7,13 +7,14 @@ chai.should();
 //Enable endpoints testing
 chai.use(chaiHttp);
 
-//Check if mocha is working. 
-//This should be replaced with actuall checking of endpoints
-var assert = require('assert');
-describe('Array', function () {
-  describe('#indexOf()', function () {
-    it('should return -1 when the value is not present', function () {
-      assert.equal([1, 2, 3].indexOf(4), -1);
-    });
+//Test if Root End Point is Working
+describe('/GET root endpoint', () => {
+  it('it should GET root endpoint', (done) => {
+    chai.request(server)
+        .get('/')
+        .end((err, res) => {
+              res.should.have.status(200);
+          done();
+        });
   });
-});
+})
