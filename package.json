@@ -61,10 +61,7 @@
     "eslint-plugin-react-hooks": "^4.3.0",
     "eslint-watch": "^8.0.0",
     "nodemon": "^2.0.15",
-<<<<<<< HEAD
-=======
     "prettier": "^2.5.1",
->>>>>>> 0048174 (Fix: configure ESlint)
     "sequelize-cli": "^6.4.1"
   }
 }
