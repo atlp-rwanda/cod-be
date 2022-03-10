@@ -2,9 +2,8 @@ import chai from "chai";
 import chaiHttp from "chai-http";
 import server from "../src/app.js";   
 
-//Assertion 
+//Assertion style
 chai.should();
-
 //Enable endpoints testing
 chai.use(chaiHttp);
 
