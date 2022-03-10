@@ -1,3 +1,8 @@
+/* eslint-disable valid-jsdoc */
+/* eslint-disable require-jsdoc */
+/* eslint-disable no-unused-vars */
+/* eslint-disable strict */
+
 'use strict';
 
 const {

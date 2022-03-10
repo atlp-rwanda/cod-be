@@ -1,3 +1,6 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable strict */
+
 'use strict';
 
 module.exports = {
