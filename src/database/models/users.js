@@ -5,9 +5,7 @@
 
 'use strict';
 
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -24,37 +22,40 @@ module.exports = (sequelize, DataTypes) => {
       return { ...this.get(), id: undefined };
     }
   }
-  User.init({
-    uuid: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4
+  User.init(
+    {
+      uuid: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4
+      },
+      fName: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      lName: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      email: {
+        type: DataTypes.STRING,
+        unique: true,
+        allowNull: false
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      verified: {
+        type: DataTypes.STRING,
+        defaultValue: false,
+        allowNull: false
+      }
     },
-    fName: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    lName: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    email: {
-      type: DataTypes.STRING,
-      unique: true,
-      allowNull: false
-    },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    verified: {
-      type: DataTypes.STRING,
-      defaultValue: false,
-      allowNull: false
+    {
+      sequelize,
+      tableName: 'users',
+      modelName: 'User'
     }
-  }, {
-    sequelize,
-    tableName: 'users',
-    modelName: 'User',
-  });
+  );
   return User;
 };

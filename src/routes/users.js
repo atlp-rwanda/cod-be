@@ -6,12 +6,7 @@ import { User } from '../database/models';
 const officeRoute = express.Router();
 
 officeRoute.post('/users/new', async (req, res) => {
-  const {
-    fName,
-    lName,
-    email,
-    password
-  } = req.body;
+  const { fName, lName, email, password } = req.body;
   try {
     const user = await User.create({
       fName,
