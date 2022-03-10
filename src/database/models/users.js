@@ -1,9 +1,11 @@
 'use strict';
+
 const {
   Model
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
-  class Office extends Model {
+  class User extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -13,39 +15,41 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
 
-    toJSON(){
-      return { ...this.get(), id: undefined}
+    toJSON() {
+      return { ...this.get(), id: undefined };
     }
   }
-  Office.init({
+  User.init({
     uuid: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4
     },
-    country: {
+    fName: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    state: {
+    lName: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    address: {
+    email: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false
+    },
+    password: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    officeName: {
+    verified: {
       type: DataTypes.STRING,
-      allowNull: false
-    },
-    officeType: {
-      type: DataTypes.STRING,
+      defaultValue: false,
       allowNull: false
     }
   }, {
     sequelize,
-    tableName: 'offices',
-    modelName: 'Office',
+    tableName: 'users',
+    modelName: 'User',
   });
-  return Office;
+  return User;
 };
