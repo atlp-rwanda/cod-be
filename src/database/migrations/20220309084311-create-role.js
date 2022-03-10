@@ -12,6 +12,10 @@ module.exports = {
       roleName: {
         type: Sequelize.STRING,
         allowNull:false,
+        unique:true
+      },
+      description: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -26,24 +30,28 @@ module.exports = {
       {
         id:1,
         roleName:'Super Administrator',
+        description:'IT Office Administrator',
         createdAt:new Date(),
         updatedAt:new Date(),
       },
       {
         id:2,
         roleName:'Travel Administrator',
+        description:'Travel Agency Administrator',
         createdAt:new Date(),
         updatedAt:new Date(),
       },
       {
         id:3,
         roleName:'Manager',
+        description:'Travel Agency Manager',
         createdAt:new Date(),
         updatedAt:new Date(),
       },
       {
         id:4,
         roleName:'Requester',
+        description:'Travel Agency Service Requester',
         createdAt:new Date(),
         updatedAt:new Date(),
       },

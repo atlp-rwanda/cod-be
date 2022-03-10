@@ -60,6 +60,8 @@
     "eslint-watch": "^8.0.0",
     "joi": "^17.6.0",
     "nodemon": "^2.0.15",
+    "chai": "^4.3.6",
+    "chai-http": "^4.3.0",
     "sequelize-cli": "^6.4.1"
   }
 }
