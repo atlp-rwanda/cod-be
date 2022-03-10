@@ -10,8 +10,7 @@ import express from 'express';
  */
 
 import indexRouter from './routes/index';
-import officeRoute from './routes/users';
-
+import userRouter from './routes/userRoutes';
 /**
  * Express App
  */
