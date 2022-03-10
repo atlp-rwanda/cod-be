@@ -18,8 +18,7 @@ import officeRoute from './routes/users';
 
 const app = express();
 app.use(express.json());
-
+app.use('/api',userRouter);
 app.use('/', indexRouter);
-app.use('/', officeRoute);
 
 export default app;
