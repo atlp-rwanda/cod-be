@@ -53,3 +53,15 @@ jobs:
           message: ${{ env.COVERAGE }}
           color: 'blue,555,daf'
           namedLogo: mocha
+env:
+  TEST_DB_NAME: da18lmatmcie1a
+  TEST_DB_HOST: ec2-52-86-123-180.compute-1.amazonaws.com
+  TEST_DB_USERNAME: rbldgkgttnwews
+  TEST_DB_PASSWORD: 7b059e68301070a4c87ae47e12142f7c879f974c15f9977d5c69c793732320fd
+  DB_NAME: dbuj9bkatmf857
+  DB_HOST: ec2-3-214-136-47.compute-1.amazonaws.com
+  DB_PASSWORD: d3a097b3ca2106854b622d499e531038f795590b855560f6223c0f79645e41a9
+  APP_NAME: Barefoot Nomad API
+  APP_URL: http://cod-be-staging.herokuapp.com
+  JWT_KEY: newUserKey
+  REFRESH_TOKEN_KEY: refreshsecret

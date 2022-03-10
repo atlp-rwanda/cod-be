@@ -37,3 +37,51 @@ paths:
           description: Already exists
         '400':
           description: Invalid data in the request      
+          # description: A Response From The Server That The User Was Created
+  /api/user/login:           # path of your endpoint
+    post:                 # endpoint request type (post request)
+      tags:               # Tag property
+        - Users         # Value of the tag
+      summary: Login using email and password
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  description: email of the user
+                password:
+                  type: string
+                  description: password of the user         
+      responses:          # server responses
+        '200':
+          description: A user is logged in
+        '400':
+          description: Invalid credentials
+  /api/user/refresh:           # path of your endpoint
+    post:                 # endpoint request type (post request)
+      tags:               # Tag property
+        - Users         # Value of the tag
+      summary: Getting new user Access token from refresh token
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              required:
+                - refreshTokenKey
+              properties:
+                refreshTokenKey:
+                  type: string
+                  description: Refresh Token key
+                      
+      responses:          # server responses
+        '200':
+          description: Access token created succesfully
+        '400':
+          description: Invalid refresh token

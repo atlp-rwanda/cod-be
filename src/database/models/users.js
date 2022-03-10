@@ -3,7 +3,10 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable strict */
 
-'use strict';
+
+
+
+
 
 const {
   Model
@@ -51,7 +54,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     isVerified: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false
+      defaultValue: true
     },
     createdAt: {
       allowNull: false,
