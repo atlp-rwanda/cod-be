@@ -1,8 +1,6 @@
-/* eslint-disable no-console */
 import chai from 'chai';
 import http from 'chai-http';
 import app from '../app';
-import generateToken from '../utils/genToken';
 
 chai.use(http);
 const { expect } = chai;
