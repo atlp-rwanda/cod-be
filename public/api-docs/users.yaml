@@ -25,16 +25,4 @@ paths:
               $ref: '#/definitions/users'          
       responses:          # server responses
         '201':
-          description: An Object With Newly Created User Details
-  /users:
-    get:
-      tags:               # Tag property
-        - Users         # Value of the tag
-      summary: Returns A List Of All Users.
-      responses:
-        '200':
-          description: A JSON Array Of All Users
-          content:
-            application/json:
-              schema: 
-                $ref: '#/definitions/users'
+          description: A Response From The Server That The User Was Created
