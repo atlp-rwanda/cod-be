@@ -11,12 +11,8 @@
     "dbMigrate": "npx sequelize-cli db:migrate",
     "undoMigrate": "npx sequelize-cli db:migrate:undo",
     "makeSeed": "npx sequelize-cli db:seed:all",
-    "lint": "esw src --color ",
-    "lint:fix": "npm run lint -- --fix",
-    "prettier": "npx prettier src test --check",
-    "prettier:fix": "npm run prettier -- --write",
-    "format": "npm run prettier:fix && npm run lint:fix",
     "test": "mocha --recursive --exit --timeout 10000 --require @babel/register",
+    "lint": "esw src --color",
     "lint:watch": "npm run lint -- --watch"
   },
   "repository": {
@@ -31,7 +27,6 @@
   },
   "homepage": "https://github.com/atlp-rwanda/cod-be#readme",
   "dependencies": {
-    "bcrypt": "^5.0.1",
     "chai-http": "^4.3.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
@@ -62,9 +57,6 @@
     "eslint-plugin-react": "^7.29.2",
     "eslint-plugin-react-hooks": "^4.3.0",
     "eslint-watch": "^8.0.0",
-    "nodemon": "^2.0.15",
-    "sequelize-cli": "^6.4.1",
-    "prettier": "^2.5.1",
     "chai": "^4.3.6",
     "mocha": "^9.2.1"
   }
