@@ -4,11 +4,17 @@ import app from '../app';
 
 chai.use(http);
 const { expect } = chai;
-const user = {};
+const user = {
+  firstname:'Faustin',
+  lastname:'IYAREMYE',
+  email:'test@me.com',
+  password:'test@me.com123',
+};
 describe('User registration', () => {
-  it('should return 201 and confirmation for valid input', (done) => {
+  it('should return 201 and json result object with token', (done) => {
     chai.request(app).post('api/user/register')
       .set('Content-Type', 'application/json')
+      .send(user)
       .then((res) => {
         expect(res).to.have.status(201);
         done();
@@ -17,12 +23,13 @@ describe('User registration', () => {
         throw (err);
       });
   });
-  // test for invalid email
-  it('should return invalid email message', (done) => {
-    chai.request(app).post('api/user/register')
-  });
   // test if email already exists
   it('Should return an error message email already exists', (done) => {
     chai.request(app).post('api/user/register')
+    send(user)
+    .end((err,res)=>{
+      expect(res).to.have.status(500);
+      expect(res.body.message).to.be.equal('Email already exists');
+      done();});
   });
 });
