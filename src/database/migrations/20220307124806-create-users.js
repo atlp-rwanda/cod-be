@@ -1,4 +1,8 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable strict */
+
 'use strict';
+
 module.exports = {
   async up(queryInterface, DataTypes) {
     await queryInterface.createTable('users', {
