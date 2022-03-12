@@ -1,8 +1,8 @@
 import express from 'express'
 const indexRouter = express.Router()
+import roleRouter from '../routes/rolesRoutes';
 
-// Creating Routes 
-
+indexRouter.use('/api',roleRouter);
 indexRouter.get('/', (req, res) => {
     res.send({Message: 'Barefoot Nomad API' })
 })
