@@ -12,8 +12,11 @@
     "undoMigrate": "npx sequelize-cli db:migrate:undo",
     "makeSeed": "npx sequelize-cli db:seed:all",
     "test": "mocha --recursive --exit --timeout 10000 --require @babel/register",
-    "lint": "esw src --color",
-    "lint:watch": "npm run lint -- --watch"
+    "lint": "esw src --color ",
+    "lint:fix": "npm run lint -- --fix",
+    "prettier": "npx prettier src test --check",
+    "prettier:fix": "npm run prettier -- --write",
+    "format": "npm run prettier:fix && npm run lint:fix"
   },
   "repository": {
     "type": "git",
