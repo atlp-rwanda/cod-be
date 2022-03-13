@@ -11,8 +11,7 @@
     "dbMigrate": "npx sequelize-cli db:migrate",
     "undoMigrate": "npx sequelize-cli db:migrate:undo",
     "makeSeed": "npx sequelize-cli db:seed:all",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "testuser": "cross-env NODE_ENV=test mocha --require @babel/register ./src/tests/user.js --exit --timeout 20000",
+    "test": "mocha --recursive --exit --timeout 10000 --require @babel/register",
     "lint": "esw src --color",
     "lint:watch": "npm run lint -- --watch"
   },

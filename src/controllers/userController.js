@@ -11,7 +11,7 @@ const registerNew=async (requestBody,response)=> {
         if (!validate.error) {
             var findIfExist=await userService.findByEmail(requestBody.email);
             if (findIfExist!=null) {
-                return response.status(500).json("Email already exists");
+                return response.status(500).json({'email':'Email already exists'});
             }  
             var userData={
                 firstname:requestBody.firstname,
@@ -34,6 +34,7 @@ const registerNew=async (requestBody,response)=> {
         response.status(500).json({error:true,errors:validate.error.details[0].context.label});
        }
     } catch (error) {
+        console.log(error);
         response.status(500).json("Error,please try again!");    
     }
 }

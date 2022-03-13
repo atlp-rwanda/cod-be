@@ -1,55 +1,50 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable strict */
-
 'use strict';
-
 module.exports = {
-  async up(queryInterface, DataTypes) {
+  async up(queryInterface, Sequelize) {
     await queryInterface.createTable('users', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: DataTypes.INTEGER,
-        unique: true
+        type: Sequelize.INTEGER
       },
-      uuid: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4
+      firstname: {
+        type: Sequelize.STRING,
+        allowNull:false,
       },
-      fName: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      lName: {
-        type: DataTypes.STRING,
-        allowNull: false
+      lastname: {
+        type: Sequelize.STRING,
+        allowNull:false,
       },
       email: {
-        type: DataTypes.STRING,
-        unique: true,
-        allowNull: false
+        unique:true,
+        type: Sequelize.STRING,
+        allowNull:false,
       },
       password: {
-        type: DataTypes.STRING,
-        allowNull: false
+        type: Sequelize.STRING,
+        allowNull:false,
       },
-      verified: {
-        type: DataTypes.STRING,
-        defaultValue: false,
-        allowNull: false
+      isVerified: {
+        type: Sequelize.ENUM,
+        values: ['YES', 'NO'],
+        defaultValue: 'NO'
+      },
+      roleId: {
+        type: Sequelize.INTEGER,
+        defaultValue: "4",
       },
       createdAt: {
         allowNull: false,
-        type: DataTypes.DATE
+        type: Sequelize.DATE
       },
       updatedAt: {
         allowNull: false,
-        type: DataTypes.DATE
+        type: Sequelize.DATE
       }
     });
   },
-  async down(queryInterface, DataTypes) {
+  async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('users');
   }
 };

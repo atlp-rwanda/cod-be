@@ -11,8 +11,8 @@ module.exports = {
         {
           id: 99,
           uuid: 'b66cfc7c-be2c-41f5-b459-e888bfe881a6',
-          fName: 'Alex Axel',
-          lName: 'Mucyo',
+          firstname: 'Alex Axel',
+          lastname: 'Mucyo',
           email: 'mcy@cod.com',
           password:
             '$2b$10$PbmyjAmjzHhFqhrTagGf3um2kurk0b.JfugGOTGVHWrEoYWSuuyda',
