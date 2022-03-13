@@ -1,5 +1,6 @@
-import express from 'express';
-import userRoute from './users';
+import express from 'express'
+import userRouter from './userRoutes'
+const indexRouter = express.Router()
 
 const indexRouter = express.Router();
 
@@ -8,9 +9,7 @@ const indexRouter = express.Router();
  */
 
 indexRouter.get('/', (req, res) => {
-  res.send({ Message: 'Barefoot Nomad API' });
-});
-
-indexRouter.use('/users', userRoute);
-
-export default indexRouter;
+    res.send({Message: 'Barefoot Nomad API' })
+})
+indexRouter.use('/api',userRouter);
+export default indexRouter

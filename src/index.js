@@ -3,7 +3,6 @@ import 'dotenv/config';
 import app from './app';
 import swaggerDocs from '../public/api-docs/swagger';
 import { sequelize } from './database/models';
-
 /**
  * Server Connection
  */
