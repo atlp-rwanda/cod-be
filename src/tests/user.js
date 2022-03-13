@@ -26,7 +26,8 @@ describe('User registration', () => {
   // test if email already exists
   it('Should return an error message email already exists', (done) => {
     chai.request(app).post('api/user/register')
-    send(user)
+    .set('Content-Type', 'application/json')
+    .send(user)
     .end((err,res)=>{
       expect(res).to.have.status(500);
       expect(res.body.message).to.be.equal('Email already exists');

@@ -1,8 +1,7 @@
 import express from 'express'
 import userRouter from './users'
+
 const indexRouter = express.Router()
-
-
 /**
  * Routes
  */

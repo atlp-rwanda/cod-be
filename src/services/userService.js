@@ -1,4 +1,5 @@
 import models from '../database/models';
+
 const { Users } = models;
 const addUser=async (newUser)=>{
   const user=await  Users.create(newUser);
