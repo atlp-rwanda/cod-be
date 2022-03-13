@@ -25,10 +25,9 @@
 - ```npm run dev```
 
 ### How To Add A New User: 
-  - N.B: <port> Is Equal To The Port Value You Set In Your .env file
-  - Open your Browser and visit ```http://localhost:<port>/api-docs``` and choose try on api/user/register by editing the default values given
-  - You will a JSON reponse with token and message on successful registration
-  - You can also use Postman and do a POST request on ```http://localhost:<port>/api/ user/register``` and post json data in the format below 
+  - Open your Browser and visit ```http://localhost:<port>/api-docs``` and choose try on api/user/register by editing the default values given.
+  - You will see a JSON reponse with token and message on successful registration
+  - You can also use Postman and do a POST request on ```http://localhost:<port>/api/ user/register``` and post json data in the format 
   {
     'firstname':"value",
     'lastname':"value",
