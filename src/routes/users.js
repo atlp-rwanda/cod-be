@@ -1,40 +1,13 @@
-/* eslint-disable no-console */
-import express from 'express';
-import { User } from '../database/models';
+import express from "express";
+import  * as User from '../controllers/userController';
 
-const officeRoute = express.Router();
-
-officeRoute.post('/users/new', async (req, res) => {
-  const {
-    fName,
-    lName,
-    email,
-    password
-  } = req.body;
-  try {
-    const user = await User.create({
-      fName,
-      lName,
-      email,
-      password
-    });
-    console.log(user);
-    return res.json(user);
-  } catch (error) {
-    console.log({ Error: error });
-    return res.status(500).json(error);
-  }
+const userRouter=express.Router();
+userRouter.post('/user/register',(req,res,next)=>{
+    try {
+        User.default.registerNew(req.body,res);
+    } catch (error) {
+        res.status(500).json("An error has occured, try again!");
+        next(error);        
+    }  
 });
-
-officeRoute.get('/users', async (req, res) => {
-  try {
-    const users = await User.findAll();
-    console.log(users);
-    return res.json(users);
-  } catch (error) {
-    console.log({ Error: error });
-    return res.status(500).json(error);
-  }
-});
-
-export default officeRoute;
+export default userRouter;

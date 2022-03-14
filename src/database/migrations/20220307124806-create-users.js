@@ -1,51 +1,47 @@
-'use strict';
-module.exports = {
-  async up(queryInterface, DataTypes) {
-    await queryInterface.createTable('users', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: DataTypes.INTEGER,
-        unique: true
-      },
-      uuid: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4
-      },
-      fName: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      lName: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      email: {
-        type: DataTypes.STRING,
-        unique: true,
-        allowNull: false
-      },
-      password: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      verified: {
-        type: DataTypes.STRING,
-        defaultValue: false,
-        allowNull: false
-      },
-      createdAt: {
-        allowNull: false,
-        type: DataTypes.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: DataTypes.DATE
-      }
-    });
-  },
-  async down(queryInterface, DataTypes) {
-    await queryInterface.dropTable('users');
-  }
-};
+export async function up(queryInterface, Sequelize) {
+  await queryInterface.createTable('users', {
+    id: {
+      type: Sequelize.UUID,
+      defaultValue: Sequelize.UUIDV4,
+      allowNull: false,
+      primaryKey: true
+    },
+    firstname: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    lastname: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    email: {
+      unique: true,
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    password: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    isVerified: {
+      type: Sequelize.ENUM,
+      values: ['YES', 'NO'],
+      defaultValue: 'NO'
+    },
+    roleId: {
+      type: Sequelize.INTEGER,
+      defaultValue: "4",
+    },
+    createdAt: {
+      allowNull: false,
+      type: Sequelize.DATE
+    },
+    updatedAt: {
+      allowNull: false,
+      type: Sequelize.DATE
+    }
+  });
+}
+export async function down(queryInterface, Sequelize) {
+  await queryInterface.dropTable('users');
+}

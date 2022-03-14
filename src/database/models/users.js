@@ -1,3 +1,8 @@
+/* eslint-disable valid-jsdoc */
+/* eslint-disable require-jsdoc */
+/* eslint-disable no-unused-vars */
+/* eslint-disable strict */
+
 'use strict';
 
 const {
@@ -5,7 +10,7 @@ const {
 } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
+  class Users extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -14,42 +19,53 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
     }
-
-    toJSON() {
-      return { ...this.get(), id: undefined };
-    }
   }
-  User.init({
-    uuid: {
+  Users.init({
+    id: {
       type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4
+      defaultValue: DataTypes.UUIDV4,
+      allowNull: false,
+      primaryKey: true
     },
-    fName: {
+    firstname: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull:false,
     },
-    lName: {
+    lastname: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull:false,
     },
     email: {
+      unique:true,
       type: DataTypes.STRING,
-      unique: true,
-      allowNull: false
+      allowNull:false,
+    },
+    roleId: {
+      type: DataTypes.INTEGER,
+      allowNull:false,
+      defaultValue: "4",
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull:false,
     },
-    verified: {
-      type: DataTypes.STRING,
-      defaultValue: false,
-      allowNull: false
+    isVerified: {
+      type: DataTypes.ENUM('YES', 'NO'),
+      defaultValue: 'NO'
+    },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE
     }
   }, {
     sequelize,
+    modelName: 'Users',
     tableName: 'users',
-    modelName: 'User',
+    timestamps: true,
   });
-  return User;
+  return Users;
 };
