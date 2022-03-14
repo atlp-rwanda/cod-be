@@ -83,6 +83,14 @@ typings/
 # Nuxt.js build / generate output
 .nuxt
 dist
+<<<<<<< HEAD
+<<<<<<< HEAD
+build
+=======
+>>>>>>> 1304f5d (Merge Temp To My branch)
+=======
+build
+>>>>>>> 57e5fb6 (User_registration_JWT-181414599)
 # Gatsby files
 .cache/
 # Comment in the public line in if your project uses Gatsby and *not* Next.js

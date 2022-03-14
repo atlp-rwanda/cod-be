@@ -1,13 +1,15 @@
-import express from "express";
-import  * as User from '../controllers/userController';
+import express from 'express';
+import  * as userControl from '../controllers/userController';
 
-const userRouter=express.Router();
-userRouter.post('/user/register',(req,res,next)=>{
+const userRouter = express.Router();
+
+userRouter.post('/user/register', ( req, res, next ) => {
     try {
-        User.default.registerNew(req.body,res);
+        userControl.default.registerNew( req.body, res);
     } catch (error) {
-        res.status(500).json("An error has occured, try again!");
+        res.status(500).json({'Error Message:': 'An Error Has Occured, Try Again!', Error: error });
         next(error);        
     }  
 });
+
 export default userRouter;

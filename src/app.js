@@ -9,7 +9,7 @@ import express from 'express';
  * Routes
  */
 
-import indexRouter from './routes/index';
+import indexRouter from './routes';
 /**
  * Express App
  */
