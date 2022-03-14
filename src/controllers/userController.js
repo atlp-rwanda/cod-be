@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import * as validations from '../validations/index';
+import * as validations from '../validations';
 import  * as userService from '../services/userService';
 
 dotenv.config();
