@@ -1,5 +1,4 @@
 import express from 'express';
-import userRoute from './users';
 
 const indexRouter = express.Router();
 
@@ -10,7 +9,5 @@ const indexRouter = express.Router();
 indexRouter.get('/', (req, res) => {
   res.send({ Message: 'Barefoot Nomad API' });
 });
-
-indexRouter.use('/users', userRoute);
 
 export default indexRouter;
