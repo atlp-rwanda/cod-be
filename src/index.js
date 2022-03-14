@@ -3,13 +3,13 @@ import 'dotenv/config';
 import app from './app';
 import swaggerDocs from '../public/api-docs/swagger';
 import { sequelize } from './database/models';
+import validateVariables from './validations/envValidation';
 /**
  * Server Connection
  */
-
+const serverPort = process.env.PORT;
 const connectServer = () => {
-  const serverPort = process.env.PORT;
-  app.listen(serverPort, async () => {
+  app.listen(serverPort, async (req,res) => {
     console.log(
       `\nBarefoot Nomad Server Started & Listening on PORT: ${serverPort}\n`
     );
@@ -26,5 +26,9 @@ const connectServer = () => {
     app.emit('appStarted \n');
   });
 };
-
-connectServer();
+const envVariables=validateVariables();
+if (envVariables==false) {
+   console.log("\nServer Can't Start");
+}else{
+  connectServer(); 
+}
