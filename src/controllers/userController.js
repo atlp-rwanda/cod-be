@@ -5,7 +5,7 @@ import * as validations from '../validations/index';
 import  * as userService from '../services/userService';
 
 dotenv.config();
-const jwtToken=process.env.JWT_KEY || 'newUser';
+const jwtToken=process.env.JWT_KEY;
 const registerNew=async (requestBody,response)=> {
     try {
         const validate=validations.userSchema.registerSchema.validate(requestBody);
@@ -32,7 +32,7 @@ const registerNew=async (requestBody,response)=> {
                 response.status(201).json({'token':token,message:'User created'});}
             });      
        } else {
-        response.status(500).json({error:true,errors:validate.error.details[0].context.label});
+        response.status(400).json({error:true,errors:validate.error.details[0].context.label});
        }
     } catch (error) {
         console.log(error);
