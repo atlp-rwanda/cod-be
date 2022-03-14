@@ -12,7 +12,7 @@ const registerNew=async (requestBody,response)=> {
         if (!validate.error) {
             const findIfExist=await userService.findByEmail(requestBody.email);
             if (findIfExist!=null) {
-                return response.status(500).json({'email':'Email already exists'});
+                return response.status(409).json({'email':'Email already exists'});
             }  
             const userData={
                 firstname:requestBody.firstname,

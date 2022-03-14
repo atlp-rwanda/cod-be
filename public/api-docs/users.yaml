@@ -32,4 +32,8 @@ paths:
         '201':
           description: User is successful registered
         '500':
-          description: 'Internal server error'  
+          description: Internal server error
+        '409':
+          description: Already exists
+        '400':
+          description: Invalid data in the request      
