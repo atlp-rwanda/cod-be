@@ -26,9 +26,8 @@ export async function up(queryInterface, Sequelize) {
       allowNull: false,
     },
     isVerified: {
-      type: Sequelize.ENUM,
-      values: ['YES', 'NO'],
-      defaultValue: 'NO'
+      type: Sequelize.BOOLEAN,
+      defaultValue: false
     },
     roleId: {
       type: Sequelize.INTEGER,
