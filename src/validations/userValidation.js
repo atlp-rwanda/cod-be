@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import Joi from 'joi';
 
 const registerSchema=Joi.object().keys({

@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable require-jsdoc */
 export async function up(queryInterface, Sequelize) {
   await queryInterface.createTable('users', {
     id: {
