@@ -27,7 +27,7 @@ const connectServer = () => {
   });
 };
 const envVariables=validateVariables();
-if (envVariables==false) {
+if (envVariables === false) {
    console.log("\nServer Can't Start");
 }else{
   connectServer(); 
