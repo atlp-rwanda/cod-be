@@ -50,8 +50,8 @@ module.exports = (sequelize, DataTypes) => {
       allowNull:false,
     },
     isVerified: {
-      type: DataTypes.ENUM('YES', 'NO'),
-      defaultValue: 'NO'
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
     },
     createdAt: {
       allowNull: false,
