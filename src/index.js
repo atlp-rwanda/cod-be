@@ -9,7 +9,7 @@ import validateVariables from './validations/envValidation';
  */
 const serverPort = process.env.PORT;
 const connectServer = () => {
-  app.listen(serverPort, async (req,res) => {
+  app.listen(serverPort, async () => {
     console.log(
       `\nBarefoot Nomad Server Started & Listening on PORT: ${serverPort}\n`
     );

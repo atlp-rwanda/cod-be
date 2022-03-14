@@ -2,17 +2,14 @@ import chai from "chai";
 import chaiHttp from "chai-http";
 import server from "../src/app.js";   
 
-//Assertion 
 chai.should();
 
-//Enable endpoints testing
 chai.use(chaiHttp);
 const user={
     firstname:'Faustin',
     'lastname':'IYAREMYE',
     email:'testdfgdfgdfg@me.com',
     password:'test12345678'}
-//Test if Root End Point is Working
 describe('/POST  endpoint', () => {
   it('it should register a new user', (done) => {
     chai.request(server)

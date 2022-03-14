@@ -12,6 +12,8 @@
 
 ### Environment variables
 - Create a .env file and insert referring values as shown in .env.example
+- You can define many variables in .env as you wish but remember to include them in   config/envConfig file to be validated on the start of application
+-New environment variables should also be stated in .env.example
 - In Your .env file ```NODE_ENV``` Variable should be equal to ```development```
 - Add A Sample In .env.example For Any New Environment Variable Created
 
@@ -31,3 +33,4 @@
     'email':"value",
     'password':"value"
  }
+ 
