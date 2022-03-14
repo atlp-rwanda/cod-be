@@ -9,4 +9,16 @@ const findByEmail=async(email)=>{
   const user = await Users.findOne({ where: { email: `${email}` } });
   return user;
 }
-export {addUser,findByEmail};
+const isAdmin=async(email,id)=>{
+  try {
+    const user = await Users.findOne({ where: { email: `${email}`,id:`${id}` } });
+    if (user!=null && user.roleId===1) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    return false;
+  }
+}
+export {addUser,findByEmail,isAdmin};
