@@ -6,8 +6,8 @@ userRouter.post('/user/register',(req,res,next)=>{
     try {
         User.default.registerNew(req.body,res);
     } catch (error) {
-        next(error);
-        res.status(500).json("An error has occured, try again!");        
+        res.status(500).json("An error has occured, try again!");
+        next(error);        
     }  
 });
 export default userRouter;

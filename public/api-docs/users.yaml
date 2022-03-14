@@ -15,7 +15,7 @@ definitions:        # Schema defination for request body
         type: string
       password:
         type: string
-
+        description: Password for login
 paths:
   /api/user/register:           # path of your endpoint
     post:                 # endpoint request type (post request)
