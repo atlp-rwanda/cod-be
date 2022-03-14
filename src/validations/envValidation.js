@@ -1,5 +1,3 @@
-import dotenv from 'dotenv/config';
-
 const definedEnvVariables = {
     'APP_NAME': process.env.APP_NAME,
     'APP_URL': process.env.APP_URL,
@@ -20,15 +18,19 @@ const definedEnvVariables = {
 const validateVariables =() => {
     let checkPass = 0;
     const envVariables=definedEnvVariables;
-    let objKeys = Object.keys(envVariables);
-    objKeys.forEach((key,index) => {
+    const objKeys = Object.keys(envVariables);
+    objKeys.forEach((key) => {
         if (!envVariables[key]) {
             console.log(`\nSet all value for ${key} in .env file`);
-            checkPass++;
+            checkPass+=1;
         }
     });
-    if (checkPass > 0) return false;
-    else return true
+    if (checkPass > 0){
+        return false;
+    } 
+    else{
+        return true;
+    }
 };
 export default validateVariables;
 
