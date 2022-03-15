@@ -1,8 +1,9 @@
-import envKeys from "../config/envConfig";
+import * as configs from "../config";
 
+const envKey=configs.default.envKeys;
 const validateVariables =() => {
     let checkPass = 0;
-    const envVariables=envKeys;
+    const envVariables=envKey;
     const objKeys = Object.keys(envVariables);
     objKeys.forEach((key) => {
         if (!envVariables[key]) {
