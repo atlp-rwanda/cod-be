@@ -66,8 +66,5 @@
     "mocha": "^9.2.1",
     "nodemon": "^2.0.15",
     "sequelize-cli": "^6.4.1"
-  },
-  "optionalDependencies": {
-    "fsevents": "2.1.2"
   }
 }
