@@ -111,3 +111,6 @@ build
 
 #build folder
 build
+
+#package-lock-json
+package-lock.json
