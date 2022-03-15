@@ -9,7 +9,7 @@ const user={
     firstname:'Faustin',
     'lastname':'IYAREMYE',
     email:'testdfgdfgdfg@me.com',
-    password:'test12345678'}
+    password:'test1234@5678'}
 describe('/POST  endpoint', () => {
   it('it should register a new user', (done) => {
     chai.request(server)
