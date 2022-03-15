@@ -1,10 +1,15 @@
 definitions:        # Schema defination for request body
   users:
     type: object
+    required: 
+      - firstname
+      - lastname
+      - email
+      - password
     properties:
-      fName:
+      firstname:
         type: string
-      lName:
+      lastname:
         type: string
       email:
         type: string
@@ -12,7 +17,7 @@ definitions:        # Schema defination for request body
         type: string
 
 paths:
-  /users/new:           # path of your endpoint
+  /api/user/register:           # path of your endpoint
     post:                 # endpoint request type (post request)
       tags:               # Tag property
         - Users         # Value of the tag
@@ -23,6 +28,8 @@ paths:
           application/json:
             schema:
               $ref: '#/definitions/users'          
-      responses:          # server responses
+      responses:
         '201':
-          description: A Response From The Server That The User Was Created
+          description: User is successful registered
+        '500':
+          description: 'Internal server error'  
