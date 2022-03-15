@@ -9,8 +9,8 @@ chai.should();
 chai.use(chaiHttp);
 const user={
     firstname:'Faustin',
-    'lastname':'IYAREMYE',
-    email:'testdfgdfgdfg@me.com',
+    lastname:'IYAREMYE',
+    email:'testemail@me.com',
     password:'test1234@5678'}
 describe('/POST  endpoint', () => {
   it('it should register a new user', (done) => {
