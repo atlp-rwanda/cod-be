@@ -9,8 +9,7 @@ module.exports = {
       'users',
       [
         {
-          id: 99,
-          uuid: 'b66cfc7c-be2c-41f5-b459-e888bfe881a6',
+          id: 'b66cfc7c-be2c-41f5-b459-e888bfe881a6',
           firstname: 'Alex Axel',
           lastname: 'Mucyo',
           email: 'mcy@cod.com',
@@ -22,10 +21,9 @@ module.exports = {
         },
 
         {
-          id: 100,
-          uuid: 'b66cfc7c-be2c-41f5-b459-e888bfe881a7',
-          fName: 'Kevin',
-          lName: 'Rukundo',
+          id: 'b66cfc7c-be2c-41f5-b459-e888bfe881a7',
+          firstname: 'Kevin',
+          lastname: 'Rukundo',
           email: 'kevin@cod.com',
           password:
             '$2b$10$PbmyjAmjzHhFqhrTagGf3um2kurk0b.JfugGOTGVHWrEoYWSuuyda',
@@ -33,19 +31,6 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date()
         },
-
-        {
-          id: 102,
-          uuid: 'b66cfc7c-be2c-41f5-b459-e888bfe881a8',
-          fName: 'Faustin',
-          lName: 'Iyaremye',
-          email: 'faustin@cod.com',
-          password:
-            '$2b$10$PbmyjAmjzHhFqhrTagGf3um2kurk0b.JfugGOTGVHWrEoYWSuuyda',
-          verified: false,
-          createdAt: new Date(),
-          updatedAt: new Date()
-        }
       ],
       {}
     );

@@ -4,9 +4,11 @@
 /* eslint-disable strict */
 
 'use strict';
+
 const {
   Model
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Users extends Model {
     /**
@@ -20,10 +22,10 @@ module.exports = (sequelize, DataTypes) => {
   }
   Users.init({
     id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
-      type: DataTypes.INTEGER
+      primaryKey: true
     },
     firstname: {
       type: DataTypes.STRING,
