@@ -13,9 +13,6 @@ const user={
     email:'testdfgdfgdfg@me.com',
     password:'test1234@5678'}
 describe('/POST  endpoint', () => {
-  before(async()=>{
-    await Users.destroy({where: { email: `${user.email}` }});
-  });
   it('it should register a new user', (done) => {
     chai.request(server)
         .post('/api/user/register')
@@ -28,6 +25,9 @@ describe('/POST  endpoint', () => {
   });
 })
 describe('/POST  endpoint', () => {
+  after(async()=>{
+    await Users.destroy({where: { email: `${user.email}` }});
+  });
     it('it should return email already exists', (done) => {
       chai.request(server)
           .post('/api/user/register')
