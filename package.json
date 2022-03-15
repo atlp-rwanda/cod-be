@@ -1,0 +1,71 @@
+{
+  "name": "cod-be",
+  "version": "1.0.0",
+  "description": "COD Barefoot Nomad Backend Development",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel ./src/index.js -d build",
+    "start": "nodemon --exec babel-node src/index.js",
+    "dev": "nodemon --exec babel-node src/index.js",
+    "createDb": "npx sequelize db:create",
+    "dbMigrate": "npx sequelize-cli db:migrate",
+    "undoMigrate": "npx sequelize-cli db:migrate:undo",
+    "makeSeed": "npx sequelize-cli db:seed:all",
+    "test": "nyc --reporter=lcov --reporter=text-summary mocha --recursive --exit --timeout 10000 --require @babel/register",
+    "lint": "esw src --color ",
+    "lint:fix": "npm run lint -- --fix",
+    "prettier": "npx prettier src test --check",
+    "prettier:fix": "npm run prettier -- --write",
+    "format": "npm run prettier:fix && npm run lint:fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atlp-rwanda/cod-be.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/atlp-rwanda/cod-be/issues"
+  },
+  "homepage": "https://github.com/atlp-rwanda/cod-be#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "chai-http": "^4.3.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "dotenv-flow": "^3.2.0",
+    "express": "^4.17.3",
+    "nyc": "^15.1.0",
+    "pg": "^8.7.3",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.17.0",
+    "swagger-jsdoc": "^6.1.0",
+    "swagger-ui-express": "^4.3.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.5",
+    "@babel/node": "^7.16.8",
+    "@babel/plugin-transform-runtime": "^7.17.0",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/register": "^7.17.0",
+    "@babel/runtime": "^7.17.2",
+    "babel-loader": "^8.2.3",
+    "babel-plugin-istanbul": "^6.1.1",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.10.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.29.2",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "eslint-watch": "^8.0.0",
+    "chai": "^4.3.6",
+    "mocha": "^9.2.1",
+    "nodemon": "^2.0.15",
+    "prettier": "^2.5.1",
+    "sequelize-cli": "^6.4.1"
+  }
+}
