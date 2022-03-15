@@ -9,15 +9,15 @@ services:
     environment:
       - POSTGRES_USER=${DB_USERNAME}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGRES_DB=${DB_DATABASE}
-    ports:
-      - '5432:5432'
+      - POSTGRES_DB=${DB_NAME}
     # ports:
-    #   - ${DB_PORT}:${DB_PORT}
+    #   - '5432:5432'
+    ports:
+      - ${DB_PORT}:${DB_PORT}
     networks:
     - 'shared-network'
     volumes:
-      - ./pgdata:/var/lib/postgresql/data
+      - ./:/usr/src/app/
   
   web:
     container_name: 'codbn'
@@ -26,10 +26,10 @@ services:
     build:
       context: .
 
-    ports:
-      - '3000:3000'
     # ports:
-    #   - ${PORT}:${PORT}
+    #   - '3000:3000'
+    ports:
+      - ${PORT}:${PORT}
     networks:
     - 'shared-network'
     depends_on:
