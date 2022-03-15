@@ -11,12 +11,9 @@
     "dbMigrate": "npx sequelize-cli db:migrate",
     "undoMigrate": "npx sequelize-cli db:migrate:undo",
     "makeSeed": "npx sequelize-cli db:seed:all",
-    "test": "nyc --reporter=lcov --reporter=text-summary mocha --recursive --exit --timeout 10000 --require @babel/register",
-    "lint": "esw src --color ",
-    "lint:fix": "npm run lint -- --fix",
-    "prettier": "npx prettier src test --check",
-    "prettier:fix": "npm run prettier -- --write",
-    "format": "npm run prettier:fix && npm run lint:fix"
+    "test": "cross-env NODE_ENV=test mocha --recursive --exit --timeout 20000 --require @babel/register",
+    "lint": "esw src --color",
+    "lint:watch": "npm run lint -- --watch"
   },
   "repository": {
     "type": "git",
@@ -31,12 +28,16 @@
   "homepage": "https://github.com/atlp-rwanda/cod-be#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "chai": "^4.3.6",
     "chai-http": "^4.3.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "dotenv-flow": "^3.2.0",
     "express": "^4.17.3",
-    "nyc": "^15.1.0",
+    "joi": "^17.6.0",
+    "joi-password": "^3.0.1",
+    "jsonwebtoken": "^8.5.1",
+    "md5": "^2.3.0",
     "pg": "^8.7.3",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.17.0",
@@ -66,5 +67,8 @@
     "mocha": "^9.2.1",
     "nodemon": "^2.0.15",
     "sequelize-cli": "^6.4.1"
+  },
+  "optionalDependencies": {
+    "fsevents": "2.1.2"
   }
 }
