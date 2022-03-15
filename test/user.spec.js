@@ -35,7 +35,7 @@ describe('/POST  endpoint', () => {
           .send(user)
           .end((err, res) => {
                 res.should.have.status(409);
-                res.body.should.have.property('email');
+                res.body.should.have.property('Error');
             done();
           });
     });
