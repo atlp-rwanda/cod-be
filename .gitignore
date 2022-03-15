@@ -104,5 +104,11 @@ build
 
 # TernJS port file
 .tern-port
-# express project build
-build/
+
+#editor
+.editorconfig
+
+#build folder
+build
+
+yarn.lock
