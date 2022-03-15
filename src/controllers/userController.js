@@ -25,7 +25,9 @@ const registerNew = async ( requestBody, response )=> {
                 user.password = await bcrypt.hash(user.password, salt);
                 await user.save();
                 jwt.sign({ email: user.email, id: user.id }, jwtToken, { expiresIn: '1h' }, (err, token) => {
-                    if (err) response.status(500).json({'Error Message:': 'An error occured failed', Error: err });
+                    if (err){
+                        response.status(500).json({'Error Message:': 'An error occured failed', Error: err });
+                    }
                     else {
                     response.status(201).json({'accessToken': token, Message: 'User created'});
                     }
