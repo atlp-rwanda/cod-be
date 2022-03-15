@@ -1,7 +1,9 @@
 import chai from "chai";
 import chaiHttp from "chai-http";
 import server from "../src/app.js";   
+import models from '../src/database/models';
 
+const { Users } = models;
 chai.should();
 
 chai.use(chaiHttp);
@@ -11,6 +13,9 @@ const user={
     email:'testdfgdfgdfg@me.com',
     password:'test1234@5678'}
 describe('/POST  endpoint', () => {
+  before(async()=>{
+    await Users.destroy({where: { email: `${user.email}` }});
+  });
   it('it should register a new user', (done) => {
     chai.request(server)
         .post('/api/user/register')
