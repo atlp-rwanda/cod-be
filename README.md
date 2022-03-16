@@ -37,3 +37,6 @@
     'password':"value"
  }
  
+### Error handling in the application
+- Inside src/utils/errors has possible applications errors' handlers, you are free to
+use them and add your own whenever needed.
