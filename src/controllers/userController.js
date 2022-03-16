@@ -26,7 +26,7 @@ const registerNew = async ( requestBody, response )=> {
                 await user.save();
                 jwt.sign({ email: user.email, id: user.id }, jwtToken, { expiresIn: '1h' }, (err, token) => {
                     if (err){
-                        response.status(500).json({'Error Message:': 'An error occured failed', Error: err });
+                        response.status(500).json({'Error Message:': `An error occured failed ${err}`});
                     }
                     else {
                     response.status(201).json({'accessToken': token, Message: 'User created'});
