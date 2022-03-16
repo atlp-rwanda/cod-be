@@ -27,30 +27,4 @@ describe('/POST  register endpoint', () => {
     const res = await request(server).post('/api/user/register').send(user);
     expect(res).to.have.status(409);
   });
-  // it('it should register a new user', (done) => {
-  //   chai.request(server)
-  //       .post('/api/user/register')
-  //       .set('content-type', 'application/json')
-  //       .send(user)
-  //       .end((err, res) => {
-  //             res.should.have.status(201);
-  //         done();
-  //       });
-  // });
 })
-// describe('/POST  endpoint', () => {
-//   after(async()=>{
-//     await Users.destroy({where: { email: `${user.email}` }});
-//   });
-//     // it('it should return email already exists', (done) => {
-//     //   chai.request(server)
-//     //       .post('/api/user/register')
-//     //       .set('content-type', 'application/json')
-//     //       .send(user)
-//     //       .end((err, res) => {
-//     //             res.should.have.status(409);
-//     //             res.body.should.have.property('Error');
-//     //         done();
-//     //       });
-//     // });
-//   })
