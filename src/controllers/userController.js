@@ -29,7 +29,7 @@ const registerNew = async ( requestBody, response )=> {
                         response.status(500).json({'Error Message:': `An error occured failed ${err}`});
                     }
                     else {
-                    response.status(201).json({'accessToken': token, Message: 'User created'});
+                    response.status(201).json({'accessToken': token, Message: 'User created',key:jwtToken});
                     }
                 });
 
