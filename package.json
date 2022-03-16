@@ -11,7 +11,7 @@
     "dbMigrate": "npx sequelize-cli db:migrate",
     "undoMigrate": "npx sequelize-cli db:migrate:undo",
     "makeSeed": "npx sequelize-cli db:seed:all",
-    "test": "cross-env NODE_ENV=test mocha --recursive --exit --timeout 100000 --require @babel/register",
+    "test": "cross-env NODE_ENV=test JWT_KEY=test mocha --recursive --exit --timeout 100000 --require @babel/register",
     "lint": "esw src --color",
     "lint:watch": "npm run lint -- --watch"
   },
