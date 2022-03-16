@@ -25,7 +25,7 @@ const connectServer = () => {
 };
 const envVariables=validateVariables();
 if (envVariables === false) {
-   console.log("\nServer Can't Start");
+   process.exit();
 }else{
-  connectServer(); 
+  connectServer();
 }
