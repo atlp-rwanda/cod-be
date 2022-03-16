@@ -7,7 +7,7 @@ const indexRouter = express.Router()
  */
 
 indexRouter.get('/', (req, res) => {
-  res.send({ Message: 'Barefoot Nomad API' });
-});
-
-export default indexRouter;
+    res.send({Message: 'Barefoot Nomad API' })
+})
+indexRouter.use('/api',userRouter);
+export default indexRouter

@@ -85,12 +85,16 @@ typings/
 dist
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 build
 =======
 >>>>>>> 1304f5d (Merge Temp To My branch)
 =======
 build
 >>>>>>> 57e5fb6 (User_registration_JWT-181414599)
+=======
+build
+>>>>>>> 819108b5374d9a6dcf262cd92c2e5aa6ff4db7a8
 # Gatsby files
 .cache/
 # Comment in the public line in if your project uses Gatsby and *not* Next.js
