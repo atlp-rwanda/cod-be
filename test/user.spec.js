@@ -17,7 +17,7 @@ describe('/POST  register endpoint', () => {
   it('it should register a new user', async () => {
     const res = await request(server).post('/api/user/register').send(user);
     expect(res).to.have.status(201);
-    expect(res.type).to.equal('application/json');
+    expect(res.body).to.have.property('accessToken');
   });
 
   // it('it should register a new user', (done) => {
