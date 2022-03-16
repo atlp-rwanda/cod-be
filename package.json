@@ -11,7 +11,7 @@
     "dbMigrate": "npx sequelize-cli db:migrate",
     "undoMigrate": "npx sequelize-cli db:migrate:undo",
     "makeSeed": "npx sequelize-cli db:seed:all",
-    "test": "cross-env NODE_ENV=test JWT_KEY=testKey mocha --recursive --exit --timeout 100000 --require @babel/register",
+    "test": "cross-env NODE_ENV=test JWT_KEY=testKey nyc --reporter=lcov --reporter=text-summary mocha --recursive --exit --timeout 100000 --require @babel/register",
     "lint": "esw src --color",
     "lint:watch": "npm run lint -- --watch"
   },
@@ -34,6 +34,7 @@
     "dotenv": "^16.0.0",
     "dotenv-flow": "^3.2.0",
     "express": "^4.17.3",
+    "nyc": "^15.1.0",
     "joi": "^17.6.0",
     "joi-password": "^3.0.1",
     "jsonwebtoken": "^8.5.1",
