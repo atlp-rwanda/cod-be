@@ -4,6 +4,7 @@ import chaiHttp from "chai-http";
 import server from "../src/app.js";   
 import models from '../src/database/models';
 import * as userService from '../src/services/userService';
+
 const { Users } = models;
 chai.should();
 
