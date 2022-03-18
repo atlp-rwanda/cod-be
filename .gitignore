@@ -39,6 +39,7 @@ build/Release
 
 # Dependency directories
 node_modules/
+
 jspm_packages/
 
 # TypeScript v1 declaration files
@@ -83,8 +84,6 @@ typings/
 .nuxt
 dist
 build
-
-
 # Gatsby files
 .cache/
 # Comment in the public line in if your project uses Gatsby and *not* Next.js

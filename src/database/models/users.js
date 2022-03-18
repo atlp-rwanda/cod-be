@@ -5,10 +5,12 @@
 
 'use strict';
 
-const { Model } = require('sequelize');
+const {
+  Model
+} = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
+  class Users extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -17,45 +19,53 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
     }
-
-    toJSON() {
-      return { ...this.get(), id: undefined };
-    }
   }
-  User.init(
-    {
-      uuid: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4
-      },
-      fName: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      lName: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      email: {
-        type: DataTypes.STRING,
-        unique: true,
-        allowNull: false
-      },
-      password: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      verified: {
-        type: DataTypes.STRING,
-        defaultValue: false,
-        allowNull: false
-      }
+  Users.init({
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      allowNull: false,
+      primaryKey: true
     },
-    {
-      sequelize,
-      tableName: 'users',
-      modelName: 'User'
+    firstname: {
+      type: DataTypes.STRING,
+      allowNull:false,
+    },
+    lastname: {
+      type: DataTypes.STRING,
+      allowNull:false,
+    },
+    email: {
+      unique:true,
+      type: DataTypes.STRING,
+      allowNull:false,
+    },
+    roleId: {
+      type: DataTypes.INTEGER,
+      allowNull:false,
+      defaultValue: "4",
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull:false,
+    },
+    isVerified: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE
     }
-  );
-  return User;
+  }, {
+    sequelize,
+    modelName: 'Users',
+    tableName: 'users',
+    timestamps: true,
+  });
+  return Users;
 };

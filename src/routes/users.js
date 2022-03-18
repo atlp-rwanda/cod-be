@@ -1,27 +1,16 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-console */
-import express from 'express';
-import bcrypt from 'bcrypt';
-import { User } from '../database/models';
 
-const userRoute = express.Router();
+import express from "express";
+import  * as userControl from '../controllers/userController';
 
-userRoute.post('/new', async (req, res) => {
-  const { fName, lName, email, password } = req.body;
-  const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(req.body.password, salt);
-  try {
-    await User.create({
-      fName,
-      lName,
-      email,
-      password: hashedPassword
-    });
-    return res.send(201, 'User Registered');
-  } catch (error) {
-    console.log({ Error: error });
-    return res.status(500).json(error);
-  }
+const userRouter = express.Router();
+
+userRouter.post('/user/register', ( req, res, next ) => {
+    try {
+        userControl.default.registerNew( req.body, res,next);
+    } catch (error) {
+        res.status(500).json({'Error Message:': 'An Error Has Occured, Try Again!', Error: error });
+        next(error);        
+    }  
 });
 
-export default userRoute;
+export default userRouter;
