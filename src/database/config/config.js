@@ -9,7 +9,7 @@ module.exports = {
     host: process.env.DB_HOST,
     dialect: 'postgres',
     dialectOptions: {
-    ssl: {"require":true,
+    ssl: {"require":false,
     rejectUnauthorized: false,
   }}
   },
@@ -19,7 +19,7 @@ module.exports = {
     database: 'da18lmatmcie1a',
     host: 'ec2-52-86-123-180.compute-1.amazonaws.com',
     dialect: 'postgres',
-    dialectOptions: {
+    dialectOptions: { 
       ssl: {"require":true,
       rejectUnauthorized: false,
     }}
