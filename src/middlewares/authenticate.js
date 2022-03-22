@@ -1,18 +1,18 @@
+import jwt from "jsonwebtoken"
 import {LoggedInUser} from "../database/models";
-import {decodeAccessToken} from "../utils/helpers/generateToken"
 
 const  isLoggedIn = async (req, res, next) => {
-   const authHeader = req.headers.authorization;
+   const authHeader = req.headers["authorization"];
    const token = authHeader && authHeader.split(" ")[1];
-   if (token === undefined) return res.sendStatus(401);
  try{
-   const user = await decodeAccessToken(token);
+   if (token == undefined) return res.sendStatus(401);
+   const user = await jwt.verify(token, process.env.JWT_KEY)
    if(!user){
        return res.sendStatus(403);
    }
    const loggedIn = await LoggedInUser.findOne({where:{user_id:user.id}})
    if(!loggedIn){
-       return res.status(401).json({status:401,error:"Please Log in"})
+       return res.status(401).send("Please Log in")
    }
    req.user = user;
      next();

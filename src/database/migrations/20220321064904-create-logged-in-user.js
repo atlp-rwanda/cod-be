@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable require-jsdoc */
+'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('LoggedInUsers', {
