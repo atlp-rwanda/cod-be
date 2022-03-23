@@ -1,7 +1,6 @@
-import chai from "chai";
-import { expect, request, use,} from 'chai';
+import chai, { expect, request, use,} from 'chai';
 import chaiHttp from "chai-http";
-import server from "../src/app.js";   
+import server from "../src/app";   
 import models from '../src/database/models';
 import * as userService from '../src/services/userService';
 
@@ -20,7 +19,7 @@ describe('/POST  register endpoint', () => {
   it('It should register a new user', async () => {
     const res = await request(server).post('/api/user/register').send(user);
     expect(res).to.have.status(201);
-    expect(res.body).to.have.property('accessToken');
+    expect(res.body).to.have.property('Message');
   });
   it('It should return email already exists', async () => {
     const res = await request(server).post('/api/user/register').send(user);

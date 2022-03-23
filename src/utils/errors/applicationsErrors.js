@@ -6,4 +6,9 @@ const internalServerError=async(message,res)=>{
 const validationError=async(message,res)=>{
     res.status(400).json({Error:message});
 }
-export {internalServerError,validationError};
+
+const notFoundError = async ( message, res ) => {
+    res.status(404).json({Error:message});
+}
+
+export { internalServerError, validationError, notFoundError};

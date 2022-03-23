@@ -4,10 +4,13 @@ import app from './app';
 import swaggerDocs from '../public/api-docs/swagger';
 import { sequelize } from './database/models';
 import validateVariables from './validations/envValidation';
+
 /**
  * Server Connection
  */
+
 const serverPort = process.env.PORT;
+
 const connectServer = () => {
   app.listen(serverPort, async () => {
     console.log(`\nBarefoot Nomad Server Started & Listening on PORT: ${serverPort}\n`);

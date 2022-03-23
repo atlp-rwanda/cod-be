@@ -17,7 +17,7 @@ definitions:        # Schema defination for request body
         type: string
         description: Password for login
 paths:
-  /api/user/register:           # path of your endpoint
+  /api/user/register:      # path of your endpoint
     post:                 # endpoint request type (post request)
       tags:               # Tag property
         - Users         # Value of the tag
@@ -36,52 +36,24 @@ paths:
         '409':
           description: Already exists
         '400':
-          description: Invalid data in the request      
-          # description: A Response From The Server That The User Was Created
-  /api/user/login:           # path of your endpoint
-    post:                 # endpoint request type (post request)
+          description: Invalid data in the request 
+     
+  /api/verify-user?token={emailToken}:           # path of your endpoint
+    get:                 # endpoint request type (post request)
       tags:               # Tag property
         - Users         # Value of the tag
-      summary: Login using email and password
-      requestBody:
+      summary: Verifies A Newerly Registered User
+      parameters:
+      - in: path
+        name: emailToken
+        schema:
+          type: string
         required: true
-        content: 
-          application/json:
-            schema:
-              required:
-                - email
-                - password
-              properties:
-                email:
-                  type: string
-                  description: email of the user
-                password:
-                  type: string
-                  description: password of the user         
-      responses:          # server responses
+        description: Email Token        
+      responses:
         '200':
-          description: A user is logged in
-        '400':
-          description: Invalid credentials
-  /api/user/refresh:           # path of your endpoint
-    post:                 # endpoint request type (post request)
-      tags:               # Tag property
-        - Users         # Value of the tag
-      summary: Getting new user Access token from refresh token
-      requestBody:
-        required: true
-        content: 
-          application/json:
-            schema:
-              required:
-                - refreshTokenKey
-              properties:
-                refreshTokenKey:
-                  type: string
-                  description: Refresh Token key
-                      
-      responses:          # server responses
-        '200':
-          description: Access token created succesfully
-        '400':
-          description: Invalid refresh token
+          description: User Verified Successfully
+        '404':
+          description: User Not Found
+        '500':
+          description: Server Not Found

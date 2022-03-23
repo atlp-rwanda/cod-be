@@ -15,7 +15,8 @@ module.exports = {
           email: 'mcy@cod.com',
           password:
             '$2b$10$PbmyjAmjzHhFqhrTagGf3um2kurk0b.JfugGOTGVHWrEoYWSuuyda',
-          isVerified: false,
+          email_token: null,
+          isVerified: true,
           createdAt: new Date(),
           updatedAt: new Date()
         },
@@ -27,7 +28,8 @@ module.exports = {
           email: 'kevin@cod.com',
           password:
             '$2b$10$PbmyjAmjzHhFqhrTagGf3um2kurk0b.JfugGOTGVHWrEoYWSuuyda',
-          isVerified: false,
+          email_token: null,
+          isVerified: true,
           createdAt: new Date(),
           updatedAt: new Date()
         },

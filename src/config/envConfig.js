@@ -17,5 +17,7 @@ const envKeys = {
     'TEST_DB_PASSWORD': process.env.TEST_DB_PASSWORD,
     'APP_DEBUG': process.env.APP_DEBUG,
     'JWT_KEY': process.env.JWT_KEY,
+    'SENDGRID_API_KEY': process.env.SENDGRID_API_KEY,
+    'SENDER_EMAIL': process.env.SENDER_EMAIL,
 };
 export default envKeys;
