@@ -23,5 +23,21 @@ userRouter.get('/verify-user', async (req, res, next) => {
         next(error);        
     }  
 });
+userRouter.post('/user/login', async (req, res, next) => {
+    try {
+        userControl.default.login(req,res);
+    } catch (error) {
+        res.status(500).json({'Error:': error });
+        next(error);        
+    }  
+});
+userRouter.post('/user/refresh', async (req, res, next) => {
+    try {
+        userControl.default.refreshToken(req,res);
+    } catch (error) {
+        res.status(500).json({'Error:': error });
+        next(error);        
+    }  
+});
 
 export default userRouter;

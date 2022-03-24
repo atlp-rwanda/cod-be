@@ -7,6 +7,8 @@ import * as ApplicationError from '../utils/errors/applicationsErrors';
 import * as alreadyExists from '../utils/errors/alreadyExistError';
 import * as tokenGenerator from '../utils/helpers/generateToken';
 import sendVerification from '../services/userVerfication'
+import { Users } from '../database/models';
+import storeToken from '../services/storeToken';
 
 dotenv.config();
 const registerNew = async ( requestBody, response, appUrl, next )=> {
@@ -57,5 +59,44 @@ const verifyUser = async (emailToken, res) => {
     res.status(200).send({ 'Verified': true });
     console.log('User Verified Successfully');
 };
+const login = async (req, res) => {
+  try {
+    const user = await Users.findOne({ where: { email: req.body.email } });
 
-export default {registerNew, verifyUser};
+    if (!user) {
+      return ApplicationError.validationError('This email does not exist', res);
+    }
+    if (!user.isVerified) {
+      return ApplicationError.validationError('Verify to log into your account', res);
+    }
+    const verifyPassword = await bcrypt.compare(
+      req.body.password,
+      user.password
+    );
+    if (!verifyPassword) {
+      return ApplicationError.validationError('Invalid Password', res);
+    }
+    const token = await storeToken(user);
+    return res.status(200).json({...token, message: 'User logged in successfully', status:200});
+  } catch (error) {
+    return ApplicationError.validationError('Invalid input', res);
+  }
+};
+const refreshToken = async (req, res) => {
+  try {
+    const {refreshTokenKey} = req.body;
+
+    if (!refreshTokenKey) {
+      return ApplicationError.validationError('Bad request', res);
+    }
+    const token = await storeToken(null, refreshTokenKey);
+    if (!token) {
+      return ApplicationError.validationError('Invalid refresh token', res);
+    }
+    return res.status(200).json({...token, status: 200, message: 'Access token created successfully'});
+  } catch (error) {
+    return ApplicationError.validationError(error.message, res);
+  }
+};
+
+export default {registerNew, verifyUser, login, refreshToken};
