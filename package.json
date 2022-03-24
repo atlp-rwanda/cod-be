@@ -15,7 +15,7 @@
     "undoMigrate:test": "cross-env NODE_ENV=test npx sequelize-cli db:migrate:undo",
     "deMigrate:all:test": "cross-env NODE_ENV=test npx sequelize-cli db:migrate:undo:all",
     "makeSeed": "npx sequelize-cli db:seed:all",
-    "test": "cross-env NODE_ENV=test JWT_KEY=testKey nyc --reporter=lcov --reporter=text-summary mocha --recursive --exit --timeout 20000 --require @babel/register",
+    "test": "cross-env NODE_ENV=test JWT_KEY=testKey REFRESH_TOKEN_KEY=refreshsecretkey nyc --reporter=lcov --reporter=text-summary mocha --recursive --exit --timeout 20000 --require @babel/register",
     "lint": "esw src --color ",
     "lint:fix": "npm run lint -- --fix",
     "prettier": "npx prettier src test --check",

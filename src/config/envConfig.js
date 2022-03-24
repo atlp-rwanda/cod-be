@@ -19,5 +19,6 @@ const envKeys = {
     'JWT_KEY': process.env.JWT_KEY,
     'SENDGRID_API_KEY': process.env.SENDGRID_API_KEY,
     'SENDER_EMAIL': process.env.SENDER_EMAIL,
+    'REFRESH_TOKEN_KEY': process.env.REFRESH_TOKEN_KEY,
 };
 export default envKeys;

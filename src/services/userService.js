@@ -20,4 +20,16 @@ const findByEmailToken = async (emailToken) => {
   }
   return user;
 };
-export { addUser, findByEmail, findByEmailToken };
+const updateOrCreate = async(model, where, newItem) => {
+  // First try to find the refresh token
+ const foundItem = await model.findOne({where});
+ if (!foundItem) {
+      // If refresh token not found, create a new one
+      const item = await model.create(newItem)
+      return  {item, created: true};
+  }
+  // If Found, update it
+  const item = await model.update(newItem, {where});
+  return {item, created: false};
+}
+export { addUser, findByEmail, findByEmailToken, updateOrCreate };
