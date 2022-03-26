@@ -36,12 +36,24 @@ paths:
         '409':
           description: Already exists
         '400':
-          description: Invalid data in the request 
-     
-  /api/verify-user?token={emailToken}:           # path of your endpoint
+          description: Bad request 
+  /api/users:           # path of your endpoint
     get:                 # endpoint request type (post request)
       tags:               # Tag property
         - Users         # Value of the tag
+      summary: Get all users        
+      responses:
+        '200':
+          description: Users fetched successfully
+        '500':
+          description: Internal server Error
+        '401':
+          description: Unauthorized  
+
+  /api/verify-user?token={emailToken}:           # path of your endpoint
+    get:                 
+      tags:               
+        - Users         
       summary: Verifies A Newerly Registered User
       parameters:
       - in: path
@@ -81,7 +93,7 @@ paths:
         '200':
           description: A user is logged in
         '400':
-          description: Invalid credentials
+          description: Bad request
   /api/user/refresh:           # path of your endpoint
     post:                 # endpoint request type (post request)
       tags:               # Tag property
@@ -103,7 +115,7 @@ paths:
         '200':
           description: Access token created succesfully
         '400':
-          description: Invalid refresh token
+          description: Bad request
 
   /api/user/logout:           # path of your endpoint
     delete:                 # endpoint request type (post request)
@@ -114,7 +126,7 @@ paths:
         '204':
           description: User logged out succesfully
         '400':
-          description: Invalid token
+          description: Bad request
 
   /api/v1/forgot-password:           # path of your endpoint
     post:                 # endpoint request type (post request)
@@ -136,7 +148,7 @@ paths:
         '200':
           description: Password Reset Request Sent Successfully 
         '400':
-          description: Bad Request only casual users are allowed to reset password
+          description: Bad Request
         '500':
           description: Internal Server Error
 

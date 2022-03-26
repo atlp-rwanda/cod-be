@@ -77,7 +77,7 @@ describe('Password Reset Testing', () => {
       .send(userPassword);
     expect(res).to.have.status(200);
     expect(res.body.data)
-      .to.have.property('Message')
+      .to.have.property('message')
       .and.to.be.eql('Password Updated successfully');
   });
 

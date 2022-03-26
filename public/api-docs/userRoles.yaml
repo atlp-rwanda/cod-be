@@ -15,7 +15,7 @@ paths:
     patch:                 # endpoint request type (post request)
       tags:               # Tag property
         - Roles         # Value of the tag
-      summary: Assign New Role to User
+      summary: Assign New Role to Users
       requestBody:
         required: true
         content: 
@@ -27,9 +27,9 @@ paths:
           description: User role is successfully updated
         '500':
           description: Internal server error
-        '402':
-          description: Anauthorized
+        '403':
+          description: Unauthorized
         '401':
-          description: Anauthenticated
+          description: Unauthenticated
         '400':
-          description: Invalid data in the request      
+          description: Bad request      

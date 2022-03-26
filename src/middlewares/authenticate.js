@@ -21,6 +21,7 @@ const isLoggedIn = async (req, res, next) => {
       return AuthorizationError('You are logged out! Please Log in', res);
     }
     req.user = user;
+    req.valid=req.user;
     next();
   } catch (error) {
     return error;
