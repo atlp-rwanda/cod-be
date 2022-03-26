@@ -10,6 +10,7 @@ import feedbackRouter from './feedbackRouter';
 import ratingRouter from './ratingRoutes';
 
 import tripRouter from './trip.route';
+import commentRouter from './commentRouter';
 
 const indexRouter = express.Router();
 /**
@@ -30,5 +31,6 @@ indexRouter.use('/api', likeRouter);
 indexRouter.use('/api', ratingRouter);
 indexRouter.use('/api/v1/trip', tripRouter);
 indexRouter.use('/api', feedbackRouter);
+indexRouter.use('/api/v1', commentRouter);
 
 export default indexRouter;
