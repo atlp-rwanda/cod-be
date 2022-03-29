@@ -6,9 +6,10 @@ import * as userService from '../services/userService';
 import * as ApplicationError from '../utils/errors/applicationsErrors';
 import * as alreadyExists from '../utils/errors/alreadyExistError';
 import * as tokenGenerator from '../utils/helpers/generateToken';
-import sendVerification from '../services/userVerfication';
-import { Users } from '../database/models';
+import sendVerification from '../services/userVerfication'
+import { Users, LoggedInUser } from '../database/models';
 import storeToken from '../services/storeToken';
+
 
 dotenv.config();
 const registerNew = async (requestBody, response, appUrl, next) => {
@@ -130,5 +131,14 @@ const refreshToken = async (req, res) => {
     return ApplicationError.validationError(error.message, res);
   }
 };
+const logout = async (req,res)=>{
+  const userId = req.user.id;
+  try {
+  await LoggedInUser.destroy({where: { user_id: userId }}); // delete the current refresh token from db
+    return res.status(204).send()
+  } catch (error) {
+    return ApplicationError.internalServerError(`failed to logout`, res)
+  }
+}
 
-export default { registerNew, verifyUser, login, refreshToken };
+export default {registerNew, verifyUser, login, refreshToken, logout};

@@ -56,4 +56,7 @@ in the browser ```http://localhost:/api-docs`/api/user/login`` and put in the in
 ### How refresh token work
 Because access token has to expire in short time the refresh token which have longer life span will be used as token dedicated to only recreate new access token when the current one is expired.
 
-to get the new access token you go in your browser and go to ```http://localhost:/api-docs`/api/user/refresh`` and put in the input body the refreshTokenKey and you get the new access token and refresh token and the old one is expired and you get message sayin that "Access token created successfully" with status code of 200. If you use the expired refresh token or invalid token you get message "Invalid refresh token"with status code 200
+to get the new access token you go in your browser and go to ```http://localhost:/api-docs`/api/user/refresh`` and put in the input body the refreshTokenKey and you get the new access token and refresh token and the old one is expired and you get message sayin that "Access token created successfully" with status code of 200. If you use the expired refresh token or invalid token you get message "Invalid refresh token"with status code 400
+
+### LOGOUT FUNCTIONALITY
+To logout you have to be logged in and have access token in the authorization Headers. the logout function is used to delete the user from the loggedinuser database. when you provide wrong or expired access token you get error with message "Please log in" and error status code of 401. when you provide valid access token you get 204 status code. and you are now successfully logged out of session.

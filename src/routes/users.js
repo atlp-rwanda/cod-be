@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import express from 'express';
-import * as userControl from '../controllers/userController';
+import  * as userControl from '../controllers/userController';
+import isLoggedIn from "../middlewares/authenticate"
 
 const userRouter = express.Router();
 
@@ -44,5 +45,12 @@ userRouter.post('/user/refresh', async (req, res, next) => {
     next(error);
   }
 });
-
+userRouter.delete('/user/logout', isLoggedIn, async (req, res, next) => {
+    try {
+        userControl.default.logout(req,res);
+    } catch (error) {
+        res.status(500).json({Error: error.message, status:500 });
+        next(error);        
+    }  
+});
 export default userRouter;
