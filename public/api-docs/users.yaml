@@ -104,3 +104,15 @@ paths:
           description: Access token created succesfully
         '400':
           description: Invalid refresh token
+
+  /api/user/logout:           # path of your endpoint
+    delete:                 # endpoint request type (post request)
+      tags:               # Tag property
+        - Users         # Value of the tag
+      summary: Logging out of session                  
+      responses:          # server responses
+        '204':
+          description: User logged out succesfully
+        '400':
+          description: Invalid token
+
