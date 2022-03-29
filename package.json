@@ -15,7 +15,9 @@
     "undoMigrate:test": "cross-env NODE_ENV=test npx sequelize-cli db:migrate:undo",
     "deMigrate:all:test": "cross-env NODE_ENV=test npx sequelize-cli db:migrate:undo:all",
     "makeSeed": "npx sequelize-cli db:seed:all",
-    "test": "cross-env NODE_ENV=test JWT_KEY=testKey REFRESH_TOKEN_KEY=refreshsecretkey nyc --reporter=lcov --reporter=text-summary mocha --recursive --exit --timeout 20000 --require @babel/register",
+    "addSuperUser": "npx sequelize-cli db:seed --seed 20220321125534-super-admin.js",
+    "addSuperUser:test": "cross-env NODE_ENV=test npx sequelize-cli db:seed --seed 20220321125534-super-admin.js",
+    "test": "npm run deMigrate:all:test && npm run dbMigrate:test && npm run addSuperUser:test && cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text-summary mocha --recursive --exit --timeout 400000  --require @babel/register",
     "lint": "esw src --color ",
     "lint:fix": "npm run lint -- --fix",
     "prettier": "npx prettier src test --check",
@@ -52,7 +54,8 @@
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.17.0",
     "swagger-jsdoc": "^6.1.0",
-    "swagger-ui-express": "^4.3.0"
+    "swagger-ui-express": "^4.3.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.6",

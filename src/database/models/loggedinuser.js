@@ -3,11 +3,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable strict */
 
-
-
-
-
-
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
@@ -21,12 +16,16 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  LoggedInUser.init({
-    refreshToken: {type: DataTypes.TEXT,allowNull: false},
-    user_id: {type: DataTypes.STRING, unique: true,allowNull:false}}, {
-    sequelize,
-    modelName: 'LoggedInUser',
-    tableName: 'LoggedInUsers',
-  });
+  LoggedInUser.init(
+    {
+      refreshToken: { type: DataTypes.TEXT, allowNull: false },
+      user_id: { type: DataTypes.STRING, unique: true, allowNull: false }
+    },
+    {
+      sequelize,
+      modelName: 'LoggedInUser',
+      tableName: 'LoggedInUsers'
+    }
+  );
   return LoggedInUser;
 };

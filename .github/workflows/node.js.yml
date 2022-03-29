@@ -27,7 +27,8 @@ jobs:
       JWT_KEY: ${{ secrets.JWT_KEY }}
       SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
       SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
-
+      REFRESH_TOKEN_KEY: ${{ secrets.REFRESH_TOKEN_KEY }}
+      
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }} on ${{ matrix.os }}

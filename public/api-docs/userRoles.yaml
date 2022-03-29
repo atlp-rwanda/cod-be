@@ -1,0 +1,35 @@
+definitions:        # Schema defination for request body
+  roles:
+    type: object
+    required: 
+      - rolename
+      - user
+    properties:
+      rolename:
+        type: string
+      user:
+        type: string
+        
+paths:
+  /api/v1/users/assignRole:           # path of your endpoint
+    patch:                 # endpoint request type (post request)
+      tags:               # Tag property
+        - Roles         # Value of the tag
+      summary: Assign New Role to User
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              $ref: '#/definitions/roles'          
+      responses:
+        '200':
+          description: User role is successfully updated
+        '500':
+          description: Internal server error
+        '402':
+          description: Anauthorized
+        '401':
+          description: Anauthenticated
+        '400':
+          description: Invalid data in the request      
