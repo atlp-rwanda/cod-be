@@ -34,10 +34,18 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false
       },
+      googleId: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      facebookId: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
       email: {
         unique: true,
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
       },
       roleId: {
         type: DataTypes.INTEGER,
@@ -46,7 +54,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
       },
       isVerified: {
         type: DataTypes.BOOLEAN,

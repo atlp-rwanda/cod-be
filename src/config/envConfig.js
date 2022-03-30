@@ -19,6 +19,12 @@ const envKeys = {
   JWT_KEY: process.env.JWT_KEY,
   SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
   SENDER_EMAIL: process.env.SENDER_EMAIL,
-  REFRESH_TOKEN_KEY: process.env.REFRESH_TOKEN_KEY
+  REFRESH_TOKEN_KEY: process.env.REFRESH_TOKEN_KEY,
+  GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+  GOOGLE_CALLBACK_URL:process.env.GOOGLE_CALLBACK_URL,
+  FB_CLIENT_ID: process.env.FB_CLIENT_ID,
+  FB_CLIENT_SECRET: process.env.FB_CLIENT_SECRET,
+  FB_CALLBACK_URL: process.env.FB_CALLBACK_URL
 };
 export default envKeys;

@@ -28,7 +28,12 @@ jobs:
       SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
       SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
       REFRESH_TOKEN_KEY: ${{ secrets.REFRESH_TOKEN_KEY }}
-      
+      GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+      GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+      GOOGLE_CALLBACK_URL: ${{ secrets.GOOGLE_CALLBACK_URL }}
+      FB_CLIENT_ID: ${{ secrets.FB_CLIENT_ID }}
+      FB_CLIENT_SECRET: ${{ secrets.FB_CLIENT_SECRET }}
+      FB_CALLBACK_URL: ${{ secrets.FB_CALLBACK_URL }}
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }} on ${{ matrix.os }}
