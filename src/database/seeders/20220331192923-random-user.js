@@ -8,7 +8,7 @@ export default {
     const userPassword = await bcrypt.hash('altp6@random', salt);
     await queryInterface.bulkInsert('users', [
       {
-        id: uuidv4(),
+        id: "b66cfc7c-be2c-41f5-b459-e888bfe881a6",
         firstname: 'Demo',
         lastname: ' User',
         email: 'demouser@cod.be',

@@ -16,9 +16,15 @@ const notAcceptableError = async (message, res) => {
 const AuthorizationError = async (message, res) => {
   res.status(401).json({ Error: message, status: 401 });
 };
+const forbiddenError = async (message, res) => {
+  res.status(403).json({ Error: message, status: 403 });
+};
 const badRequestError = async (message, res) => {
   res.status(400).json({ Error: message, status: 400 });
 };
+const databaseError = async (error, res) =>{
+  res.status(500).json({status:500,data:{error}})
+}
 
 export {
   internalServerError,
@@ -26,5 +32,7 @@ export {
   notFoundError,
   notAcceptableError,
   AuthorizationError,
-  badRequestError
+  badRequestError,
+  databaseError,
+  forbiddenError
 };

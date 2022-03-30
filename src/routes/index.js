@@ -5,6 +5,8 @@ import socialAuthRouter from "./socialOauth.route";
 import profileRouter from './profileRouter'
 import accomodationRouter from './accomodationRoutes'
 import facilityRouter from './facilitiesRoutes'
+import commentRouter from './commentRouter';
+
 
 const indexRouter = express.Router();
 /**
@@ -21,5 +23,6 @@ indexRouter.use('/api', roleRouter);
 indexRouter.use('/api/v1',profileRouter);
 indexRouter.use('/api',accomodationRouter);
 indexRouter.use('/api',facilityRouter);
+indexRouter.use('/api/v1', commentRouter);
 
 export default indexRouter;
