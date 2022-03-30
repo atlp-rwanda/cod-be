@@ -6,7 +6,7 @@ import { mock } from "sinon";
 import { googleCb ,facebookCb} from "../src/controllers/socialOauth.controller";
 import { userToken } from "../src/routes/socialOauth.route";
 
-var strategy = require("../src");
+var strategy = require("../src/app.js");
 const { expect } = chai;
 chai.use(chaiHttp);
 
