@@ -65,5 +65,4 @@ const isRequester = async (req, res, next) => {
     return internalServerError('Error occured', res);
   }
 };
-
 export { isSuperAdmin, adminUser, superAdmin, isRequester };

@@ -84,7 +84,6 @@ const registerNew = async (requestBody, response, appUrl, next) => {
       );
     }
   } catch (error) {
-    console.log(error);
     ApplicationError.internalServerError(`${error}`, response);
     next(error);
   }
