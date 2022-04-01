@@ -1,0 +1,81 @@
+paths:
+  /api/v1/accomodation/{accomodation_id}/like:           # path of your endpoint
+    post:                 # endpoint request type (post request)
+      tags:               # Tag property
+        - Like         # Value of the tag
+      summary: Like and unlike accomodation of an accomodation
+      parameters:
+        - in: path
+          name: accomodation_id
+          schema:
+            type: integer
+          required: true
+          description: accomodation accomodation id
+      responses:          # server responses
+        '201':
+          description: Liked an accomodation succesfully
+        '200':
+          description: unliked an accomodation succesfully
+        '404':
+          description: Accomodation not found
+        '500':
+          description: internal server error
+  /api/v1/accomodation/{accomodation_id}/dislike:           # path of your endpoint
+    post:                 # endpoint request type (post request)
+      tags:               # Tag property
+        - Like         # Value of the tag
+      summary: DisLike and unDisLike accomodation of an accomodation
+      parameters:
+        - in: path
+          name: accomodation_id
+          schema:
+            type: integer
+          required: true
+          description: accomodation accomodation id
+      responses:          # server responses
+        '201':
+          description: DisLiked an accomodation succesfully
+        '200':
+          description: unDisliked an accomodation succesfully
+        '404':
+          description: Accomodation not found
+        '500':
+          description: internal server error
+  /api/v1/accomodation/{accom_id}/like:           # path of your endpoint
+    get:                 # endpoint request type (post request)
+      tags:               # Tag property
+        - Like         # Value of the tag
+      summary: Get all likes an accomodation
+      parameters:
+        - in: path
+          name: accom_id
+          schema:
+            type: integer
+          required: true
+          description: accomodation id
+      responses:          # server responses
+        '200':
+          description: get all likes of an accomodation succesfully
+        '404':
+          description: Accomodation not found
+        '500':
+          description: internal server error
+  /api/v1/accomodation/{accom_id}/dislike:           # path of your endpoint
+    get:                 # endpoint request type (post request)
+      tags:               # Tag property
+        - Like         # Value of the tag
+      summary: Get all dislikes of an accomodation
+      parameters:
+        - in: path
+          name: accom_id
+          schema:
+            type: integer
+          required: true
+          description: Dislikes of accomodation accomodation id
+      responses:          # server responses
+        '200':
+          description: get all dislikes of an accomodation succesfully
+        '404':
+          description: Accomodation not found
+        '500':
+          description: internal server error
