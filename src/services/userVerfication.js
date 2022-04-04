@@ -28,13 +28,11 @@ const sendVerification = async (
   await sgMail
     .send(msg)
     .then(() => {
-      res
-        .status(201)
-        .json({
-          Message: 'User Created',
-          emailToken: `${emailToken}`,
-          userId: `${userId}`
-        });
+      res.status(201).json({
+        Message: 'User Created',
+        emailToken: `${emailToken}`,
+        userId: `${userId}`
+      });
       console.log('Verification Email Sent Successfully');
     })
     .catch((err) => {

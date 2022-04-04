@@ -116,3 +116,60 @@ paths:
         '400':
           description: Invalid token
 
+  /api/v1/forgot-password:           # path of your endpoint
+    post:                 # endpoint request type (post request)
+      tags:               # Tag property
+        - Users         # Value of the tag
+      summary: Requests a password reset for a verified casual user
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              required:
+                - email
+              properties:
+                email:
+                  type: string
+                  description: email of the user       
+      responses:          # server responses
+        '200':
+          description: Password Reset Request Sent Successfully 
+        '400':
+          description: Bad Request only casual users are allowed to reset password
+        '500':
+          description: Internal Server Error
+
+  /api/v1/reset-password?token={emailToken}:           # path of your endpoint
+    patch:                 # endpoint request type (post request)
+      tags:               # Tag property
+        - Users         # Value of the tag
+      summary: Updates the password to the new assigned password
+      requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                required:
+                  - password
+                properties:
+                  password:
+                    type: string
+                    description: New user password
+      parameters:
+      - in: path
+        name: emailToken
+        schema:
+          type: string
+        required: true
+        description: Reset Password Email Token
+      responses:
+        '200':
+          description: Password Updated Successfully
+        '401':
+          description: Expired Access Token
+        '404':
+          description: User Not Found Or No Token Found
+        '500':
+          description: Internal Server Error
+

@@ -16,11 +16,15 @@ const notAcceptableError = async (message, res) => {
 const AuthorizationError = async (message, res) => {
   res.status(401).json({ Error: message, status: 401 });
 };
+const badRequestError = async (message, res) => {
+  res.status(400).json({ Error: message, status: 400 });
+};
 
 export {
   internalServerError,
   validationError,
   notFoundError,
   notAcceptableError,
-  AuthorizationError
+  AuthorizationError,
+  badRequestError
 };

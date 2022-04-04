@@ -22,12 +22,10 @@ export const userToken = async (req, res) => {
     email: req.user.email
   };
   const token = await storeToken(user);
-  return res
-    .status(200)
-    .send({
-      status: 200,
-      data: { message: 'User logged in successfully', ...token }
-    });
+  return res.status(200).send({
+    status: 200,
+    data: { message: 'User logged in successfully', ...token }
+  });
 };
 
 /**

@@ -16,8 +16,8 @@ const isSuperAdmin = (req, res, next) => {
       if (err) {
         isAuthorized.isNotAuthenticated('Unauthenticated', res);
       } else {
-        const {email} = decoded;
-        const {id} = decoded;
+        const { email } = decoded;
+        const { id } = decoded;
         if (email != null && id != null) {
           req.userEmail = email;
           req.userId = id;
