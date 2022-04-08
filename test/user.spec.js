@@ -8,6 +8,11 @@ const { Users } = models;
 chai.should();
 
 use(chaiHttp);
+let loginToken;
+const loginAdmin = {
+  email: 'iyaremyef@gmail.com',
+  password: 'test@me123'
+};
 const user = {
   firstname: 'Faustin',
   lastname: 'IYAREMYE',
@@ -56,5 +61,19 @@ describe('/POST  register endpoint', () => {
       .send(invalidPassword);
     expect(res).to.have.status(400);
     expect(res.body).to.have.property('Error');
+  });
+  it('It should login a super Admin User', async () => {
+    const res = await request(server).post('/api/user/login').send(loginAdmin);
+    expect(res).to.have.status(200);
+    expect(res.body).to.have.property('accessToken');
+    expect(res.body).to.have.property('refreshToken');
+    loginToken = res.body.accessToken;
+  });
+  it('It should get all users', async () => {
+    const res = await request(server).get('/api/users')
+    .set('Authorization', `Bearer ${loginToken}`)
+    .send(loginAdmin);
+    expect(res).to.have.status(200);
+    expect(res.body.data).to.have.property('users');
   });
 });

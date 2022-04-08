@@ -1,0 +1,223 @@
+definitions:        # Schema defination for request body
+  Accomodation facilities(services):
+    type: object
+    required: 
+      - name
+      - description
+      - accomodation
+    properties:
+      name:
+        type: string
+      description:
+        type: string
+      accomodation:
+        type: string
+
+  Facility (service) components:
+    type: object
+    required: 
+      - facility
+      - description
+      - image
+      - quantity
+      - price
+      - allowBooking
+    properties:
+      facility:
+        type: string
+      description:
+        type: string
+      image:
+        type: string   
+      quantity: 
+        type: string
+      price:
+        type: string
+      allowBooking: 
+        type: string   
+              
+
+paths:
+  /api/v1/facilities/register:      
+    post:                 
+      tags:               
+        - Accomodation facilities(services)         
+      summary: Add New Accomodation Service(facility)
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              $ref: '#/definitions/Accomodation facilities(services)'          
+      responses:
+        '201':
+          description: Facility is successfuly registered
+        '500':
+          description: Internal server error
+        '400':
+          description: Bad request 
+  /api/v1/facilities/all/{accomodationId}:      
+    get:                 
+      tags:               
+        - Accomodation facilities(services)         
+      summary: Get all facilities in Accomodation 
+      parameters:
+      - in: path
+        name: accomodationId
+        schema:
+          type: string
+        required: true
+        description: Accomodation Id          
+      responses:
+        '200':
+          description: Facilities successfuly fetched
+        '500':
+          description: Internal server error
+        '400':
+          description: Bad request
+  /api/v1/facilities/{Id}:      
+    get:                 
+      tags:               
+        - Accomodation facilities(services)         
+      summary: Get facility instance by Id in Accomodation 
+      parameters:
+      - in: path
+        name: Id
+        schema:
+          type: string
+        required: true
+        description: Facility (service) Id          
+      responses:
+        '200':
+          description: Facility successfuly fetched
+        '500':
+          description: Internal server error
+        '400':
+          description: Bad request    
+  /api/v1/facilities/delete/{Id}:  
+    delete:                 
+      tags:               
+        - Accomodation facilities(services)         
+      summary: Delete Accomodation facility by Id 
+      parameters:
+      - in: path
+        name: Id
+        schema:
+          type: string
+        required: true
+        description: Facility Id           
+      responses:
+        '200':
+          description: Accommodation facility deleted
+        '500':
+          description: Internal server error
+        '403':
+          description: Unauthorized
+        '401':
+          description: Unauthenticated    
+
+  /api/v1/facilities/update/{Id}:      
+    patch:                 
+      tags:               
+        - Accomodation facilities(services)         
+      summary: Update Accomodation Service(facility)
+      parameters:
+      - in: path
+        name: Id
+        schema:
+          type: string
+        required: true
+        description: Facility Id 
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              $ref: '#/definitions/Accomodation facilities(services)'          
+      responses:
+        '200':
+          description: Facility is successfuly updated
+        '500':
+          description: Internal server error
+        '400':
+          description: Bad request
+
+ # Facility (service) components api endpoints    
+  /api/v1/facility/components:      
+    post:                 
+      tags:               
+        - Facility (service) components         
+      summary: Add New  Service(facility) component 
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              $ref: '#/definitions/Facility (service) components'          
+      responses:
+        '201':
+          description: Facility service is successfuly registered
+        '500':
+          description: Internal server error
+        '400':
+          description: Bad request
+          
+  /api/v1/facility/components/{facilityId}:      
+    get:                 
+      tags:               
+        - Facility (service) components         
+      summary: Retrieve  Service(facility) component 
+      parameters:
+      - in: path
+        name: facilityId
+        schema:
+          type: string
+        required: true
+        description: Facility Id          
+      responses:
+        '200':
+          description: Facility Component is successfuly fetched  
+        '500':
+          description: Internal server error
+  /api/v1/facility/components/{componentId}:      
+    delete:                 
+      tags:               
+        - Facility (service) components         
+      summary: Delete  Service(facility) component 
+      parameters:
+      - in: path
+        name: componentId
+        schema:
+          type: string
+        required: true
+        description: Facility Component Id          
+      responses:
+        '200':
+          description: Facility Component is successfuly removed  
+        '500':
+          description: Internal server error      
+  /api/v1/facility/components/{Id}:
+    patch: 
+      tags: 
+        - Facility (service) components 
+      parameters: 
+      - in: path
+        name: Id
+        schema:
+          type: string
+        required: true
+        description: Facility Component Id 
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              $ref: '#/definitions/Facility (service) components' 
+      responses:
+        '200':
+          description: Facility Component is successfuly updated  
+        '500':
+          description: Internal server error
+        '400': 
+          description: 'Bad request'      
+              

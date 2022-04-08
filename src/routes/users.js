@@ -4,6 +4,7 @@ import express from 'express';
 import * as userControl from '../controllers/userController';
 import * as verifyPasswordToken from '../utils/helpers/jwt_helper';
 import isLoggedIn from '../middlewares/authenticate';
+import {superAdmin} from '../middlewares/authorize';
 
 const userRouter = express.Router();
 
@@ -37,6 +38,7 @@ userRouter.post('/user/login', async (req, res, next) => {
     next(error);
   }
 });
+
 userRouter.post('/user/refresh', async (req, res, next) => {
   try {
     userControl.default.refreshToken(req, res);
@@ -99,10 +101,17 @@ userRouter.patch(
       const emailToken = req.query.token;
       userControl.default.resetPassword(req.body, res, emailToken, next);
     } catch (error) {
-      console.log(error);
       next(error);
     }
   }
 );
+userRouter.get('/users', isLoggedIn, superAdmin, async (req, res, next) => {
+  try {
+      userControl.default.getAllUsers(req,res,next);
+  } catch (error) {
+      res.status(500).json({'Error:': error });
+      next(error);        
+  }  
+});
 
 export default userRouter;

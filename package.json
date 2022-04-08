@@ -19,7 +19,7 @@
     "addRandomUser": "npx sequelize-cli db:seed --seed 20220331192923-random-user.js",
     "addRandomUser:test": "cross-env NODE_ENV=test npx sequelize-cli db:seed --seed 20220331192923-random-user.js",
     "addSuperUser:test": "cross-env NODE_ENV=test npx sequelize-cli db:seed --seed 20220321125534-super-admin.js",
-    "test": "npm run dbMigrate:test && npm run addSuperUser:test && npm run addRandomUser:test && cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text-summary mocha --recursive --exit --timeout 400000  --require @babel/register",
+    "test": "npm run deMigrate:all:test && npm run dbMigrate:test && npm run addSuperUser:test && npm run addRandomUser:test && cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text-summary mocha --recursive --exit --timeout 400000  --require @babel/register",
     "lint": "esw src --color ",
     "lint:fix": "npm run lint -- --fix",
     "prettier": "npx prettier src test --check",

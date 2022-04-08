@@ -5,7 +5,7 @@ import * as auth from '../middlewares/authorize';
 const roleRouter = express.Router();
 roleRouter.patch(
   '/v1/users/assignRole',
-  auth.isSuperAdmin,
+  auth.isSuperAdmin,auth.superAdmin,
   (req, res, next) => {
     try {
       Role.default.getRoleId(req, res);

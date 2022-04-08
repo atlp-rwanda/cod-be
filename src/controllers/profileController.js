@@ -19,7 +19,7 @@ const updateProfile = async (userId, requestBody, response, next) => {
         } 
       } else {
         return notFound.isNotFound(
-          { status: 404, data: { Message: 'Profile not found' } },
+          {data: { message: 'Profile not found' } },
           response
         );
       }
