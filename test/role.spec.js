@@ -20,9 +20,6 @@ describe('/PATCH  assign role', () => {
   after(async () => {
     await Users.destroy({ where: { email: 'testemail@me.com' } });
   });
-  after(async () => {
-    await Users.destroy({ where: { email: 'iyaremyef@gmail.com' } });
-  });
 
   it('It should login a super Admin User', async () => {
     const res = await request(app).post('/api/user/login').send(loginAdmin);
@@ -50,6 +47,6 @@ describe('/PATCH  assign role', () => {
       .set('Authorization', `Bearer ${loginToken}`)
       .send(updateRole);
     expect(res).to.have.status(200);
-    expect(res.body.data).to.have.property('Message');
+    expect(res.body.data).to.have.property('message');
   });
 });

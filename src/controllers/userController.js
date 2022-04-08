@@ -208,7 +208,6 @@ const forgotPassword = async (req, res, appUrl, next) => {
       );
     }
   } catch (error) {
-    console.log(error);
     return next(error);
   }
 };
@@ -230,10 +229,9 @@ const resetPassword = async (req, res, emailToken, next) => {
         res.status(200).json({
           status: 200,
           data: {
-            Message: `Password Updated successfully`
+            message: `Password Updated successfully`
           }
         });
-        console.log('Password Updated successfully');
       } else
         {return new Error(
           ApplicationError.validationError(
@@ -247,6 +245,15 @@ const resetPassword = async (req, res, emailToken, next) => {
     return next(error);
   }
 };
+const getAllUsers=async(req,res,next)=>{
+  try {
+    const usersList=await userService.fetchAll();
+    return res.status(200).json({status: 200, data:{users: usersList}});
+  } catch (error) {
+      ApplicationError.internalServerError({status:500,data:{message:'An error occured, try again!'}},res);
+      next();
+  }
+}
 export default {
   registerNew,
   verifyUser,
@@ -254,5 +261,5 @@ export default {
   refreshToken,
   logout,
   forgotPassword,
-  resetPassword
+  resetPassword,getAllUsers
 };

@@ -45,7 +45,7 @@ paths:
         '409':
           description: Already exists
         '400':
-          description: Invalid data in the request            
+          description: Bad request            
     get:                
       tags:               
         - Profile         # Value of the tag
@@ -63,4 +63,4 @@ paths:
         '404':
           description: Not found
         '400':
-          description: Invalid data in the request    
+          description: Bad request    
