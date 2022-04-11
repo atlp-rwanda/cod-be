@@ -4,5 +4,6 @@
  */
 /* eslint-disable import/prefer-default-export */
 import * as userSchema from './userValidation';
+import tripSchema from './tripValidation';
 
-export { userSchema };
+export { userSchema, tripSchema };

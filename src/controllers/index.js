@@ -2,5 +2,6 @@
  * Export all controller files here
  */
 import * as userController from './userController';
+import * as tripController from './trip.controller';
 
-export default userController;
+export { tripController, userController };

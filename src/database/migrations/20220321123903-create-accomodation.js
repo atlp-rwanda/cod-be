@@ -1,6 +1,4 @@
-/* eslint-disable valid-jsdoc */
 /* eslint-disable require-jsdoc */
-
 export async function up(queryInterface, Sequelize) {
   await queryInterface.createTable('accomodations', {
     id: {
@@ -11,7 +9,7 @@ export async function up(queryInterface, Sequelize) {
     },
     name: {
       type: Sequelize.STRING,
-      unique: false
+      unique: true
     },
     description: {
       type: Sequelize.TEXT,
@@ -54,7 +52,6 @@ export async function up(queryInterface, Sequelize) {
     }
   });
 }
-
 export async function down(queryInterface) {
   await queryInterface.dropTable('accomodations');
 }

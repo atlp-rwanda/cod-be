@@ -19,12 +19,18 @@ const AuthorizationError = async (message, res) => {
 const badRequestError = async (message, res) => {
   res.status(400).json({ Error: message, status: 400 });
 };
-
+const unAuthorisedError = async (message, res) => {
+  res.status(401).json({ Error: message, status: 401 });
+};
+export const databaseError = async (error, res) => {
+  res.status(500).json({ status: 500, data: { error } });
+};
 export {
   internalServerError,
   validationError,
   notFoundError,
   notAcceptableError,
-  AuthorizationError,
-  badRequestError
+  unAuthorisedError,
+  badRequestError,
+  AuthorizationError
 };
