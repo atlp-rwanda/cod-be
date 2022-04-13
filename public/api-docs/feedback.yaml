@@ -1,0 +1,54 @@
+definitions: # Schema defination for request body
+  feedback:
+    type: object
+    required:
+      - feedback
+    properties:
+      feedback:
+        type: string
+paths:
+  /api/v1/accommodations/{accomodationId}/feedback:
+    post:
+      tags:
+        - Feedback
+      summary: Add Feedback
+      parameters:
+        - in: path
+          name: accomodationId
+          schema:
+            type: string
+          required: true
+          description: The unique id of the Accomodation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/definitions/feedback'
+      responses:
+        '201':
+          description: Feedback Added Successfully
+        '500':
+          description: Internal server error
+        '400':
+          description: Bad Request
+    get:
+      tags:
+        - Feedback
+      summary: Get Accommodation's Feedbacks
+      parameters:
+        - in: path
+          name: accomodationId
+          schema:
+            type: string
+          description: The unique id of accomodation
+          required: true
+      responses:
+        '200':
+          description: Success
+        '500':
+          description: Internal server error
+        '404':
+          description: Not found
+        '400':
+          description: Bad request
