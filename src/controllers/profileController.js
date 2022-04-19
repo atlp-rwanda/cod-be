@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import * as profileService from '../services/profileService';
 import * as ApplicationError from '../utils/errors/applicationsErrors';
 import * as profileValidations from '../validations/profileValidation';
@@ -14,12 +15,14 @@ const updateProfile = async (userId, requestBody, response, next) => {
           requestBody
         );
         if (updatedProfile) {
-          return response.status(200)
-          .json({ status: 200, data: { Message: 'Profile updated successfully' } });
-        } 
+          return response.status(200).json({
+            status: 200,
+            data: { Message: 'Profile updated successfully' }
+          });
+        }
       } else {
         return notFound.isNotFound(
-          {data: { message: 'Profile not found' } },
+          { data: { message: 'Profile not found' } },
           response
         );
       }

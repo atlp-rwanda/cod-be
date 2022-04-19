@@ -5,13 +5,13 @@ const addUser = async (newUser) => {
   const user = await Users.create(newUser);
   return user;
 };
-const findById=async(id)=>{
+const findById = async (id) => {
   const user = await Users.findOne({ where: { id: `${id}` } });
-  if(user){
+  if (user) {
     delete user.dataValues.password;
   }
   return user;
-}
+};
 const findByEmail = async (email) => {
   const user = await Users.findOne({ where: { email: `${email}` } });
   if (user) {
@@ -43,24 +43,28 @@ const findByResetToken = async (emailToken) => {
   const user = await Users.findOne({ where: { email_token: emailToken } });
   return user;
 };
-const fetchAll = async()=>{
-  const all=await Users.findAll({
+const fetchAll = async () => {
+  const all = await Users.findAll({
     include: [
       {
-        model: models.Roles,as:'rolename',
-        attributes: ['roleName','description',]
-      },
+        model: models.Roles,
+        as: 'rolename',
+        attributes: ['roleName', 'description']
+      }
     ],
-    attributes: { exclude: ['roleId','password','email_token','googleId','facebookId']},
+    attributes: {
+      exclude: ['roleId', 'password', 'email_token', 'googleId', 'facebookId']
+    }
   });
-  
+
   return all;
-}
+};
 export {
   addUser,
   findByEmail,
   findByEmailToken,
   updateOrCreate,
-  findByResetToken,findById,
+  findByResetToken,
+  findById,
   fetchAll
 };

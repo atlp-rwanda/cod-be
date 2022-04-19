@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable consistent-return */
 /* eslint-disable no-else-return */
 /* eslint-disable prefer-destructuring */
 import dotenv from 'dotenv';
@@ -13,8 +15,7 @@ import storeToken from '../services/storeToken';
 import * as forgotPasswordValidation from '../validations/forgotPasswordValidation';
 import * as resetPasswordValidation from '../validations/resetPasswordValidation';
 import sendPasswordVerification from '../services/forgotPassword';
-import {addProfile} from '../services/profileService'
-
+import { addProfile } from '../services/profileService';
 
 dotenv.config();
 const registerNew = async (requestBody, response, appUrl, next) => {
@@ -49,9 +50,9 @@ const registerNew = async (requestBody, response, appUrl, next) => {
       if (token) {
         user.email_token = token;
         await user.save();
-        const userEmail = userData.email,
-          userName = userData.firstname,
-          emailToken = user.email_token;
+        const userEmail = userData.email;
+        const userName = userData.firstname;
+        const emailToken = user.email_token;
         await sendVerification(
           userEmail,
           userName,
@@ -61,14 +62,14 @@ const registerNew = async (requestBody, response, appUrl, next) => {
           response
         );
 
-         //  automatically create profile of the user after registration
-         const profileData = {
-          userId: user.id,
-        } 
+        //  automatically create profile of the user after registration
+        const profileData = {
+          userId: user.id
+        };
         try {
-          await addProfile(profileData)
+          await addProfile(profileData);
         } catch (error) {
-          response.json({Message: error})
+          response.json({ Message: error });
         }
       } else {
         ApplicationError.internalServerError(
@@ -177,9 +178,9 @@ const forgotPassword = async (req, res, appUrl, next) => {
           if (resetToken) {
             findIfUserExist.email_token = resetToken;
             await findIfUserExist.save();
-            const userEmail = findIfUserExist.email,
-              userName = findIfUserExist.firstname,
-              resetPasswordToken = findIfUserExist.email_token;
+            const userEmail = findIfUserExist.email;
+            const userName = findIfUserExist.firstname;
+            const resetPasswordToken = findIfUserExist.email_token;
             await sendPasswordVerification(
               userEmail,
               userName,
@@ -214,9 +215,9 @@ const forgotPassword = async (req, res, appUrl, next) => {
 const resetPassword = async (req, res, emailToken, next) => {
   try {
     const user = await userService.findByResetToken(emailToken);
-    if (!user)
-      {return new Error(ApplicationError.notFoundError(`Token Not Found`, res));}
-    else {
+    if (!user) {
+      return new Error(ApplicationError.notFoundError(`Token Not Found`, res));
+    } else {
       const newUserPassword = {
         password: req.password
       };
@@ -232,28 +233,32 @@ const resetPassword = async (req, res, emailToken, next) => {
             message: `Password Updated successfully`
           }
         });
-      } else
-        {return new Error(
+      } else {
+        return new Error(
           ApplicationError.validationError(
             validate.error.details[0].context.label,
             res
           )
-        );}
+        );
+      }
     }
   } catch (error) {
     console.log(error);
     return next(error);
   }
 };
-const getAllUsers=async(req,res,next)=>{
+const getAllUsers = async (req, res, next) => {
   try {
-    const usersList=await userService.fetchAll();
-    return res.status(200).json({status: 200, data:{users: usersList}});
+    const usersList = await userService.fetchAll();
+    return res.status(200).json({ status: 200, data: { users: usersList } });
   } catch (error) {
-      ApplicationError.internalServerError({status:500,data:{message:'An error occured, try again!'}},res);
-      next();
+    ApplicationError.internalServerError(
+      { status: 500, data: { message: 'An error occured, try again!' } },
+      res
+    );
+    next();
   }
-}
+};
 export default {
   registerNew,
   verifyUser,
@@ -261,5 +266,6 @@ export default {
   refreshToken,
   logout,
   forgotPassword,
-  resetPassword,getAllUsers
+  resetPassword,
+  getAllUsers
 };

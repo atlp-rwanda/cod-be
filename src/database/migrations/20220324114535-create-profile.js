@@ -13,8 +13,8 @@ module.exports = {
       userId: {
         type: Sequelize.UUID,
         allowNull: false,
-        unique:true,
-        },
+        unique: true
+      },
       gender: {
         type: Sequelize.STRING,
         allowNull: true

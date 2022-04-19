@@ -13,7 +13,8 @@ module.exports = (sequelize, DataTypes) => {
       Users.hasMany(models.Accomodation, {
         foreignKey: {
           name: 'userId'
-        }, as: 'createdBy'
+        },
+        as: 'createdBy'
       });
     }
   }

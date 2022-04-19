@@ -16,37 +16,37 @@ module.exports = {
         type: Sequelize.STRING,
         unique: false
       },
-      description:{
-        type:Sequelize.TEXT,
-        allowNull:false,
+      description: {
+        type: Sequelize.TEXT,
+        allowNull: false
       },
       location: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull: false
       },
-      latitude:{
-        type:Sequelize.STRING,
-        allowNull:false,
-      }, 
-      longitude:{
-        type:Sequelize.STRING,
-        allowNull:false
+      latitude: {
+        type: Sequelize.STRING,
+        allowNull: false
       },
-      userId:{
-        type:Sequelize.UUID,
-        allowNull:false,
+      longitude: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      userId: {
+        type: Sequelize.UUID,
+        allowNull: false,
         min: 2,
         max: 2,
-        isUUID: 4,
+        isUUID: 4
       },
-      managerId:{
-        type:Sequelize.UUID,
-        allowNull:true,
+      managerId: {
+        type: Sequelize.UUID,
+        allowNull: true,
         min: 2,
         max: 2,
-        isUUID: 4,
+        isUUID: 4
       },
-      
+
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

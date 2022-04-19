@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import dotenv from 'dotenv';
 import sgMail from '@sendgrid/mail';
 import sendResetPassword from './templates/sendResetVerification';

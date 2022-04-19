@@ -38,4 +38,4 @@ const updateUserRole = async (userId, role) => {
   }
   return false;
 };
-export { isSuperAdmin, findByName, updateUserRole , isAdmin};
+export { isSuperAdmin, findByName, updateUserRole, isAdmin };

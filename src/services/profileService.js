@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import models from '../database/models';
 
 const { Profile } = models;

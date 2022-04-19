@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-else-return */
 import dotenv from 'dotenv';
 import { Users } from '../database/models';

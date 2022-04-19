@@ -45,7 +45,7 @@ describe('/PUT User Profile ', () => {
       .send(credentials);
     expect(res).to.have.property('status', 200);
     expect(res.body).to.have.property('accessToken');
-    
+
     token = res.body.accessToken;
     const decoded = await decodeAccessToken(token);
     id = decoded.id;
@@ -60,9 +60,7 @@ describe('/PUT User Profile ', () => {
       })
       .send(profileInfo);
 
-      expect(profileRes).to.have.status(200);
-      expect(profileRes.body.data)
-        .to.have.property('Message')    
+    expect(profileRes).to.have.status(200);
+    expect(profileRes.body.data).to.have.property('Message');
   });
-
 });

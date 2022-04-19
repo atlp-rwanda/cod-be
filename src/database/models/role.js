@@ -11,10 +11,11 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       });
-      models.Users.belongsTo(models.Roles,{
+      models.Users.belongsTo(models.Roles, {
         foreignKey: {
           name: 'roleId'
-        }, as: 'rolename'
+        },
+        as: 'rolename'
       });
     }
   }
