@@ -41,7 +41,7 @@ export default (sequelize, DataTypes) => {
         allowNull: false
       },
       destination: {
-        type: DataTypes.STRING,
+        type: DataTypes.ARRAY(DataTypes.STRING),
         allowNull: false
       },
       dateOfTravel: {

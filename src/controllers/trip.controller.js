@@ -24,7 +24,11 @@ export const makeTripRequest = async (req, res) => {
     accomodationId,
     userId: req.user.id
   };
-  const trip = await tripService.createTripRequest(newTripRequest);
+  const trip =
+    typeof destination === 'string'
+      ? await tripService.createTripRequest(newTripRequest)
+      : await tripService.createMulticityTripRequest(newTripRequest);
+
   if (trip) {
     createdResponse(res, 'New trip request made successfully', trip);
   } else {

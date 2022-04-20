@@ -180,7 +180,6 @@ describe('Trip request', () => {
       expect(badRes2.body.data)
         .to.have.property('message')
         .and.to.be.eql('One trip request fetched successfully');
-      console.log(badreq3.body);
       expect(badreq3).to.have.status(500);
       requester.close();
     });
