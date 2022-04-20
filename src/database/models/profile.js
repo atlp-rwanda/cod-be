@@ -1,11 +1,9 @@
 /* eslint-disable valid-jsdoc */
 /* eslint-disable require-jsdoc */
-/* eslint-disable no-unused-vars */
-/* eslint-disable strict */
 
-const { Model } = require('sequelize');
+import { Model } from 'sequelize';
 
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
   class Profile extends Model {
     static associate(models) {
       Profile.hasOne(models.Users, {

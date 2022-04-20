@@ -1,11 +1,9 @@
-/* eslint-disable valid-jsdoc */
 /* eslint-disable require-jsdoc */
-/* eslint-disable no-unused-vars */
-/* eslint-disable strict */
+/* eslint-disable valid-jsdoc */
 
-const { Model } = require('sequelize');
+import { Model } from 'sequelize';
 
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
   class Accomodation extends Model {
     /**
      * Helper method for defining associations.
