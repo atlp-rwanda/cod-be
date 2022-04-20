@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { LoggedInUser } from '../database/models';
 import {
   generateAccessToken,

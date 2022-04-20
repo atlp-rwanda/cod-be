@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     await queryInterface.bulkInsert(
       'Profiles',
       [
@@ -16,13 +16,13 @@ module.exports = {
           birthdate: '02-02-2002',
           createdAt: new Date(),
           updatedAt: new Date()
-        },
+        }
       ],
       {}
     );
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     await queryInterface.bulkDelete('Profiles', null, {});
   }
 };

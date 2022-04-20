@@ -16,58 +16,62 @@ module.exports = (sequelize, DataTypes) => {
       Accomodation.belongsTo(models.Users, {
         foreignKey: {
           name: 'userId'
-        }, as: 'createdBy'
+        },
+        as: 'createdBy'
       });
     }
   }
-  Accomodation.init({
-    id:{
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true
+  Accomodation.init(
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+      },
+      name: {
+        type: DataTypes.STRING,
+        unique: false,
+        allowNull: false
+      },
+      description: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      location: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      latitude: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      longitude: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      userId: {
+        type: DataTypes.UUID,
+        allowNull: false
+      },
+      managerId: {
+        type: DataTypes.UUID,
+        allowNull: true
+      },
+      createdAt: {
+        allowNull: false,
+        type: DataTypes.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: DataTypes.DATE
+      }
     },
-    name:{
-      type:DataTypes.STRING,
-      unique: false,
-      allowNull:false,
-    },
-    description:{
-      type:DataTypes.STRING,
-      allowNull:false,
-    },
-    location:{
-      type:DataTypes.STRING,
-      allowNull:false
-    },
-    latitude:{
-      type:DataTypes.STRING,
-      allowNull:false,
-    }, 
-    longitude:{
-      type:DataTypes.STRING,
-      allowNull:false
-    },
-    userId:{
-      type:DataTypes.UUID,
-      allowNull:false
-    },
-    managerId:{
-      type:DataTypes.UUID,
-      allowNull:true
-    },
-    createdAt: {
-      allowNull: false,
-      type: DataTypes.DATE
-    },
-    updatedAt: {
-      allowNull: false,
-      type: DataTypes.DATE
+    {
+      sequelize,
+      modelName: 'Accomodation',
+      tableName: 'accomodations',
+      timestamps: true
     }
-  }, {
-    sequelize,
-    modelName: 'Accomodation',
-    tableName: 'accomodations',
-    timestamps: true,
-  });
+  );
   return Accomodation;
 };

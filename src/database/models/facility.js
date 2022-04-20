@@ -3,7 +3,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable strict */
 
-const { Model} = require('sequelize');
+const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class Facility extends Model {
@@ -13,59 +13,65 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Facility.hasMany(models.FacilityComponent,{
+      Facility.hasMany(models.FacilityComponent, {
         foreignKey: {
-          name: 'facilityId',
-        },as: 'components',
+          name: 'facilityId'
+        },
+        as: 'components'
       });
-      Facility.belongsTo(models.Accomodation,{
+      Facility.belongsTo(models.Accomodation, {
         foreignKey: {
-          name: 'accomId',
-        },as: 'accomodation'
+          name: 'accomId'
+        },
+        as: 'accomodation'
       });
-      Facility.belongsTo(models.Users,{
+      Facility.belongsTo(models.Users, {
         foreignKey: {
-          name: 'userId',
-        },as: 'createdBy'
+          name: 'userId'
+        },
+        as: 'createdBy'
       });
     }
   }
-  Facility.init({
-    id:{
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true
+  Facility.init(
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+      },
+      accomId: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: false
+      },
+      description: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      userId: {
+        type: DataTypes.UUID,
+        allowNull: false
+      },
+      createdAt: {
+        allowNull: false,
+        type: DataTypes.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: DataTypes.DATE
+      }
     },
-    accomId:{
-      type:DataTypes.INTEGER,
-      allowNull:false,
-    },
-    name:{
-      type:DataTypes.STRING,
-      allowNull:false,
-      unique: false,
-    },
-    description:{
-      type:DataTypes.STRING,
-      allowNull:false,
-    },
-    userId:{
-      type:DataTypes.UUID,
-      allowNull:false
-    },
-    createdAt: {
-      allowNull: false,
-      type: DataTypes.DATE
-    },
-    updatedAt: {
-      allowNull: false,
-      type: DataTypes.DATE
+    {
+      sequelize,
+      modelName: 'Facility',
+      tableName: 'facilities',
+      timestamps: true
     }
-  }, {
-    sequelize,
-    modelName: 'Facility',
-    tableName: 'facilities',
-    timestamps:true
-  });
+  );
   return Facility;
 };

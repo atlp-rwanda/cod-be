@@ -1,10 +1,11 @@
+/* eslint-disable no-console */
 /* eslint-disable no-else-return */
 /* eslint-disable no-unused-vars */
 import express from 'express';
 import * as userControl from '../controllers/userController';
 import * as verifyPasswordToken from '../utils/helpers/jwt_helper';
 import isLoggedIn from '../middlewares/authenticate';
-import {superAdmin} from '../middlewares/authorize';
+import { superAdmin } from '../middlewares/authorize';
 
 const userRouter = express.Router();
 
@@ -107,11 +108,11 @@ userRouter.patch(
 );
 userRouter.get('/users', isLoggedIn, superAdmin, async (req, res, next) => {
   try {
-      userControl.default.getAllUsers(req,res,next);
+    userControl.default.getAllUsers(req, res, next);
   } catch (error) {
-      res.status(500).json({'Error:': error });
-      next(error);        
-  }  
+    res.status(500).json({ 'Error:': error });
+    next(error);
+  }
 });
 
 export default userRouter;

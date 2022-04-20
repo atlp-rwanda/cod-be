@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import * as configs from '../config';
 
 const envKey = configs.default.envKeys;

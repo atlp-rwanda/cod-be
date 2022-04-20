@@ -3,13 +3,10 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable strict */
 
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class Profile extends Model {
-    
     static associate(models) {
       Profile.hasOne(models.Users, {
         foreignKey: 'id',
@@ -18,59 +15,62 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
   }
-  Profile.init({
-    id: {
-      allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
-      type: DataTypes.INTEGER
+  Profile.init(
+    {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: DataTypes.INTEGER
+      },
+      userId: {
+        type: DataTypes.UUID,
+        allowNull: false,
+        unique: true
+      },
+      gender: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      language: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      currency: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      location: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      departement: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      manager: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      birthdate: {
+        type: DataTypes.DATE,
+        allowNull: true
+      },
+      createdAt: {
+        allowNull: false,
+        type: DataTypes.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: DataTypes.DATE
+      }
     },
-    userId: {
-      type: DataTypes.UUID,
-      allowNull: false,
-      unique: true
-    },
-    gender: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    language: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    currency: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    location: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    departement: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    manager: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    birthdate: {
-      type: DataTypes.DATE,
-      allowNull: true
-    },
-    createdAt: {
-      allowNull: false,
-      type: DataTypes.DATE
-    },
-    updatedAt: {
-      allowNull: false,
-      type: DataTypes.DATE
+    {
+      sequelize,
+      modelName: 'Profile',
+      tableName: 'Profiles',
+      timestamps: true
     }
-  }, {
-    sequelize,
-    modelName: 'Profile',
-    tableName: 'Profiles',
-    timestamps: true
-  });
+  );
   return Profile;
 };

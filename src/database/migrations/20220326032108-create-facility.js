@@ -12,25 +12,25 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      accomId:{
-        type:Sequelize.INTEGER,
-        allowNull:false,
+      accomId: {
+        type: Sequelize.INTEGER,
+        allowNull: false
       },
       name: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull: false,
         unique: false
       },
-      description:{
-        type:Sequelize.STRING,
-        allowNull:false,
+      description: {
+        type: Sequelize.STRING,
+        allowNull: false
       },
-      userId:{
-        type:Sequelize.UUID,
-        allowNull:false,
+      userId: {
+        type: Sequelize.UUID,
+        allowNull: false,
         min: 2,
         max: 2,
-        isUUID: 4,
+        isUUID: 4
       },
       createdAt: {
         allowNull: false,

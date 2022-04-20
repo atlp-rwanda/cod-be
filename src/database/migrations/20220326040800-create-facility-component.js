@@ -12,31 +12,31 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      facilityId:{
+      facilityId: {
         type: Sequelize.INTEGER,
-        allowNull:false,
-      },
-      userId:{
-        type: Sequelize.UUID,
-        allowNull:false,
-      },
-      description: {
-        type:Sequelize.STRING,
         allowNull: false
       },
-      quantity:{
+      userId: {
+        type: Sequelize.UUID,
+        allowNull: false
+      },
+      description: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      quantity: {
         type: Sequelize.INTEGER,
         defaultValue: 0
       },
-      price:{
+      price: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      image:{
+      image: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull: false
       },
-      booking: { 
+      booking: {
         type: Sequelize.BOOLEAN,
         defaultValue: false
       },

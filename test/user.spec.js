@@ -70,9 +70,10 @@ describe('/POST  register endpoint', () => {
     loginToken = res.body.accessToken;
   });
   it('It should get all users', async () => {
-    const res = await request(server).get('/api/users')
-    .set('Authorization', `Bearer ${loginToken}`)
-    .send(loginAdmin);
+    const res = await request(server)
+      .get('/api/users')
+      .set('Authorization', `Bearer ${loginToken}`)
+      .send(loginAdmin);
     expect(res).to.have.status(200);
     expect(res.body.data).to.have.property('users');
   });

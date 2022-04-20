@@ -5,7 +5,7 @@ import isLoggedIn from '../middlewares/authenticate';
 
 const profileRouter = express.Router();
 
-profileRouter.put('/user/profile/:userId',isLoggedIn ,(req, res, next) => {
+profileRouter.put('/user/profile/:userId', isLoggedIn, (req, res, next) => {
   const userId = req.params.userId;
   try {
     profileControl.default.updateProfile(userId, req.body, res, next);
