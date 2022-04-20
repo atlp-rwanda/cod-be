@@ -1,11 +1,9 @@
 /* eslint-disable valid-jsdoc */
 /* eslint-disable require-jsdoc */
-/* eslint-disable no-unused-vars */
-/* eslint-disable strict */
 
-const { Model } = require('sequelize');
+import { Model } from 'sequelize';
 
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
   class FacilityComponent extends Model {
     static associate(models) {
       FacilityComponent.belongsTo(models.Facility, {

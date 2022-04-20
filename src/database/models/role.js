@@ -1,9 +1,9 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable require-jsdoc */
+/* eslint-disable valid-jsdoc */
 
-const { Model } = require('sequelize');
+import { Model } from 'sequelize';
 
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
   class Roles extends Model {
     static associate(models) {
       Roles.hasMany(models.Users, {

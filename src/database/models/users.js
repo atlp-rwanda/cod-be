@@ -1,13 +1,8 @@
-/* eslint-disable valid-jsdoc */
 /* eslint-disable require-jsdoc */
-/* eslint-disable no-unused-vars */
-/* eslint-disable strict */
+/* eslint-disable valid-jsdoc */
+import { Model } from 'sequelize';
 
-'use strict';
-
-const { Model } = require('sequelize');
-
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
   class Users extends Model {
     static associate(models) {
       Users.hasMany(models.Accomodation, {
