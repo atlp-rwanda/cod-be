@@ -25,8 +25,19 @@ const isAdmin = async (email, userId) => {
   }
   return false;
 };
-const findByName = async (rolename) => {
-  const role = await Roles.findOne({ where: { roleName: `${rolename}` } });
+const getUserRole = async (userId) => {
+  const user = await Users.findOne({
+    where: {
+      id: userId
+    }
+  });
+  const userRoleName = await Roles.findOne({
+    where: { id: user.dataValues.roleId }
+  });
+  return userRoleName.dataValues.roleName;
+};
+const findByName = async (roleName) => {
+  const role = await Roles.findOne({ where: { roleName } });
   return role;
 };
 const updateUserRole = async (userId, role) => {
@@ -38,4 +49,4 @@ const updateUserRole = async (userId, role) => {
   }
   return false;
 };
-export { isSuperAdmin, findByName, updateUserRole, isAdmin };
+export { isSuperAdmin, findByName, updateUserRole, isAdmin, getUserRole };

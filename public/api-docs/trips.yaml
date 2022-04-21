@@ -1,0 +1,128 @@
+definitions:        # Schema defination for request body
+  trips:
+    type: object
+    required: 
+      - departure
+      - destination
+      - dateOfTravel
+      - dateOfReturn
+      - Accomodation
+      - travelReason
+    properties:
+      departure:
+        type: string
+      destination:
+        type: string
+      dateOfTravel:
+        type: string
+        format: date
+        description: Date of travel
+      dateOfReturn:
+        type: string
+        format: date
+        description: Date of Return
+      accomodationId: 
+        type: string
+      travelReason:
+        type: string
+paths:
+  /api/v1/trip:          
+    post:                 
+      tags:               
+        - Trip        
+      summary: Makes new trip request
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              $ref: '#/definitions/trips'          
+      responses:
+        '201':
+          description: New trip request is successfully created
+        '500':
+          description: Internal server error
+        '401':
+          description: Unauthorized
+        '400':
+          description: Invalid data in the request   
+        links:
+          GetUserByUserId:   # <---- arbitrary name for the link
+            operationId: getTrip
+            parameters:
+              tripId: '$response.body#/id'
+            description: >
+              The `id` value returned in the response can be used as
+              the `tripId` parameter in `GET /trip/{tripId}`.
+    get:                 
+      tags:              
+        - Trip        
+      summary: Get All trip requests  
+      operationId: getTrip      
+      responses:
+        '200':
+          description: Fetched all trip request successfully
+        '500':
+          description: Internal server error
+        '401':
+          description: Unauthorized
+  /api/v1/trip/{tripId}:           
+    get:                 
+      tags:              
+        - Trip        
+      summary: Get one trip request       
+      parameters:
+        - name: tripId
+          in: path
+          required: true
+          schema:
+            type: string
+          description:  Id of the trip
+      responses:
+        '200':
+          description: Fetched trip request successfully
+        '500':
+          description: Internal server error
+        '401':
+          description: Unauthorized
+    delete:                 
+      tags:              
+        - Trip        
+      summary: Delete  trip request       
+      parameters:
+        - name: tripId
+          in: path
+          required: true
+          schema:
+            type: string
+          description:  Id of the trip
+      responses:
+        '202':
+          description:  Trip request deleted successfully
+        '500':
+          description: Internal server error
+        '401':
+          description: Unauthorized
+    put:                 
+      tags:              
+        - Trip        
+      summary: Update trip request  
+      requestBody:
+        content: 
+          application/json:
+            schema:
+              $ref: '#/definitions/trips'   
+      parameters:
+        - name: tripId
+          in: path
+          required: true
+          schema:
+            type: string
+          description:  Id of the trip    
+      responses:
+        '200':
+          description: Updated trip request successfully
+        '500':
+          description: Internal server error
+        '401':
+          description: Unauthorized
