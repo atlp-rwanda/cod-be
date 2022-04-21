@@ -91,3 +91,15 @@ use them and add your own whenever needed.
   }
 }
 ```
+
+### LIKE AND UNLIKE AN ACCOMODATION 
+To like or unlike the accomodation  means to add a like to like database with likeStatus= false or remove it from the database respectively.
+- To test this functionality you can use postman you have first to login as requestor because it is only a requester who can like the accomodation and go to Post method  `/api/v1/accomodation/:accomodation_id/like` then if you have not liked the facilty you like it and you get 201 status code and message saying that you have succesfully liked that accomodation if you try to like the second time it becomes unlike and you get 200 status code and message saying that you have succesfully unliked a accomodation.
+- You can also test using swagger documentation by going to `/api-docs` and go to like the try out the click execute if you are logged in as requeste you get succesfully like the accomodation or unlike it.
+- You can also get all the likes of a specific accomodation by going to method get `/api/v1/accomodation/:accomodation_id/like` the you get all likes of an accomodation.
+
+### DISLIKE AND UNDISLIKE AN ACCOMODATION FACILITY
+To dislike or undislike the accomodation means to add a like to like database with like Status= false or remove it from the database respectively.
+- To test this functionality you can use postman you have first to login as requestor because it is only a requester who can like the accomodation and go to Post method  `/api/v1/accomodation/:accomodation_id/dislike` then if you have not liked the facilty you like it and you get 201 status code and message saying that you have succesfully liked that accomodation if you try to like the second time it becomes unlike and you get 200 status code and message saying that you have succesfully unliked an accomodation.
+- You can also test using swagger documentation by going to `/api-docs` and go to like the try out the click execute if you are logged in as requeste you get succesfully like the accomodation or unlike it.
+- You can also get all the likes of a specific accomodation by going to method get `/api/v1/accomodation/:accomodation_id/dislike` the you get all likes of an accomodation.

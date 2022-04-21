@@ -4,6 +4,11 @@ import jwt from 'jsonwebtoken';
 import * as isAuthorized from '../utils/errors/authorizationError';
 import * as notFound from '../utils/errors/notFoundError';
 import { isAdmin, isSuperAdmin as superUser } from '../services/rolesService';
+import { Users } from '../database/models';
+import {
+  AuthorizationError,
+  internalServerError
+} from '../utils/errors/applicationsErrors';
 
 dotenv.config();
 const jwtToken = process.env.JWT_KEY;
@@ -49,5 +54,16 @@ const superAdmin = async (req, res, next) => {
     isAuthorized.isNotAuthorized('Access denied', res);
   }
 };
+const isRequester = async (req, res, next) => {
+  try {
+    const user = await Users.findOne({ where: { id: req.user.id } });
+    if (user.roleId !== 4) {
+      return AuthorizationError('You are not a requester', res);
+    }
+    next();
+  } catch (error) {
+    return internalServerError('Error occured', res);
+  }
+};
 
-export { isSuperAdmin, adminUser, superAdmin };
+export { isSuperAdmin, adminUser, superAdmin, isRequester };
