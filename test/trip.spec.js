@@ -91,7 +91,6 @@ describe('Trip request', () => {
       expect(badReq.body.data)
         .to.have.property('message')
         .and.to.be.eql('Place of departure is required');
-
       expect(badReq2.body.data).to.have.property('error');
       expect(badReq2.body.data)
         .to.have.property('message')
@@ -199,12 +198,11 @@ describe('Trip request', () => {
     });
     it('Should not edit trip request that is pending', async () => {
       trip.status = 'approved';
+      trip.destination = ['Kigali'];
       await tripService.updateTrip(tripId, trip);
-
       const res = await request(server)
         .put('/api/v1/trip/' + tripId)
         .set('Authorization', `Bearer ${loginToken}`);
-
       expect(res).to.have.status(401);
       expect(res.body).to.have.property('Error');
       expect(res.body.Error).to.be.eql('Not allowed to edit this trip request');

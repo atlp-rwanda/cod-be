@@ -10,18 +10,10 @@ export const createTripRequest = async (trip) => {
     return { error: err };
   }
 };
-export const createMulticityTripRequest = async (trip) => {
-  try {
-    const newTrip = await Trips.create(trip);
-    return newTrip;
-  } catch (err) {
-    return { error: err };
-  }
-};
 export const findAllTripRequest = async () => {
-   const trips = await Trips.findAll({});
-   return {trips};
-}
+  const trips = await Trips.findAll({});
+  return { trips };
+};
 export const findTripById = async (tripId) => {
   try {
     const trip = await Trips.findOne({

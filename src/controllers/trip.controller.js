@@ -9,12 +9,15 @@ import {
 export const makeTripRequest = async (req, res) => {
   const {
     departure,
-    destination,
     dateOfTravel,
     dateOfReturn,
     travelReason,
     accomodationId
   } = req.body;
+  let { destination } = req.body;
+  destination = Array.isArray(destination)
+    ? destination
+    : destination.split(',');
   const newTripRequest = {
     departure,
     destination,
@@ -24,11 +27,7 @@ export const makeTripRequest = async (req, res) => {
     accomodationId,
     userId: req.user.id
   };
-  const trip =
-    typeof destination === 'string'
-      ? await tripService.createTripRequest(newTripRequest)
-      : await tripService.createMulticityTripRequest(newTripRequest);
-
+  const trip = await tripService.createTripRequest(newTripRequest);
   if (trip) {
     createdResponse(res, 'New trip request made successfully', trip);
   } else {
@@ -91,6 +90,12 @@ export const updateTripRequest = async (req, res) => {
   const { trip } = await tripService.findTripById(req.params.id);
   if (trip === null) return notFoundResponse(res, 'Trip not found');
   if (trip && trip.userId === req.user.id && trip.status === 'pending') {
+    console.log(trip.dataValues.status);
+    let { destination } = req.body;
+    destination = Array.isArray(destination)
+      ? destination
+      : destination.split(',');
+    req.body.destination = destination;
     const { error } = await tripService.updateTrip(req.params.id, req.body);
     if (error) return ApplicationError.internalServerError(error, res);
     successResponse(res, 200, 'Trip request updated successfully');
