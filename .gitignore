@@ -107,6 +107,7 @@ build
 
 #editor
 .editorconfig
+.vscode/
 
 #build folder
 build
