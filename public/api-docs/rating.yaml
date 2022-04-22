@@ -1,0 +1,72 @@
+paths:
+  /api/v1/accommodations/{accom_id}/rating:           # path of your endpoint
+    post:                 # endpoint request type (post request)
+      tags:               # Tag property
+        - Rating         # Value of the tag
+      summary: rating an accomodation
+      parameters:
+        - in: path
+          name: accom_id
+          schema:
+            type: integer
+          required: true
+          description: accomodation id
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              required:
+                - serviceRating
+              properties:
+                serviceRating:
+                  type: integer
+                  description: service rating
+      responses:          # server responses
+        '201':
+          description: accomodation rated succesfully
+        '404':
+          description: accomodation not found
+        '500':
+          description: internal server error
+  /api/v1/accommodations/{accomodation_id}/rating:           # path of your endpoint
+    get:                 # endpoint request type (post request)
+      tags:               # Tag property
+        - Rating         # Value of the tag
+      summary: getting ratings of an accomodation
+      parameters:
+        - in: path
+          name: accomodation_id
+          schema:
+            type: integer
+          required: true
+          description: accomodation id
+      
+      responses:          # server responses
+        '201':
+          description: get all ratings of an accomodation 
+        '404':
+          description: accomodation not found
+        '500':
+          description: internal server error
+  /api/v1/accommodations/{accomodation_id}/getratings:           # path of your endpoint
+    get:                 # endpoint request type (post request)
+      tags:               # Tag property
+        - Rating         # Value of the tag
+      summary: getting rating classification of an accomodation
+      parameters:
+        - in: path
+          name: accomodation_id
+          schema:
+            type: integer
+          required: true
+          description: accomodation id
+      
+      responses:          # server responses
+        '201':
+          description: get all rating classification of an accomodation 
+        '404':
+          description: accomodation not found
+        '500':
+          description: internal server error
+          
