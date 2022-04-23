@@ -1,5 +1,6 @@
 import * as ApplicationError from '../utils/errors/applicationsErrors';
 import { tripService, roleService } from '../services';
+import { changeToArray } from '../utils/changeToArray';
 import {
   notFoundResponse,
   successResponse,
@@ -14,10 +15,7 @@ export const makeTripRequest = async (req, res) => {
     travelReason,
     accomodationId
   } = req.body;
-  let { destination } = req.body;
-  destination = Array.isArray(destination)
-    ? destination
-    : destination.split(',');
+  let destination = changeToArray(req.body.destination)
   const newTripRequest = {
     departure,
     destination,
@@ -91,10 +89,7 @@ export const updateTripRequest = async (req, res) => {
   if (trip === null) return notFoundResponse(res, 'Trip not found');
   if (trip && trip.userId === req.user.id && trip.status === 'pending') {
     console.log(trip.dataValues.status);
-    let { destination } = req.body;
-    destination = Array.isArray(destination)
-      ? destination
-      : destination.split(',');
+    let destination = changeToArray(req.body.destination)
     req.body.destination = destination;
     const { error } = await tripService.updateTrip(req.params.id, req.body);
     if (error) return ApplicationError.internalServerError(error, res);
