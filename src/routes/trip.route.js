@@ -1,8 +1,15 @@
+/* eslint-disable import/named */
 import express from 'express';
-import { tripController } from '../controllers';
+import { tripController, tripStatController } from '../controllers';
 import { validate, errorHandler, isLoggedIn } from '../middlewares';
 import * as auth from '../middlewares/authorize';
-import { tripSchema, approveRequestSchema } from '../validations';
+import {
+  tripSchema,
+  approveRequestSchema,
+  staticsValidate,
+  periodValidate
+} from '../validations';
+import queryValidate from '../middlewares/queryValidate';
 
 const tripRouter = express.Router();
 
@@ -14,6 +21,18 @@ tripRouter.post(
 );
 
 tripRouter.get('/', isLoggedIn, errorHandler(tripController.getAllTripRequest));
+tripRouter.get(
+  '/statistics',
+  queryValidate(staticsValidate),
+  isLoggedIn,
+  errorHandler(tripStatController.tripStatistics)
+);
+tripRouter.get(
+  '/statistics/recent',
+  queryValidate(periodValidate),
+  isLoggedIn,
+  errorHandler(tripStatController.recentTripStatistic)
+);
 
 tripRouter.get(
   '/:id',
