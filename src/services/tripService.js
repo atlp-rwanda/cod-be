@@ -1,3 +1,4 @@
+import { Op } from 'sequelize';
 import models from '../database/models';
 
 const { Trips, Accomodation, Users } = models;
@@ -141,5 +142,42 @@ export const approveOrRejectTrip = async (tripId, newTripStatus) => {
     return { updatedTrip };
   } catch (err) {
     return { error: err };
+  }
+};
+export const countTrips = async (userId, start, end, userRole) => {
+  try {
+    if (userRole === 'Requester') {
+      const trips = await Trips.findAndCountAll({
+        where: {
+          [Op.and]: [
+            { userId },
+            { createdAt: { [Op.between]: [start, end] } },
+            { status: 'approved' }
+          ]
+        }
+      });
+      return trips;
+    }
+    if (userRole === 'Manager') {
+      const accomodation = await models.Accomodation.findAll({
+        where: { managerId: userId }
+      });
+      const ids = accomodation.map((accom) => accom.id);
+      if (!ids.length) {
+        return { count: 0 };
+      }
+      const trips = await Trips.findAndCountAll({
+        where: {
+          accomodationId: {
+            [Op.or]: ids
+          },
+          createdAt: { [Op.between]: [start, end] },
+          status: 'approved'
+        }
+      });
+      return trips;
+    }
+  } catch (error) {
+    return { error };
   }
 };
