@@ -8,7 +8,7 @@ export default {
         {
           id: 3,
           name: 'Serena Hotel',
-          location: 'Rubavu',
+          location: ['Rubavu'],
           description: 'This is a very prestigious hotel',
           latitude: '234234',
           longitude: '234324',
@@ -24,7 +24,7 @@ export default {
           description: 'This is a very silent hotel',
           latitude: '234234',
           longitude: '234324',
-          location: 'Kayonza',
+          location: ['Kigali'],
           userId: 'b66cfc7c-be2c-41f5-b459-e888bfe881a6',
           managerId: 'b66cfc7c-be2c-41f5-b459-e888bfe881a6',
           createdAt: new Date(),

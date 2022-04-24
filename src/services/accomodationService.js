@@ -40,4 +40,13 @@ const removeById = async (id) => {
   await Accomodation.destroy({ where: { id: `${id}` } });
 };
 
-export { addNew, fetchAll, getById, removeById };
+const getAccommodationLocations = async (id) => {
+  try {
+    const accommodation = await Accomodation.findOne({ where: { id } });
+    if (accommodation) return accommodation.dataValues.location;
+  } catch (error) {
+    return { error };
+  }
+};
+
+export { addNew, fetchAll, getById, removeById, getAccommodationLocations };

@@ -4,7 +4,7 @@ export async function up(queryInterface) {
     'ALTER TABLE trips ALTER COLUMN destination TYPE VARCHAR [] USING destination::character varying[];'
   );
   queryInterface.sequelize.query(
-    'ALTER TABLE accomodations ALTER COLUMN location TYPE VARCHAR [] USING destination::character varying[];'
+    'ALTER TABLE accomodations ALTER COLUMN location TYPE VARCHAR [] USING location::character varying[];'
   );
 }
 

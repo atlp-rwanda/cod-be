@@ -110,20 +110,20 @@ describe('Trip request', () => {
       expect(badReq5.body.data)
         .to.have.property('message')
         .and.to.be.eql('Date of return should be greater than Date of travel');
-
       trip.accomodationId = 9;
       const res = await request(server)
         .post('/api/v1/trip')
         .set('Authorization', `Bearer ${loginToken}`)
         .send(trip);
-      expect(res.body.data.data.error)
-        .to.have.property('name')
-        .and.to.be.eql('SequelizeForeignKeyConstraintError');
+      expect(res.body).to.be.eql({
+        'Error:': "The accommodation don't have any locations or doesn't exist",
+        status: 500
+      });
       requester.close();
     });
 
     it('Should make new trip request', async () => {
-      trip.accomodationId = 3;
+      trip.accomodationId = 2;
       const res = await request(server)
         .post('/api/v1/trip')
         .set('Authorization', `Bearer ${loginToken}`)

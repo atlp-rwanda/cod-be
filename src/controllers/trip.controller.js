@@ -1,6 +1,6 @@
 import * as ApplicationError from '../utils/errors/applicationsErrors';
 import { tripService, roleService } from '../services';
-import changeToArray from '../utils/changeToArray';
+import changeToArray from '../utils/helpers/changeToArray';
 import {
   notFoundResponse,
   successResponse,
@@ -25,14 +25,11 @@ export const makeTripRequest = async (req, res) => {
     accomodationId,
     userId: req.user.id
   };
-  const trip = await tripService.createTripRequest(newTripRequest);
+  const { trip, error } = await tripService.createTripRequest(newTripRequest);
   if (trip) {
     createdResponse(res, 'New trip request made successfully', trip);
   } else {
-    ApplicationError.internalServerError(
-      `There was a problem making your trip request`,
-      res
-    );
+    ApplicationError.internalServerError(error, res);
   }
 };
 

@@ -1,11 +1,36 @@
+import Joi from 'joi';
 import models from '../database/models';
+import { getAccommodationLocations } from './accomodationService';
 
 const { Trips, Accomodation, Users } = models;
 
+const validateDestination = async (trip) => {
+  const validLocations = await getAccommodationLocations(trip.accomodationId);
+  if (validLocations === undefined) {
+    return {
+      error: "The accommodation don't have any locations or doesn't exist"
+    };
+  }
+  const { error } = Joi.object()
+    .keys({
+      destination: Joi.array().items(Joi.string().valid(...validLocations))
+    })
+    .messages({
+      'any.only': `Destinations must be one of Accommodation locations:${validLocations}`
+    })
+    .validate({ destination: trip.destination });
+  if (error) {
+    return { error };
+  }
+  return { error: false };
+};
+
 export const createTripRequest = async (trip) => {
   try {
+    const { error } = await validateDestination(trip);
+    if (error) return { error };
     const newTrip = await Trips.create(trip);
-    return newTrip;
+    return { trip: newTrip };
   } catch (err) {
     return { error: err };
   }
