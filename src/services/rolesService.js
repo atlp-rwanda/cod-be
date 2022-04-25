@@ -40,6 +40,7 @@ const findByName = async (roleName) => {
   const role = await Roles.findOne({ where: { roleName } });
   return role;
 };
+
 const updateUserRole = async (userId, role) => {
   const user = await Users.findOne({ where: { id: `${userId}` } });
   if (user) {
@@ -49,4 +50,19 @@ const updateUserRole = async (userId, role) => {
   }
   return false;
 };
-export { isSuperAdmin, findByName, updateUserRole, isAdmin, getUserRole };
+const isManager = async (email, userId) => {
+  const user = await Users.findOne({
+    where: { email: `${email}`, id: userId }
+  });
+  if (!user) return false;
+  if (user.dataValues.roleId === 3) return true;
+  return false;
+};
+export {
+  isSuperAdmin,
+  findByName,
+  updateUserRole,
+  isAdmin,
+  getUserRole,
+  isManager
+};

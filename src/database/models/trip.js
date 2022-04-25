@@ -17,6 +17,18 @@ export default (sequelize, DataTypes) => {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       });
+      Trips.belongsTo(models.Users, {
+        foreignKey: {
+          name: 'userId'
+        },
+        as: 'ownedBy'
+      });
+      Trips.belongsTo(models.Users, {
+        foreignKey: {
+          name: 'userId'
+        },
+        as: 'managedBy'
+      });
     }
   }
 

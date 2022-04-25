@@ -4,7 +4,7 @@ import server from '../src/app';
 import models from '../src/database/models';
 import { tripService } from '../src/services';
 
-const { Trips, Users } = models;
+const { Trips } = models;
 chai.should();
 use(chaiHttp);
 
@@ -21,24 +21,11 @@ const trip = {
 };
 
 before(async () => {
-  await Users.create({
-    email: 'random1@gmail.com',
-    firstname: 'Random',
-    lastname: 'Person',
-    password: '$2a$12$qFP7wTRyEEclEjdoDA9OBOV3xDorty5aaE.nEy2lCRQwgVOdp1lIq',
-    isVerified: true
-  });
-
   const res = await request(server).post('/api/user/login').send({
     email: 'random1@gmail.com',
-    password: 'pswd123'
+    password: 'altp6@random'
   });
   loginToken = res.body.accessToken;
-});
-
-after(async () => {
-  await Trips.destroy({ where: {} });
-  await Users.destroy({ where: { email: 'random@gmail.com' } });
 });
 
 describe('Trip request', () => {
@@ -156,7 +143,6 @@ describe('Trip request', () => {
           .get('/api/v1/trip/' + undefinedTripId)
           .set('Authorization', `Bearer ${loginToken}`)
       ]);
-
       expect(res).to.have.status(200);
       expect(res.body).to.have.property('data');
       expect(res.body.data)
@@ -180,7 +166,6 @@ describe('Trip request', () => {
       expect(badRes2.body.data)
         .to.have.property('message')
         .and.to.be.eql('One trip request fetched successfully');
-      console.log(badreq3.body);
       expect(badreq3).to.have.status(500);
       requester.close();
     });

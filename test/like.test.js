@@ -1,24 +1,22 @@
 import { describe, it, beforeEach, afterEach } from 'mocha';
 import chaiHTTP from 'chai-http';
 import chai, { expect } from 'chai';
-import { Users, Accomodation } from '../src/database/models';
+import { Users } from '../src/database/models';
 import app from '../src/app';
 
 chai.use(chaiHTTP);
 
 describe('Like testing ', () => {
   beforeEach(async () => {
-    await Users.destroy({ where: { email: 'random@gmail.com' } });
-    await Accomodation.destroy({ where: { name: `Galaxy Hotel` } });
+    await Users.destroy({ where: { email: 'random15@gmail.com' } });
   });
 
   afterEach(async () => {
-    await Users.destroy({ where: { email: 'random@gmail.com' } });
-    await Accomodation.destroy({ where: { name: `Galaxy Hotel` } });
+    await Users.destroy({ where: { email: 'random15@gmail.com' } });
   });
 
   const randomUser = {
-    email: 'random@gmail.com',
+    email: 'random15@gmail.com',
     firstname: 'Random',
     lastname: 'Person',
     password: '$2a$12$qFP7wTRyEEclEjdoDA9OBOV3xDorty5aaE.nEy2lCRQwgVOdp1lIq',
@@ -26,7 +24,7 @@ describe('Like testing ', () => {
     roleId: 4
   };
   const credentials = {
-    email: 'random@gmail.com',
+    email: 'random15@gmail.com',
     password: 'pswd123'
   };
   const accomodationId = 2;

@@ -3,12 +3,17 @@ import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import * as isAuthorized from '../utils/errors/authorizationError';
 import * as notFound from '../utils/errors/notFoundError';
-import { isAdmin, isSuperAdmin as superUser } from '../services/rolesService';
+import {
+  isAdmin,
+  isSuperAdmin as superUser,
+  isManager
+} from '../services/rolesService';
 import { Users } from '../database/models';
 import {
   AuthorizationError,
   internalServerError
 } from '../utils/errors/applicationsErrors';
+import { checkCommenter } from '../services/commentService';
 
 dotenv.config();
 const jwtToken = process.env.JWT_KEY;
@@ -43,7 +48,10 @@ const adminUser = async (req, res, next) => {
   if (check) {
     next();
   } else {
-    isAuthorized.isNotAuthorized('Access denied', res);
+    isAuthorized.isNotAuthorized(
+      'Access denied, Not a Travel Administrator',
+      res
+    );
   }
 };
 const superAdmin = async (req, res, next) => {
@@ -65,4 +73,26 @@ const isRequester = async (req, res, next) => {
     return internalServerError('Error occured', res);
   }
 };
-export { isSuperAdmin, adminUser, superAdmin, isRequester };
+
+const isManagerUser = async (req, res, next) => {
+  const check = await isManager(req.user.email, req.user.id);
+  if (check) {
+    next();
+  } else {
+    isAuthorized.isNotAuthorized('Access Denied, Not a Manager', res);
+  }
+};
+
+const authorizeCommenter = async (req, res, next) => {
+  const check = await checkCommenter(req.user.id, req.params.tripId);
+  return check ? next() : isAuthorized.isNotAuthorized('Access denied', res);
+};
+
+export {
+  isSuperAdmin,
+  adminUser,
+  superAdmin,
+  isRequester,
+  authorizeCommenter,
+  isManagerUser
+};

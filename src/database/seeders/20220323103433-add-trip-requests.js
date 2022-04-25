@@ -12,6 +12,7 @@ export default {
           dateOfTravel: new Date(),
           dateOfReturn: new Date(),
           travelReason: 'I am traveling for fun',
+          status: 'pending',
           accomodationId: 3,
           userId: 'b66cfc7c-be2c-41f5-b459-e888bfe881a6',
           createdAt: new Date(),

@@ -1,9 +1,11 @@
 import * as ApplicationError from '../utils/errors/applicationsErrors';
 import { tripService, roleService } from '../services';
+import * as accomService from '../services/accomodationService';
 import {
   notFoundResponse,
   successResponse,
-  createdResponse
+  createdResponse,
+  confictResponse
 } from '../utils/responseHandler';
 
 export const makeTripRequest = async (req, res) => {
@@ -38,7 +40,7 @@ export const makeTripRequest = async (req, res) => {
 export const getAllTripRequest = async (req, res) => {
   if ((await roleService.getUserRole(req.user.id)) === 'Manager') {
     const { trips, error } = await tripService.findTripByManagerId(req.user.id);
-    if (error) return ApplicationError.internalServerError(error, res);
+    if (error) return ApplicationError.databaseError(error, res);
     successResponse(
       res,
       200,
@@ -94,6 +96,128 @@ export const updateTripRequest = async (req, res) => {
     ApplicationError.AuthorizationError(
       `Not allowed to edit this trip request`,
       res
+    );
+  }
+};
+
+export const approveOrRejectTripRequest = async (req, res) => {
+  const managerId = req.user.id;
+  const { trip, notAssignedError } =
+    await tripService.findTripByTripAndManagerId(managerId, req.params.id);
+  if (!notAssignedError) {
+    if (!trip) return notFoundResponse(res, 'Trip not found');
+    if (trip.status === 'pending' && req.body.status === 'approved') {
+      const { updatedTrip, error } = await tripService.approveOrRejectTrip(
+        req.params.id,
+        req.body.status,
+        managerId
+      );
+      if (error) return ApplicationError.databaseError(error, res);
+      successResponse(
+        res,
+        200,
+        `Trip Owned By: ${updatedTrip.ownedBy.firstname} ${updatedTrip.ownedBy.lastname} has been ${updatedTrip.status}`,
+        updatedTrip
+      );
+    } else if (trip.status === 'pending' && req.body.status === 'rejected') {
+      const { updatedTrip, error } = await tripService.approveOrRejectTrip(
+        req.params.id,
+        req.body.status,
+        managerId
+      );
+      if (error) return ApplicationError.databaseError(error, res);
+      successResponse(
+        res,
+        200,
+        `Trip Owned By: ${updatedTrip.ownedBy.firstname} ${updatedTrip.ownedBy.lastname} has been ${updatedTrip.status}`,
+        updatedTrip
+      );
+    } else if (trip.status === 'approved' && req.body.status === 'rejected') {
+      const { updatedTrip, error } = await tripService.approveOrRejectTrip(
+        req.params.id,
+        req.body.status,
+        managerId
+      );
+      if (error) return ApplicationError.databaseError(error, res);
+      successResponse(
+        res,
+        200,
+        `Trip Owned By: ${updatedTrip.ownedBy.firstname} ${updatedTrip.ownedBy.lastname} has been ${updatedTrip.status}`,
+        updatedTrip
+      );
+    } else if (trip.status === 'approved' && req.body.status === 'pending') {
+      const { updatedTrip, error } = await tripService.approveOrRejectTrip(
+        req.params.id,
+        req.body.status,
+        managerId
+      );
+      if (error) return ApplicationError.databaseError(error, res);
+      successResponse(
+        res,
+        200,
+        `Trip Owned By: ${updatedTrip.ownedBy.firstname} ${updatedTrip.ownedBy.lastname} is now ${updatedTrip.status}`,
+        updatedTrip
+      );
+    } else if (trip.status === 'rejected' && req.body.status === 'approved') {
+      const { updatedTrip, error } = await tripService.approveOrRejectTrip(
+        req.params.id,
+        req.body.status,
+        managerId
+      );
+      if (error) return ApplicationError.databaseError(error, res);
+      successResponse(
+        res,
+        200,
+        `Trip Owned By: ${updatedTrip.ownedBy.firstname} ${updatedTrip.ownedBy.lastname} has been ${updatedTrip.status}`,
+        updatedTrip
+      );
+    } else if (trip.status === 'rejected' && req.body.status === 'pending') {
+      const { updatedTrip, error } = await tripService.approveOrRejectTrip(
+        req.params.id,
+        req.body.status,
+        managerId
+      );
+      if (error) return ApplicationError.databaseError(error, res);
+      successResponse(
+        res,
+        200,
+        `Trip Owned By: ${updatedTrip.ownedBy.firstname} ${updatedTrip.ownedBy.lastname} is now ${updatedTrip.status}`,
+        updatedTrip
+      );
+    } else if (trip.status === 'approved' && req.body.status === 'approved') {
+      confictResponse(
+        res,
+        409,
+        `Trip Owned By: ${trip.ownedBy.firstname} ${trip.ownedBy.lastname} is already ${trip.status}`,
+        trip
+      );
+    } else if (trip.status === 'rejected' && req.body.status === 'rejected') {
+      confictResponse(
+        res,
+        409,
+        `Trip Owned By: ${trip.ownedBy.firstname} ${trip.ownedBy.lastname} is already ${trip.status}`,
+        trip
+      );
+    } else if (trip.status === 'pending' && req.body.status === 'pending') {
+      confictResponse(
+        res,
+        409,
+        `Trip Owned By: ${trip.ownedBy.firstname} ${trip.ownedBy.lastname} is already ${trip.status}`,
+        trip
+      );
+    } else {
+      ApplicationError.AuthorizationError(
+        `Not allowed to edit this trip request`,
+        res
+      );
+    }
+  } else {
+    const { getManagerById } = await accomService.findManagerById(managerId);
+    confictResponse(
+      res,
+      409,
+      `Manager: ${getManagerById.firstname} ${getManagerById.lastname} is not assigned to any accomodation`,
+      getManagerById
     );
   }
 };
