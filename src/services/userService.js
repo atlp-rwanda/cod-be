@@ -56,6 +56,27 @@ const fetchAll = async () => {
 
   return all;
 };
+export const findAllManagers = async () => {
+  const managersList = await Users.findAll({
+    where: {
+      roleId: 3
+    },
+    attributes: {
+      exclude: [
+        'roleId',
+        'password',
+        'email_token',
+        'googleId',
+        'facebookId',
+        'isVerified',
+        'createdAt',
+        'updatedAt'
+      ]
+    }
+  });
+
+  return managersList;
+};
 export {
   addUser,
   findByEmail,

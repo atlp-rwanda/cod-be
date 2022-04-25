@@ -10,21 +10,9 @@ chai.use(chaiHTTP);
 let token, id;
 
 describe('/PUT User Profile ', () => {
-  after(async () => {
-    await Users.destroy({ where: { email: 'random@gmail.com' } });
-    await Profile.destroy({ where: { userId: id } });
-  });
-
-  const randomUser = {
-    email: 'random@gmail.com',
-    firstname: 'Random',
-    lastname: 'Person',
-    password: '$2a$12$qFP7wTRyEEclEjdoDA9OBOV3xDorty5aaE.nEy2lCRQwgVOdp1lIq',
-    isVerified: true
-  };
   const credentials = {
     email: 'random@gmail.com',
-    password: 'pswd123'
+    password: 'altp6@random'
   };
   const profileInfo = {
     gender: 'Female',
@@ -37,8 +25,6 @@ describe('/PUT User Profile ', () => {
   };
 
   it('Should Update Profile After Logged in', async () => {
-    await Users.create(randomUser);
-
     const res = await chai
       .request(app)
       .post('/api/user/login')

@@ -39,10 +39,7 @@ const newfacilityEntry = async (req, res) => {
       res
     );
   } catch (error) {
-    ApplicationError.internalServerError(
-      { data: { message: `Error,try again!` } },
-      res
-    );
+    ApplicationError.internalServerError({ data: { message: error } }, res);
   }
 };
 
@@ -52,10 +49,7 @@ const getById = async (req, res) => {
     const result = await facilityService.getfacility(id);
     return res.status(200).json({ status: 200, data: { facility: result } });
   } catch (error) {
-    ApplicationError.internalServerError(
-      { data: { message: `Error,try again!` } },
-      res
-    );
+    ApplicationError.internalServerError({ data: { message: error } }, res);
   }
 };
 
@@ -73,10 +67,7 @@ const doDelete = async (req, res) => {
       .status(200)
       .json({ status: 200, data: { message: 'Record is Removed' } });
   } catch (error) {
-    ApplicationError.internalServerError(
-      { data: { message: `Error, try again!` } },
-      res
-    );
+    ApplicationError.internalServerError({ data: { message: error } }, res);
   }
 };
 
@@ -88,10 +79,7 @@ const fetchAllInAccomodation = async (req, res) => {
       .status(200)
       .json({ status: 200, data: { facilities: facilitiesList } });
   } catch (error) {
-    ApplicationError.internalServerError(
-      { data: { message: `Error, try again!` } },
-      res
-    );
+    ApplicationError.internalServerError({ data: { message: error } }, res);
   }
 };
 
@@ -133,10 +121,7 @@ const doUpdate = async (req, res) => {
     await facility.save();
     res.status(200).json({ data: { message: 'Record Updated' } });
   } catch (error) {
-    ApplicationError.internalServerError(
-      { data: { message: `Error, try again!` } },
-      res
-    );
+    ApplicationError.internalServerError({ data: { message: error } }, res);
   }
 };
 const addFacilityComponent = async (req, res) => {
@@ -176,10 +161,7 @@ const addFacilityComponent = async (req, res) => {
       res
     );
   } catch (error) {
-    ApplicationError.internalServerError(
-      { data: { message: `Error, try again!` } },
-      res
-    );
+    ApplicationError.internalServerError({ data: { message: error } }, res);
   }
 };
 
@@ -205,10 +187,7 @@ const getAllcomponents = async (req, res) => {
       res
     );
   } catch (error) {
-    ApplicationError.internalServerError(
-      { data: { message: `Error, try again!` } },
-      res
-    );
+    ApplicationError.internalServerError({ data: { message: error } }, res);
   }
 };
 
@@ -253,10 +232,7 @@ const updateComponent = async (req, res) => {
     await getComponent.save();
     res.status(200).json({ status: 200, data: { message: 'Record Updated' } });
   } catch (error) {
-    ApplicationError.internalServerError(
-      { data: { message: `Error, try again!` } },
-      res
-    );
+    ApplicationError.internalServerError({ data: { message: error } }, res);
   }
 };
 
@@ -267,10 +243,7 @@ const deleteComponent = async (req, res) => {
       .status(200)
       .json({ status: 200, data: { message: 'Record is Removed' } });
   } catch (error) {
-    ApplicationError.internalServerError(
-      { data: { message: `Error, try again!` } },
-      res
-    );
+    ApplicationError.internalServerError({ data: { message: error } }, res);
   }
 };
 

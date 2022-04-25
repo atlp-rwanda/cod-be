@@ -1,10 +1,16 @@
-/**
- * start your validations logic here
- * you can create more validation files and export them using index
- */
-/* eslint-disable import/prefer-default-export */
+/* eslint-disable import/extensions */
+/* eslint-disable import/no-unresolved */
 import * as userSchema from './userValidation';
 import tripSchema from './tripValidation';
+import approveRequestSchema from './approveRequestValidation';
 import { feedbackSchema, accomodationIdSchema } from './feedbackValidation';
+import {notificationSchema } from '../validation/notificationValidation';
 
-export { userSchema, tripSchema, feedbackSchema, accomodationIdSchema };
+export {
+  userSchema,
+  tripSchema,
+  feedbackSchema,
+  accomodationIdSchema,
+  approveRequestSchema,
+  notificationSchema,
+};

@@ -1,30 +1,17 @@
-import { describe, it, beforeEach, afterEach } from 'mocha';
+import { describe, it } from 'mocha';
 import chaiHTTP from 'chai-http';
 import chai, { expect } from 'chai';
-import { Users } from '../src/database/models';
 import app from '../src/app';
 
 chai.use(chaiHTTP);
 
 describe('Logout testing ', () => {
-  afterEach(async () => {
-    await Users.destroy({ where: { email: 'random@gmail.com' } });
-  });
-  const randomUser = {
-    email: 'random@gmail.com',
-    firstname: 'Random',
-    lastname: 'Person',
-    password: '$2a$12$qFP7wTRyEEclEjdoDA9OBOV3xDorty5aaE.nEy2lCRQwgVOdp1lIq',
-    isVerified: true
-  };
   const credentials = {
     email: 'random@gmail.com',
-    password: 'pswd123'
+    password: 'altp6@random'
   };
   let token;
   it('should login first', async () => {
-    await Users.create(randomUser);
-
     const res = await chai
       .request(app)
       .post('/api/user/login')

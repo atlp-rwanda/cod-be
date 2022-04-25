@@ -9,11 +9,11 @@ let today = new Date();
 
 describe('Rating test ', () => {
   beforeEach(async () => {
-    await Users.destroy({ where: { email: 'random@gmail.com' } });
+    await Users.destroy({ where: { email: 'random14@gmail.com' } });
   });
 
   afterEach(async () => {
-    await Users.destroy({ where: { email: 'random@gmail.com' } });
+    await Users.destroy({ where: { email: 'random14@gmail.com' } });
   });
   const trip = {
     departure: 'Huye',
@@ -24,14 +24,14 @@ describe('Rating test ', () => {
     travelReason: 'This is travel reason in test'
   };
   const randomUser = {
-    email: 'random@gmail.com',
+    email: 'random14@gmail.com',
     firstname: 'Random',
     lastname: 'Person',
     password: '$2a$12$qFP7wTRyEEclEjdoDA9OBOV3xDorty5aaE.nEy2lCRQwgVOdp1lIq',
     isVerified: true
   };
   const credentials = {
-    email: 'random@gmail.com',
+    email: 'random14@gmail.com',
     password: 'pswd123'
   };
   let token = 0;

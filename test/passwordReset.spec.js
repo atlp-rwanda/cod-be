@@ -33,10 +33,6 @@ const invalidUserPassword = {
 let emailToken;
 
 describe('Password Reset Testing', () => {
-  after(async () => {
-    await Users.destroy({ where: { email: `${userEmail.email}` } });
-  });
-
   it('It Should Request For A Password Reset', async () => {
     const res = await request(server)
       .post('/api/v1/forgot-password')

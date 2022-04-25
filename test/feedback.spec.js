@@ -97,7 +97,8 @@ describe('Feedback Accomodation', () => {
     });
 
     it('Should save feedback', async () => {
-      const res = await request(server)
+      const res = await chai
+        .request(server)
         .post('/api/v1/accommodations/3/feedback')
         .set('Authorization', `Bearer ${loginToken}`)
         .send(feedback);

@@ -1,6 +1,7 @@
 import express from 'express';
 import * as Role from '../controllers/roleController';
 import * as auth from '../middlewares/authorize';
+import { errorHandler, isLoggedIn } from '../middlewares';
 
 const roleRouter = express.Router();
 roleRouter.patch(
@@ -15,5 +16,12 @@ roleRouter.patch(
       next(error);
     }
   }
+);
+
+roleRouter.patch(
+  '/v1/users/assignManagerRole',
+  isLoggedIn,
+  auth.adminUser,
+  errorHandler(Role.default.assignAccomodationManager)
 );
 export default roleRouter;

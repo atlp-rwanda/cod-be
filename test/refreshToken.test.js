@@ -7,24 +7,16 @@ import app from '../src/app';
 chai.use(chaiHTTP);
 
 describe('Login testing ', () => {
-  beforeEach(async () => {
-    await Users.destroy({ where: { email: 'random@gmail.com' } });
-  });
-
-  afterEach(async () => {
-    await Users.destroy({ where: { email: 'random@gmail.com' } });
-  });
-
   const randomUser = {
-    email: 'random@gmail.com',
+    email: 'random20@gmail.com',
     firstname: 'Random',
     lastname: 'Person',
-    password: '$2a$12$qFP7wTRyEEclEjdoDA9OBOV3xDorty5aaE.nEy2lCRQwgVOdp1lIq',
+    password: '$2b$10$fRndnE12M7m5pZvV5PzIFe.WGYyerC3jOgPjqjMtdxqCUyfB4Lh/6',
     isVerified: true
   };
   const credentials = {
-    email: 'random@gmail.com',
-    password: 'pswd123'
+    email: 'random20@gmail.com',
+    password: 'altp6@random'
   };
 
   it('When users provide valid refresh token get both access token and refresh token', async () => {
@@ -37,7 +29,6 @@ describe('Login testing ', () => {
       .request(app)
       .post('/api/user/refresh')
       .send({ refreshTokenKey: res.body.refreshToken });
-
     expect(res2).to.have.property('status', 200);
     expect(res2).to.have.property('body');
     expect(res2.body).to.have.property(
@@ -48,7 +39,6 @@ describe('Login testing ', () => {
     expect(res2.body).to.have.property('refreshToken');
   });
   it('When user provide invalid refreshToken', async () => {
-    await Users.create({ ...randomUser });
     const res = await chai
       .request(app)
       .post('/api/user/login')
