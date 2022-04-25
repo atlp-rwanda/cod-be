@@ -40,6 +40,7 @@ const findByName = async (roleName) => {
   const role = await Roles.findOne({ where: { roleName } });
   return role;
 };
+
 const updateUserRole = async (userId, role) => {
   const user = await Users.findOne({ where: { id: `${userId}` } });
   if (user) {

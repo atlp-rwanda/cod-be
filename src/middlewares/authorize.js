@@ -9,6 +9,7 @@ import {
   AuthorizationError,
   internalServerError
 } from '../utils/errors/applicationsErrors';
+import { checkCommenter } from '../services/commentService';
 
 dotenv.config();
 const jwtToken = process.env.JWT_KEY;
@@ -65,4 +66,10 @@ const isRequester = async (req, res, next) => {
     return internalServerError('Error occured', res);
   }
 };
-export { isSuperAdmin, adminUser, superAdmin, isRequester };
+
+const authorizeCommenter = async (req, res, next) => {
+  const check = await checkCommenter(req.user.id, req.params.tripId);
+  return check ? next() : isAuthorized.isNotAuthorized('Access denied', res);
+};
+
+export { isSuperAdmin, adminUser, superAdmin, isRequester, authorizeCommenter };
