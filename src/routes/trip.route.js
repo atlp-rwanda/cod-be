@@ -1,7 +1,8 @@
 import express from 'express';
 import { tripController } from '../controllers';
 import { validate, errorHandler, isLoggedIn } from '../middlewares';
-import tripSchema from '../validations/tripValidation';
+import * as auth from '../middlewares/authorize';
+import { tripSchema, approveRequestSchema } from '../validations';
 
 const tripRouter = express.Router();
 
@@ -30,6 +31,14 @@ tripRouter.put(
   '/:id',
   isLoggedIn,
   errorHandler(tripController.updateTripRequest)
+);
+
+tripRouter.patch(
+  '/approve_reject/:id',
+  isLoggedIn,
+  auth.isManagerUser,
+  validate(approveRequestSchema),
+  errorHandler(tripController.approveOrRejectTripRequest)
 );
 
 export default tripRouter;

@@ -7,4 +7,9 @@ const successResponse = async (res, code, message, data = null) =>
 const createdResponse = async (res, message, data = null) =>
   res.status(201).json({ status: 201, data: { message, data } });
 
-export { notFoundResponse, successResponse, createdResponse };
+const confictResponse = async (res, statusCode, message, dataDetails) =>
+  res
+    .status(statusCode)
+    .send({ status: statusCode, data: { message, dataDetails } });
+
+export { notFoundResponse, successResponse, createdResponse, confictResponse };

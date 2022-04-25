@@ -87,3 +87,59 @@ export const updateTrip = async (tripId, newTripValue) => {
     return { error: err };
   }
 };
+export const findTripByTripAndManagerId = async (managerId, tripId) => {
+  try {
+    const accomodations = await Accomodation.findOne({
+      where: { managerId }
+    });
+    if (accomodations !== null) {
+      const trip = await Trips.findOne({
+        where: {
+          accomodationId: `${accomodations.dataValues.id}`,
+          id: `${tripId}`
+        },
+        include: [
+          {
+            model: Users,
+            as: 'ownedBy',
+            attributes: ['firstname', 'lastname']
+          }
+        ],
+        attributes: { exclude: ['createdAt', 'updatedAt'] }
+      });
+      return { trip };
+    }
+    const notAssignedError = new Error(
+      `Manager ${managerId} is not assisgned to any accomodation`
+    );
+    return { notAssignedError };
+  } catch (err) {
+    return { error: err.name };
+  }
+};
+export const approveOrRejectTrip = async (tripId, newTripStatus) => {
+  try {
+    await Trips.update(
+      { status: newTripStatus },
+      {
+        where: {
+          id: tripId
+        }
+      }
+    );
+    const updatedTrip = await Trips.findOne({
+      where: { id: `${tripId}` },
+      include: [
+        {
+          model: Users,
+          as: 'ownedBy',
+          attributes: ['firstname', 'lastname']
+        }
+      ],
+      attributes: { exclude: ['createdAt', 'updatedAt', 'firstname'] }
+    });
+    return { updatedTrip };
+  } catch (err) {
+    return { error: err };
+  }
+};

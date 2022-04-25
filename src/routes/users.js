@@ -4,8 +4,9 @@
 import express from 'express';
 import * as userControl from '../controllers/userController';
 import * as verifyPasswordToken from '../utils/helpers/jwt_helper';
-import isLoggedIn from '../middlewares/authenticate';
-import { superAdmin } from '../middlewares/authorize';
+import { errorHandler, isLoggedIn } from '../middlewares';
+import { superAdmin, adminUser } from '../middlewares/authorize';
+import { userController } from '../controllers';
 
 const userRouter = express.Router();
 
@@ -114,5 +115,11 @@ userRouter.get('/users', isLoggedIn, superAdmin, async (req, res, next) => {
     next(error);
   }
 });
+userRouter.get(
+  '/v1/users/managers',
+  isLoggedIn,
+  adminUser,
+  errorHandler(userController.getAllManagers)
+);
 
 export default userRouter;

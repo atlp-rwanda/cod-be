@@ -16,6 +16,7 @@ import * as forgotPasswordValidation from '../validations/forgotPasswordValidati
 import * as resetPasswordValidation from '../validations/resetPasswordValidation';
 import sendPasswordVerification from '../services/forgotPassword';
 import { addProfile } from '../services/profileService';
+import { successResponse } from '../utils/responseHandler';
 
 dotenv.config();
 const registerNew = async (requestBody, response, appUrl, next) => {
@@ -257,6 +258,15 @@ const getAllUsers = async (req, res, next) => {
     );
     next();
   }
+};
+export const getAllManagers = async (req, res) => {
+  const managersList = await userService.findAllManagers();
+  successResponse(
+    res,
+    200,
+    `All Managers have been retrieved successfully`,
+    managersList
+  );
 };
 export default {
   registerNew,

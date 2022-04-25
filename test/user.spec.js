@@ -16,7 +16,7 @@ const loginAdmin = {
 const user = {
   firstname: 'Faustin',
   lastname: 'IYAREMYE',
-  email: 'testemail@me.com',
+  email: 'testemail1@me.com',
   password: 'test1234@5678'
 };
 const invalidEmail = {
@@ -28,13 +28,10 @@ const invalidEmail = {
 const invalidPassword = {
   firstname: 'Faustin',
   lastname: 'IYAREMYE',
-  email: 'testemail@me.com',
+  email: 'testemail1@me.com',
   password: 'test123'
 };
 describe('/POST  register endpoint', () => {
-  after(async () => {
-    await Users.destroy({ where: { email: `${user.email}` } });
-  });
   it('It should register a new user', async () => {
     const res = await request(server).post('/api/user/register').send(user);
     expect(res).to.have.status(201);

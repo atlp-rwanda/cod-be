@@ -9,6 +9,16 @@ definitions:        # Schema defination for request body
         type: string
       user:
         type: string
+  accomodationManagerRole:
+    type: object
+    required: 
+      - accomodationId
+      - managerId
+    properties:
+      accomodationId:
+        type: integer
+      managerId:
+        type: string
         
 paths:
   /api/v1/users/assignRole:           # path of your endpoint
@@ -32,4 +42,42 @@ paths:
         '401':
           description: Unauthenticated
         '400':
-          description: Bad request      
+          description: Bad request   
+  /api/v1/users/assignManagerRole:
+    patch:
+      tags:
+        - Roles
+      summary: Assign Manager Role To A Desired User
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              $ref: '#/definitions/accomodationManagerRole'          
+      responses:
+        '200':
+          description: Succefully Assigned Manager To Accomodation
+        '500':
+          description: Internal server error
+        '404':
+          description: Not Found
+        '401':
+          description: Unauthenticated
+        '409':
+          description: Conflict
+  /api/v1/users/managers:
+    get:
+      tags:
+        - Roles
+      summary: Retrieves All Managers         
+      responses:
+        '200':
+          description: Succefully Retrieved All Managers
+        '500':
+          description: Internal server error
+        '404':
+          description: Not Found
+        '401':
+          description: Unauthenticated
+        '409':
+          description: Conflict 

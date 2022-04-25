@@ -8,7 +8,7 @@ const validationError = async (message, res) => {
 };
 
 const notFoundError = async (message, res) => {
-  res.status(404).json({ Error: message, status: 404 });
+  res.status(404).json({ status: 404, Error: message });
 };
 const notAcceptableError = async (message, res) => {
   res.status(406).json({ Error: message, status: 406 });

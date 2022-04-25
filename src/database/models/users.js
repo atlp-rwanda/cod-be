@@ -11,6 +11,18 @@ export default (sequelize, DataTypes) => {
         },
         as: 'createdBy'
       });
+      Users.hasMany(models.Accomodation, {
+        foreignKey: {
+          name: 'managerId'
+        },
+        as: 'managedBy'
+      });
+      Users.hasMany(models.Trips, {
+        foreignKey: {
+          name: 'userId'
+        },
+        as: 'ownedBy'
+      });
     }
   }
   Users.init(

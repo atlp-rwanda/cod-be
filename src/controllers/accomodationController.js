@@ -31,10 +31,7 @@ const newEntry = async (req, res) => {
       res
     );
   } catch (error) {
-    ApplicationError.internalServerError(
-      { data: { message: `Error,try again!` } },
-      res
-    );
+    ApplicationError.internalServerError({ data: { message: error } }, res);
   }
 };
 
@@ -92,10 +89,7 @@ const doUpdate = async (req, res) => {
       .status(200)
       .json({ status: 200, data: { message: 'Record Updated' } });
   } catch (error) {
-    ApplicationError.internalServerError(
-      { data: { message: `Error, try again!` } },
-      res
-    );
+    ApplicationError.internalServerError({ data: { message: error } }, res);
   }
 };
 
@@ -111,10 +105,7 @@ const doDelete = async (req, res) => {
     await accomService.removeById(req.params.Id);
     return res.status(200).json({ data: { message: 'Record is Removed' } });
   } catch (error) {
-    ApplicationError.internalServerError(
-      { data: { message: `Error, try again!` } },
-      res
-    );
+    ApplicationError.internalServerError({ data: { message: error } }, res);
   }
 };
 

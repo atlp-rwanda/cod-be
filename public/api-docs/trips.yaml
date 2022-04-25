@@ -25,6 +25,13 @@ definitions:        # Schema defination for request body
         type: string
       travelReason:
         type: string
+  ApproveOrRejectRequests:
+    type: object
+    required: 
+      - status
+    properties:
+      status:
+        type: string
 paths:
   /api/v1/trip:          
     post:                 
@@ -126,3 +133,29 @@ paths:
           description: Internal server error
         '401':
           description: Unauthorized
+  /api/v1/trip/approve_reject/{tripId}:
+    patch:                 
+      tags:              
+        - Trip        
+      summary: Approve Or Reject A Trip Request  
+      requestBody:
+        content: 
+          application/json:
+            schema:
+              $ref: '#/definitions/ApproveOrRejectRequests'   
+      parameters:
+        - name: tripId
+          in: path
+          required: true
+          schema:
+            type: string
+          description:  Id of the trip    
+      responses:
+        '200':
+          description: Trip Request Status Updated Successfully
+        '500':
+          description: Internal Server Error
+        '401':
+          description: Unauthorized
+        '409':
+          description: Conflict

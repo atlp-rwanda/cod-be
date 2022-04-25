@@ -20,10 +20,6 @@ const user = {
 let emailToken;
 
 describe('POST /api/user/register  User Registration Endpoint', () => {
-  before(async () => {
-    await Users.destroy({ where: { email: `${user.email}` } });
-  });
-
   it('It Should Register A New User', async () => {
     const res = await request(server).post('/api/user/register').send(user);
     expect(res).to.have.status(201);

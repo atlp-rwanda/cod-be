@@ -8,22 +8,22 @@ chai.use(chaiHTTP);
 
 describe('Login testing ', () => {
   beforeEach(async () => {
-    await Users.destroy({ where: { email: 'random@gmail.com' } });
+    await Users.destroy({ where: { email: 'random12@gmail.com' } });
   });
 
   afterEach(async () => {
-    await Users.destroy({ where: { email: 'random@gmail.com' } });
+    await Users.destroy({ where: { email: 'random12@gmail.com' } });
   });
 
   const randomUser = {
-    email: 'random@gmail.com',
+    email: 'random12@gmail.com',
     firstname: 'Random',
     lastname: 'Person',
     password: '$2a$12$qFP7wTRyEEclEjdoDA9OBOV3xDorty5aaE.nEy2lCRQwgVOdp1lIq',
     isVerified: true
   };
   const credentials = {
-    email: 'random@gmail.com',
+    email: 'random12@gmail.com',
     password: 'pswd123'
   };
   it('When user inter no credentials not log in', async () => {
