@@ -1,6 +1,7 @@
 import * as ApplicationError from '../utils/errors/applicationsErrors';
 import { tripService, roleService } from '../services';
 import * as accomService from '../services/accomodationService';
+import changeToArray from '../utils/helpers/changeToArray';
 import {
   notFoundResponse,
   successResponse,
@@ -11,12 +12,12 @@ import {
 export const makeTripRequest = async (req, res) => {
   const {
     departure,
-    destination,
     dateOfTravel,
     dateOfReturn,
     travelReason,
     accomodationId
   } = req.body;
+  const destination = changeToArray(req.body.destination);
   const newTripRequest = {
     departure,
     destination,
@@ -26,14 +27,14 @@ export const makeTripRequest = async (req, res) => {
     accomodationId,
     userId: req.user.id
   };
-  const trip = await tripService.createTripRequest(newTripRequest);
+  const { trip, error, badRequest } = await tripService.createTripRequest(
+    newTripRequest
+  );
+  if (badRequest) return ApplicationError.badRequestError(badRequest, res);
   if (trip) {
     createdResponse(res, 'New trip request made successfully', trip);
   } else {
-    ApplicationError.internalServerError(
-      `There was a problem making your trip request`,
-      res
-    );
+    ApplicationError.internalServerError(error, res);
   }
 };
 
@@ -89,6 +90,7 @@ export const updateTripRequest = async (req, res) => {
   const { trip } = await tripService.findTripById(req.params.id);
   if (trip === null) return notFoundResponse(res, 'Trip not found');
   if (trip && trip.userId === req.user.id && trip.status === 'pending') {
+    req.body.destination = changeToArray(req.body.destination);
     const { error } = await tripService.updateTrip(req.params.id, req.body);
     if (error) return ApplicationError.internalServerError(error, res);
     successResponse(res, 200, 'Trip request updated successfully');

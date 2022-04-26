@@ -53,7 +53,7 @@ export default (sequelize, DataTypes) => {
         allowNull: false
       },
       destination: {
-        type: DataTypes.STRING,
+        type: DataTypes.ARRAY(DataTypes.STRING),
         allowNull: false
       },
       dateOfTravel: {
@@ -69,7 +69,8 @@ export default (sequelize, DataTypes) => {
         allowNull: false
       },
       status: {
-        type: DataTypes.ENUM('pending', 'approved', 'rejected')
+        type: DataTypes.ENUM('pending', 'approved', 'rejected'),
+        defaultValue: 'pending'
       }
     },
     {

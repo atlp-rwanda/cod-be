@@ -75,6 +75,14 @@ const assignManagerRole = async (accomId, managerId) => {
     return { error };
   }
 };
+const getAccommodationLocations = async (id) => {
+  try {
+    const accommodation = await Accomodation.findOne({ where: { id } });
+    if (accommodation) return accommodation.dataValues.location;
+  } catch (error) {
+    return { error };
+  }
+};
 
 const checkManager = async (accomId, managerId) => {
   try {
@@ -133,5 +141,6 @@ export {
   removeById,
   assignManagerRole,
   findManagerById,
-  checkManager
+  checkManager,
+  getAccommodationLocations
 };
