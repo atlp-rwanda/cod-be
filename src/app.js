@@ -8,6 +8,10 @@ import indexRouter from './routes';
 const app = express();
 
 app.use('/chat', express.static(path.join(__dirname, '../public/chat')));
+app.use(
+  '/notifications',
+  express.static(path.join(__dirname, '../public/notifications'))
+);
 app.use(express.json());
 app.use(cors());
 app.use('/', indexRouter);

@@ -22,7 +22,7 @@ const trip = {
 };
 
 before(async () => {
-  const res = await request(server).post('/api/user/login').send({
+  const res = await chai.request(server).post('/api/user/login').send({
     email: 'random1@gmail.com',
     password: 'altp6@random'
   });
@@ -39,7 +39,7 @@ describe('Trip request', () => {
         accomodationId: 4
       };
 
-      const requester = request(server).keepOpen();
+      const requester = chai.request(server).keepOpen();
       const [badReq, badReq2, badReq3, badReq4, badReq5, multiCityReq] =
         await Promise.all([
           requester
@@ -120,7 +120,8 @@ describe('Trip request', () => {
         .and.to.be.eql('New trip request made successfully');
 
       trip.accomodationId = 9;
-      const res = await request(server)
+      const res = await chai
+        .request(server)
         .post('/api/v1/trip')
         .set('Authorization', `Bearer ${loginToken}`)
         .send(trip);
@@ -133,7 +134,8 @@ describe('Trip request', () => {
 
     it('Should make new trip request', async () => {
       trip.accomodationId = 2;
-      const res = await request(server)
+      const res = await chai
+        .request(server)
         .post('/api/v1/trip')
         .set('Authorization', `Bearer ${loginToken}`)
         .send(trip);
@@ -149,7 +151,7 @@ describe('Trip request', () => {
   describe('/GET  get trip requests', async () => {
     let undefinedTripId;
     it('Should get all trip requests', async () => {
-      const requester = request(server).keepOpen();
+      const requester = chai.request(server).keepOpen();
       const [res, badRes, badreq3] = await Promise.all([
         requester
           .get('/api/v1/trip')
@@ -181,7 +183,8 @@ describe('Trip request', () => {
       requester.close();
     });
     it('Should get One trip request', async () => {
-      const res = await request(server)
+      const res = await chai
+        .request(server)
         .get('/api/v1/trip/' + tripId)
         .set('Authorization', `Bearer ${loginToken}`)
         .send(trip);
@@ -193,7 +196,8 @@ describe('Trip request', () => {
         .to.have.property('message')
         .and.to.be.eql('One trip request fetched successfully');
 
-      const multiCityTripRes = await request(server)
+      const multiCityTripRes = await chai
+        .request(server)
         .get('/api/v1/trip/' + multiCityTripId)
         .set('Authorization', `Bearer ${loginToken}`)
         .send(trip);
@@ -209,7 +213,8 @@ describe('Trip request', () => {
   describe('/PUT  edit trip request', () => {
     it('Should not edit trip request that does not exist', async () => {
       trip.departure = 'Nyaruguru';
-      const res = await request(server)
+      const res = await chai
+        .request(server)
         .put('/api/v1/trip/' + '683bff69-ae88-4798-bf51-0ab742c23ffe')
         .set('Authorization', `Bearer ${loginToken}`)
         .send(trip);
@@ -223,7 +228,8 @@ describe('Trip request', () => {
       trip.status = 'approved';
       trip.destination = ['Kigali'];
       await tripService.updateTrip(tripId, trip);
-      const res = await request(server)
+      const res = await chai
+        .request(server)
         .put('/api/v1/trip/' + tripId)
         .set('Authorization', `Bearer ${loginToken}`);
       expect(res).to.have.status(401);
@@ -235,7 +241,8 @@ describe('Trip request', () => {
       await tripService.updateTrip(tripId, trip);
 
       trip.departure = 'Nyaruguru';
-      const res = await request(server)
+      const res = await chai
+        .request(server)
         .put('/api/v1/trip/' + tripId)
         .set('Authorization', `Bearer ${loginToken}`)
         .send(trip);
@@ -248,7 +255,8 @@ describe('Trip request', () => {
   });
   describe('/DELETE   delete trip request', () => {
     it('Should not Delete trip request that does not exist', async () => {
-      const res = await request(server)
+      const res = await chai
+        .request(server)
         .delete('/api/v1/trip/' + '683bff69-ae88-4798-bf51-0ab742c23ffe')
         .set('Authorization', `Bearer ${loginToken}`);
       expect(res).to.have.status(404);
@@ -261,7 +269,8 @@ describe('Trip request', () => {
       trip.status = 'approved';
       await tripService.updateTrip(tripId, trip);
 
-      const res = await request(server)
+      const res = await chai
+        .request(server)
         .delete('/api/v1/trip/' + tripId)
         .set('Authorization', `Bearer ${loginToken}`);
 
@@ -274,7 +283,8 @@ describe('Trip request', () => {
     it('Should Delete trip request', async () => {
       trip.status = 'pending';
       await tripService.updateTrip(tripId, trip);
-      const res = await request(server)
+      const res = await chai
+        .request(server)
         .delete('/api/v1/trip/' + tripId)
         .set('Authorization', `Bearer ${loginToken}`);
       expect(res).to.have.status(202);

@@ -1,5 +1,7 @@
 import * as ApplicationError from '../utils/errors/applicationsErrors';
 import * as commentService from '../services/commentService';
+import * as notification from '../services/notificationService';
+
 import {
   createdResponse,
   notFoundResponse,
@@ -15,6 +17,17 @@ export const addComment = async (req, res) => {
       tripId,
       req.body.comment
     );
+    /** raise a notification */
+    const newNotification = {
+      title: 'New Comment To A trip You Made',
+      message: 'Check A new Comment Message',
+      type: 'application',
+      tripId,
+      addedBy: userId,
+      category: 'comment'
+    };
+    await notification.addTripCommentNotification(newNotification);
+
     return comment.error
       ? ApplicationError.validationError(comment.error.message, res)
       : createdResponse(res, 'Comment created successfully', comment);
