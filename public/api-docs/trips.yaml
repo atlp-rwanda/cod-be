@@ -159,3 +159,55 @@ paths:
           description: Unauthorized
         '409':
           description: Conflict
+  /api/v1/trip/statistics?start={start}&end={end}:           # path of your endpoint
+    get:                 
+      tags:               
+        - Trip         
+      summary: get number of trips made during a range of period
+      parameters:
+      - in: path
+        name: start
+        schema:
+          type: string
+          format: date
+        required: true
+        description: starting date       
+      - in: path
+        name: end
+        schema:
+          type: string
+          format: date
+        required: true
+        description: Ending date        
+      responses:
+        '200':
+          description: Got number of trips succesfully
+        '404':
+          description: data not found
+        '500':
+          description: Server Error
+  /api/v1/trip/statistics/recent?period={period}&number={number}:           # path of your endpoint
+    get:                 
+      tags:               
+        - Trip         
+      summary: get number of trips made during a range of period
+      parameters:
+      - in: path
+        name: period
+        schema:
+          type: string
+        required: true
+        description: type of period like Day, Week, Month and  Year       
+      - in: path
+        name: number
+        schema:
+          type: integer
+        required: true
+        description: number of period        
+      responses:
+        '200':
+          description: Got number of trips succesfully
+        '404':
+          description: data not found
+        '500':
+          description: Server Error

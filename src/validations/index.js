@@ -4,6 +4,7 @@ import tripSchema from './tripValidation';
 import approveRequestSchema from './approveRequestValidation';
 import { feedbackSchema, accomodationIdSchema } from './feedbackValidation';
 import { chatMessageSchema } from './chatMessage';
+import { staticsValidate, periodValidate } from './statisticsValidation';
 
 export {
   userSchema,
@@ -11,5 +12,7 @@ export {
   feedbackSchema,
   accomodationIdSchema,
   approveRequestSchema,
-  chatMessageSchema
+  chatMessageSchema,
+  staticsValidate,
+  periodValidate
 };
