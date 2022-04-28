@@ -13,7 +13,7 @@ const comment = {
 };
 
 before(async () => {
-  const res = await request(server).post('/api/user/login').send({
+  const res = await chai.request(server).post('/api/user/login').send({
     email: 'demouser2@cod.be',
     password: 'altp6@random'
   });
@@ -28,7 +28,7 @@ describe('Comments', () => {
   let commentId;
   describe('/POST Comment', () => {
     it('Should validate comment', async () => {
-      const requester = request(server).keepOpen();
+      const requester = chai.request(server).keepOpen();
       const [badReq] = await Promise.all([
         requester
           .post('/api/v1/trip/5ded92bb-69c2-414c-8ad8-7c0f4096e9cb/comment')
@@ -45,7 +45,8 @@ describe('Comments', () => {
     });
 
     it('Should create new comment', async () => {
-      const res = await request(server)
+      const res = await chai
+        .request(server)
         .post('/api/v1/trip/5ded92bb-69c2-414c-8ad8-7c0f4096e9cb/comment')
         .set('Authorization', `Bearer ${loginToken}`)
         .send(comment);
@@ -60,7 +61,7 @@ describe('Comments', () => {
 
   describe('/GET Comment', () => {
     it('Should get comments of a trip request', async () => {
-      const requester = request(server).keepOpen();
+      const requester = chai.request(server).keepOpen();
       const [req] = await Promise.all([
         requester
           .get('/api/v1/trip/5ded92bb-69c2-414c-8ad8-7c0f4096e9cb/comment')
@@ -76,7 +77,7 @@ describe('Comments', () => {
 
   describe('/Delete Comment', () => {
     it('Should not delete unknown comment', async () => {
-      const requester = request(server).keepOpen();
+      const requester = chai.request(server).keepOpen();
       const [badReq, badReq2] = await Promise.all([
         requester
           .delete(`/api/v1/trip/comment/b66cfc7c-be2c-41f5-b459-e888bfe881a7`)
@@ -97,7 +98,7 @@ describe('Comments', () => {
     });
 
     it('Should  delete comment if you own it', async () => {
-      const requester = request(server).keepOpen();
+      const requester = chai.request(server).keepOpen();
       const [req] = await Promise.all([
         requester
           .delete(`/api/v1/trip/comment/${commentId}`)
