@@ -3,11 +3,13 @@ import * as userSchema from './userValidation';
 import tripSchema from './tripValidation';
 import approveRequestSchema from './approveRequestValidation';
 import { feedbackSchema, accomodationIdSchema } from './feedbackValidation';
+import { chatMessageSchema } from './chatMessage';
 
 export {
   userSchema,
   tripSchema,
   feedbackSchema,
   accomodationIdSchema,
-  approveRequestSchema
+  approveRequestSchema,
+  chatMessageSchema
 };

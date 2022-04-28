@@ -1,0 +1,40 @@
+definitions: # Schema definition for request body
+  message:
+    type: object
+    required:
+      - message
+    properties:
+      message:
+        type: string
+paths:
+  /api/v1/chat/barefoot:
+    post:
+      tags:
+        - Message
+      summary: Add Message
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/definitions/message'
+      responses:
+        '201':
+          description: Message Added Successfully
+        '500':
+          description: Internal server error
+        '400':
+          description: Bad Request
+    get:
+      tags:
+        - Message
+      summary: Get All Messages
+      responses:
+        '200':
+          description: Success
+        '500':
+          description: Internal server error
+        '404':
+          description: Not found
+        '400':
+          description: Bad request

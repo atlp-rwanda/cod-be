@@ -1,6 +1,8 @@
 /* eslint-disable no-console */
 import 'dotenv/config';
+import http from 'http';
 import app from './app';
+import io from './utils/websocket.io';
 import swaggerDocs from '../public/api-docs/swagger';
 import { sequelize } from './database/models';
 import validateVariables from './validations/envValidation';
@@ -10,9 +12,11 @@ import validateVariables from './validations/envValidation';
  */
 
 const serverPort = process.env.PORT;
+const server = http.createServer(app);
+io.attach(server);
 
 const connectServer = () => {
-  app.listen(serverPort, async () => {
+  server.listen(serverPort, async () => {
     console.log(
       `\nBarefoot Nomad Server Started & Listening on PORT: ${serverPort}\n`
     );
