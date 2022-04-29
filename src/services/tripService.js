@@ -162,10 +162,10 @@ export const countTrips = async (userId, start, end, userRole) => {
       return trips;
     }
     if (userRole === 'Manager') {
-      const accomodation = await models.Accomodation.findAll({
+      const accomodations = await models.Accomodation.findAll({
         where: { managerId: userId }
       });
-      const ids = accomodation.map((accom) => accom.id);
+      const ids = accomodations.map((accom) => accom.id);
       if (!ids.length) {
         return { count: 0 };
       }
