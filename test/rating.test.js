@@ -17,7 +17,7 @@ describe('Rating test ', () => {
   });
   const trip = {
     departure: 'Huye',
-    destination: 'Kigali',
+    destination: ['Kigali'],
     dateOfTravel: today.setDate(new Date().getDate() + 1),
     dateOfReturn: today.setDate(new Date().getDate() + 2),
     accomodationId: 2,

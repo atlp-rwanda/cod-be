@@ -1,12 +1,15 @@
 import { Op } from 'sequelize';
 import models from '../database/models';
+import { validateDestination } from '../validations/tripValidation';
 
 const { Trips, Accomodation, Users } = models;
 
 export const createTripRequest = async (trip) => {
   try {
+    const { error } = await validateDestination(trip);
+    if (error) return { badRequest: error };
     const newTrip = await Trips.create(trip);
-    return newTrip;
+    return { trip: newTrip };
   } catch (err) {
     return { error: err };
   }

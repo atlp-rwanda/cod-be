@@ -2,6 +2,7 @@ import * as accomService from '../services/accomodationService';
 import * as ApplicationError from '../utils/errors/applicationsErrors';
 import * as notFound from '../utils/errors/notFoundError';
 import * as userService from '../services/userService';
+import changeToArray from '../utils/helpers/changeToArray';
 
 const newEntry = async (req, res) => {
   const accomodation = {
@@ -12,6 +13,7 @@ const newEntry = async (req, res) => {
     longitude: req.body.longitude,
     latitude: req.body.latitude
   };
+  accomodation.location = changeToArray(req.body.location);
   try {
     const checkUser = await userService.findById(req.user.id);
     if (checkUser == null) {
@@ -76,7 +78,7 @@ const doUpdate = async (req, res) => {
       accommodation.name = req.body.name;
     }
     if (req.body.location) {
-      accommodation.locationId = req.body.location;
+      accommodation.location = changeToArray(req.body.location);
     }
     if (req.body.description) {
       accommodation.description = req.body.description;

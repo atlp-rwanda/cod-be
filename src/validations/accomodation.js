@@ -1,10 +1,21 @@
 /* eslint-disable import/prefer-default-export */
 import Joi from 'joi';
 
+const locationSchema = Joi.string()
+  .min(3)
+  .required()
+  .label('Location of accomodation');
+
 const newAccomodation = Joi.object().keys({
   name: Joi.string().required().label('Accomodation name is required'),
   description: Joi.string().required().min(5).label('Description is required'),
-  location: Joi.string().required().label('Location name is required'),
+  location: Joi.alternatives()
+    .try(locationSchema, Joi.array().min(2).unique().items(locationSchema))
+    .required()
+    .messages({
+      'array.unique': 'The Location array contains duplicate items',
+      'any.required': 'Location of accomodation is required'
+    }),
   latitude: Joi.string().required().label('Latitude is required'),
   longitude: Joi.string().required().label('Longitude name is required')
 });
