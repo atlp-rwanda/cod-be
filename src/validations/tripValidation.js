@@ -33,7 +33,10 @@ const tripSchema = Joi.object().keys({
       'date.greater': `"Date of return" should be greater than "Date of travel"`
     }),
   travelReason: Joi.string().min(5).required().label('Reason for travel'),
-  accomodationId: Joi.number().required().label('Accomodation')
+  accomodationId: Joi.number().required().label('Accomodation'),
+  saveInfo: Joi.boolean()
+    .default(false)
+    .messages({ boolean: 'saveInfo must be boolean' })
 });
 
 export const validateDestination = async (trip) => {

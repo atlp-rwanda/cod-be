@@ -1,6 +1,10 @@
 /* eslint-disable import/named */
 import express from 'express';
-import { tripController, tripStatController } from '../controllers';
+import {
+  tripController,
+  tripStatController,
+  tripProfileController
+} from '../controllers';
 import { validate, errorHandler, isLoggedIn } from '../middlewares';
 import * as auth from '../middlewares/authorize';
 import {
@@ -38,6 +42,12 @@ tripRouter.get(
   '/:id',
   isLoggedIn,
   errorHandler(tripController.getOneTripRequest)
+);
+
+tripRouter.get(
+  '/profile/info',
+  isLoggedIn,
+  errorHandler(tripProfileController.getTripProfileInfo)
 );
 
 tripRouter.delete(
