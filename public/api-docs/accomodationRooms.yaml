@@ -1,0 +1,279 @@
+definitions:
+  newRoom:
+    type: object
+    required: 
+      - accomodationId
+      - roomNumber
+      - images
+      - description
+    properties:
+      accomodationId:
+        type: integer
+      roomNumber:
+        type: integer
+      images:
+        type: string
+      description: 
+         type: string
+  updateRoom:
+    type: object
+    required: 
+      - images
+      - description
+    properties:
+      images:
+        type: string
+      description: 
+         type: string
+  newBooking:
+    type: object
+    required: 
+      - tripId
+      - roomId
+    properties:
+      tripId:
+        type: string
+      roomId:
+        type: string
+  bookingStatus:
+    type: object
+    required: 
+      - status
+    properties:
+      status:
+        type: string   
+
+paths:
+  /api/v1/rooms?status={roomStatus}:
+      get:                 
+        tags:               
+          - Accomodation Rooms         
+        summary: Get Details Of Either Available Or Booked Rooms
+        parameters:
+        - in: path
+          name: roomStatus
+          schema:
+            type: string
+            format: string
+          required: true
+          description: Status Of The Room              
+        responses:
+          '200':
+            description: Rooms Retreived Succesfully
+          '403':
+            description: Unauthorized
+          '404':
+            description: Data Not Found
+          '500':
+            description: Server Error  
+
+  /api/v1/rooms/new:           
+    post:                 
+      tags:               
+        - Accomodation Rooms         
+      summary: New Room
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              $ref: '#/definitions/newRoom'          
+      responses:
+        '201':
+          description: Room Created Successfully
+        '500':
+          description: Internal server error
+        '403':
+          description: Unauthorized
+        '401':
+          description: Unauthenticated
+        '400':
+          description: Bad request
+
+  /api/v1/rooms/update/{roomId}:       
+    patch:                 
+      tags:               
+        - Accomodation Rooms         
+      summary: Update Room
+      parameters:
+      - in: path
+        name: roomId
+        schema:
+          type: string
+        required: true
+        description: Room Id 
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              $ref: '#/definitions/updateRoom'    
+      responses:
+        '200':
+          description: Room Is Successfully Updated
+        '500':
+          description: Internal server error
+        '403':
+          description: Unauthorized
+        '401':
+          description: Unauthenticated
+        '400':
+          description: Bad request
+        '404':
+          description: Room not found
+
+  /api/v1/rooms/remove/{roomId}:
+      delete:                 
+        tags:               
+          - Accomodation Rooms        
+        summary: Delete Room By Id 
+        parameters:
+        - in: path
+          name: roomId
+          schema:
+            type: string
+          required: true
+          description: Room Id           
+        responses:
+          '202':
+            description: Room Deleted Successfully
+          '500':
+            description: Internal server error
+          '403':
+            description: Unauthorized
+          '401':
+            description: Unauthenticated 
+          '409':
+            description: Conflict  
+          '404':
+            description: Room Not Found  
+
+  /api/v1/rooms/bookings/new:
+    post:                 
+      tags:               
+        - Accomodation Rooms         
+      summary: New Booking
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              $ref: '#/definitions/newBooking'          
+      responses:
+        '201':
+          description: Booking Created Successfully
+        '500':
+          description: Internal server error
+        '403':
+          description: Unauthorized
+        '401':
+          description: Unauthenticated
+        '400':
+          description: Bad request
+        '409':
+          description: Conflict
+        '404':
+          description: Not Found
+
+  /api/v1/rooms/bookings:
+      get:                 
+        tags:          
+          - Accomodation Rooms         
+        summary: Get Details Of All Bookings Made             
+        responses:
+          '200':
+            description: Bookings Retreived Succesfully
+          '401':
+            description: Unauthenticated
+          '403':
+            description: Unauthorized
+          '404':
+            description: Data Not Found
+          '500':
+            description: Server Error  
+
+  /api/v1/rooms/bookings/cancel/{bookingId}:  
+    delete:                 
+      tags:               
+        - Accomodation Rooms        
+      summary: Delete Booking By Id 
+      parameters:
+      - in: path
+        name: bookingId
+        schema:
+          type: string
+        required: true
+        description: Booking Id           
+      responses:
+        '202':
+          description: Booking Deleted Successfully
+        '500':
+          description: Internal server error
+        '403':
+          description: Unauthorized
+        '401':
+          description: Unauthenticated 
+        '409':
+          description: Conflict  
+        '404':
+          description: Not Found   
+
+  /api/v1/rooms/bookings/checkInOrCheckOut/{bookingId}:
+    patch:                 
+      tags:               
+        - Accomodation Rooms         
+      summary: Update Booking
+      parameters:
+      - in: path
+        name: bookingId
+        schema:
+          type: string
+        required: true
+        description: Booking Id 
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              $ref: '#/definitions/bookingStatus' 
+      responses:
+        '200':
+          description: Room Is Successfully Updated
+        '500':
+          description: Internal server error
+        '403':
+          description: Unauthorized
+        '401':
+          description: Unauthenticated
+        '400':
+          description: Bad request
+        '404':
+          description: Room not found
+        '409':
+          description: Conflict
+
+  /api/v1/rooms/bookings/delete/{bookingId}:  
+    delete:                 
+      tags:               
+        - Accomodation Rooms        
+      summary: Delete Booking By Id 
+      parameters:
+      - in: path
+        name: bookingId
+        schema:
+          type: string
+        required: true
+        description: Booking Id           
+      responses:
+        '202':
+          description: Booking Deleted Successfully
+        '500':
+          description: Internal server error
+        '403':
+          description: Unauthorized
+        '401':
+          description: Unauthenticated 
+        '409':
+          description: Conflict  
+        '404':
+          description: Not Found      

@@ -83,6 +83,7 @@
     "@babel/register": "^7.17.0",
     "@babel/runtime": "^7.17.2",
     "@hapi/joi": "^17.1.1",
+    "@types/chai-http": "^4.2.0",
     "babel-loader": "^8.2.3",
     "babel-plugin-istanbul": "^6.1.1",
     "chai": "^4.3.6",
