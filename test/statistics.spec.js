@@ -3,8 +3,12 @@ import chaiHTTP from 'chai-http';
 import chai, { expect } from 'chai';
 import app from '../src/app';
 
-const start = '2020-01-01';
-const end = '2022-04-01';
+const day = new Date();
+const yesterday = new Date(day.setDate(day.getDate() - 1));
+const today = new Date(day.setDate(day.getDate() + 1));
+const start = yesterday.toLocaleString();
+const end = today.toLocaleString();
+
 chai.use(chaiHTTP);
 describe('Statistics test ', () => {
   it('The user logged in can get the number of trips made in range of time', async () => {
@@ -19,6 +23,7 @@ describe('Statistics test ', () => {
       .get(`/api/v1/trip/statistics?start=${start}&end=${end}`)
       .set({ Authorization: `Bearer ${token}` });
     expect(res2).to.have.property('status', 200);
+    expect(res2.body.data.data).to.have.property('trips', 2);
     expect(res2.body.data).to.have.property(
       'message',
       `You succesfully got all trips you have made between ${start} and ${end} succesfully`
@@ -37,6 +42,7 @@ describe('Statistics test ', () => {
       .get(`/api/v1/trip/statistics?start=${start}&end=${end}`)
       .set({ Authorization: `Bearer ${token}` });
     expect(res2.body).to.have.property('status', 200);
+    expect(res2.body.data.data).to.have.property('trips', 1);
     expect(res2.body.data).to.have.property(
       'message',
       `You succesfully got all trips you have made between ${start} and ${end} succesfully`
@@ -73,6 +79,7 @@ describe('Statistics test ', () => {
       .get(`/api/v1/trip/statistics/recent?period=${period}&number=${number}`)
       .set({ Authorization: `Bearer ${token}` });
     expect(res2).to.have.property('status', 200);
+    expect(res2.body.data.data).to.have.property('trips', 2);
     expect(res2.body.data).to.have.property(
       'message',
       `You succesfully got all trips you made ${number} ${period} ago`
@@ -81,7 +88,7 @@ describe('Statistics test ', () => {
   it('User can get the statistics of recent weeks', async () => {
     const credentials = { email: 'demouser2@cod.be', password: 'altp6@random' };
     const period = 'week';
-    const number = 10;
+    const number = 1;
     const res = await chai
       .request(app)
       .post('/api/user/login')
@@ -92,6 +99,7 @@ describe('Statistics test ', () => {
       .get(`/api/v1/trip/statistics/recent?period=${period}&number=${number}`)
       .set({ Authorization: `Bearer ${token}` });
     expect(res2).to.have.property('status', 200);
+    expect(res2.body.data.data).to.have.property('trips', 2);
     expect(res2.body.data).to.have.property(
       'message',
       `You succesfully got all trips you made ${number} ${period} ago`
@@ -100,7 +108,7 @@ describe('Statistics test ', () => {
   it('User can get the statistics of recent months', async () => {
     const credentials = { email: 'demouser2@cod.be', password: 'altp6@random' };
     const period = 'month';
-    const number = 10;
+    const number = 1;
     const res = await chai
       .request(app)
       .post('/api/user/login')
@@ -111,6 +119,7 @@ describe('Statistics test ', () => {
       .get(`/api/v1/trip/statistics/recent?period=${period}&number=${number}`)
       .set({ Authorization: `Bearer ${token}` });
     expect(res2).to.have.property('status', 200);
+    expect(res2.body.data.data).to.have.property('trips', 2);
     expect(res2.body.data).to.have.property(
       'message',
       `You succesfully got all trips you made ${number} ${period} ago`
@@ -119,7 +128,7 @@ describe('Statistics test ', () => {
   it('User can get the statistics of recent years', async () => {
     const credentials = { email: 'demouser2@cod.be', password: 'altp6@random' };
     const period = 'year';
-    const number = 10;
+    const number = 1;
     const res = await chai
       .request(app)
       .post('/api/user/login')
@@ -130,6 +139,7 @@ describe('Statistics test ', () => {
       .get(`/api/v1/trip/statistics/recent?period=${period}&number=${number}`)
       .set({ Authorization: `Bearer ${token}` });
     expect(res2).to.have.property('status', 200);
+    expect(res2.body.data.data).to.have.property('trips', 2);
     expect(res2.body.data).to.have.property(
       'message',
       `You succesfully got all trips you made ${number} ${period} ago`
@@ -168,6 +178,23 @@ describe('Statistics test ', () => {
     expect(res2.body).to.have.property(
       'Error',
       `Statistics of travel are available for requester and Manager`
+    );
+  });
+  it('The user should put valid range of time', async () => {
+    const credentials = { email: 'demouser2@cod.be', password: 'altp6@random' };
+    const res = await chai
+      .request(app)
+      .post('/api/user/login')
+      .send({ ...credentials });
+    const token = res.body.accessToken;
+    const res2 = await chai
+      .request(app)
+      .get(`/api/v1/trip/statistics?start=${end}&end=${start}`)
+      .set({ Authorization: `Bearer ${token}` });
+    expect(res2).to.have.property('status', 400);
+    expect(res2.body.data).to.have.property(
+      'message',
+      `The ending date must be greater than starting date`
     );
   });
 });
