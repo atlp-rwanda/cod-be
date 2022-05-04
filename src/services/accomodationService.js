@@ -32,7 +32,6 @@ const getById = async (id) => {
     ],
     attributes: { exclude: ['userId'] }
   });
-
   return getRecord;
 };
 
