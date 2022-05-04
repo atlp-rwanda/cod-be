@@ -8,6 +8,7 @@ import {
   createdResponse,
   confictResponse
 } from '../utils/responseHandler';
+import { addProfileInfo } from './tripProfileController';
 
 export const makeTripRequest = async (req, res) => {
   const {
@@ -32,10 +33,12 @@ export const makeTripRequest = async (req, res) => {
   );
   if (badRequest) return ApplicationError.badRequestError(badRequest, res);
   if (trip) {
-    createdResponse(res, 'New trip request made successfully', trip);
-  } else {
-    ApplicationError.internalServerError(error, res);
+    return (
+      (await addProfileInfo(trip, req, res)) ||
+      createdResponse(res, 'New trip request made successfully', trip)
+    );
   }
+  ApplicationError.internalServerError(error, res);
 };
 
 export const getAllTripRequest = async (req, res) => {
