@@ -1,0 +1,180 @@
+paths:
+  /api/v1/trip/search/byKey?name={searchValue}: 
+    get:    
+      tags: 
+        - Trips Searching  
+      summary: Get trip request based on the user's name
+      parameters:
+      - in: path
+        name: searchValue
+        schema:
+          type: string
+        required: true
+        description: Search Value
+      responses:
+        '200':
+          description: Trip Request Searched and Found
+        '401':
+          description: Unauthenticated
+        '404':
+          description: Request not Found
+        '500':
+          description: Internal Server Error
+          
+  /api/v1/trip/search/byKey?email={searchValue}: 
+    get:    
+      tags: 
+        - Trips Searching  
+      summary: Get trip request based on user's email
+      parameters:
+      - in: path
+        name: searchValue
+        schema:
+          type: string
+        required: true
+        description: Search Value
+      responses:
+        '200':
+          description: Trip Request Searched and Found
+        '401':
+          description: Unauthenticated
+        '404':
+          description: Request not Found
+        '500':
+          description: Internal Server Error
+
+  /api/v1/trip/search/byKey?destination={searchValue}: 
+    get:    
+      tags: 
+        - Trips Searching  
+      summary: Get trip requests based on destination 
+      parameters:
+      - in: path
+        name: searchValue
+        schema:
+          type: string
+        required: true
+        description: Search Value
+      responses:
+        '200':
+          description: Trip Requests Searched and Found
+        '401':
+          description: Unauthenticated
+        '404':
+          description: Requests not Found
+        '500':
+          description: Internal Server Error   
+  /api/v1/trip/search/byKey?departure={searchValue}: 
+    get:    
+      tags: 
+        - Trips Searching 
+      summary: Get trip requests based on departure of the travelers 
+      parameters:
+      - in: path
+        name: searchValue
+        schema:
+          type: string
+        required: true
+        description: Search Value
+      responses:
+        '200':
+          description: Trip Requests Searched and Found
+        '401':
+          description: Unauthenticated
+        '404':
+          description: Requests not Found
+        '500':
+          description: Internal Server Error
+
+  /api/v1/trip/search/byKey?duration={searchValue}: 
+    get:    
+      tags: 
+        - Trips Searching  
+      summary: Get trip requests based on duration(days) to stay 
+      parameters:
+      - in: path
+        name: searchValue
+        schema:
+          type: string
+        required: true
+        description: Search Value
+      responses:
+        '200':
+          description: Trip Requests Searched and Found
+        '401':
+          description: Unauthenticated
+        '404':
+          description: Requests not Found
+        '500':
+          description: Internal Server Error 
+
+  /api/v1/trip/search/byKey?startDate={searchValue}: 
+    get:    
+      tags: 
+        - Trips Searching  
+      summary: Get trip requests based on the start date of the trip 
+      parameters:
+      - in: path
+        name: searchValue
+        schema:
+          type: string
+        required: true
+        description: Search Value
+      responses:
+        '200':
+          description: Trip Requests Searched and Found
+        '401':
+          description: Unauthenticated
+        '404':
+          description: Requests not Found
+        '500':
+          description: Internal Server Error  
+
+  /api/v1/trip/search/byKey?currentStatus={searchValue}: 
+    get:    
+      tags: 
+        - Trips Searching  
+      summary: Get trip requests based on the current status of the request
+      parameters:
+      - in: path
+        name: searchValue
+        schema:
+          type: string
+        required: true
+        description: Search Value
+      responses:
+        '200':
+          description: Trip Requests Searched and Found
+        '401':
+          description: Unauthenticated
+        '404':
+          description: Requests not Found
+        '500':
+          description: Internal Server Error
+  /api/v1/trip/search/byKey?departure={origin}&destination={destination}: 
+    get:    
+      tags: 
+        - Trips Searching  
+      summary: Get trip requests based on the origin and destination
+      parameters:
+      - in: path
+        name: origin
+        schema:
+          type: string
+        required: true
+        description: Travel departure
+      - in: path
+        name: destination
+        schema:
+          type: string
+        required: true
+        description: Travel destination 
+      responses:
+        '200':
+          description: Trip Requests Searched and Found
+        '401':
+          description: Unauthenticated
+        '404':
+          description: Requests not Found
+        '500':
+          description: Internal Server Error                                

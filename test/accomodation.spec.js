@@ -1,5 +1,4 @@
-import chai from 'chai';
-import { expect, request, use } from 'chai';
+import chai, { expect, request, use } from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../src/app.js';
 import models from '../src/database/models';
@@ -46,7 +45,10 @@ describe('/Handle Accomodation CRUD operations', () => {
   });
 
   it('It should login Admin User for CRUD operations', async () => {
-    const res = await request(app).post('/api/user/login').send(loginAdmin);
+    const res = await chai
+      .request(app)
+      .post('/api/user/login')
+      .send(loginAdmin);
     expect(res).to.have.status(200);
     expect(res.body).to.have.property('accessToken');
     expect(res.body).to.have.property('refreshToken');
@@ -54,7 +56,8 @@ describe('/Handle Accomodation CRUD operations', () => {
   });
 
   it('It should register an Accomodation ', async () => {
-    const res = await request(app)
+    const res = await chai
+      .request(app)
       .post('/api/v1/accommodations/register')
       .set('Authorization', `Bearer ${loginToken}`)
       .send(accomodation);
@@ -63,7 +66,8 @@ describe('/Handle Accomodation CRUD operations', () => {
   });
 
   it('It should get all accomodations', async () => {
-    const res = await request(app)
+    const res = await chai
+      .request(app)
       .get('/api/v1/accommodations')
       .set('Authorization', `Bearer ${loginToken}`)
       .send(accomodation);
@@ -71,7 +75,8 @@ describe('/Handle Accomodation CRUD operations', () => {
     expect(res.body.data).to.have.property('accommodations');
   });
   it('It should get accomodation by Id', async () => {
-    const res = await request(app)
+    const res = await chai
+      .request(app)
       .get(`/api/v1/accommodations/${accomId}`)
       .set('Authorization', `Bearer ${loginToken}`)
       .send(accomodation);
@@ -87,7 +92,8 @@ describe('/Handle Accomodation CRUD operations', () => {
       longitude: '-1232322',
       latitude: '-23421122'
     };
-    const res = await request(app)
+    const res = await chai
+      .request(app)
       .patch(`/api/v1/accommodations/update/${accomId}`)
       .set('Authorization', `Bearer ${loginToken}`)
       .send(newAccomodation);
@@ -103,7 +109,8 @@ describe('/Handle Accomodation CRUD operations', () => {
       description: 'Best rooms for accomodation',
       accomodation: accomId
     };
-    const res = await request(app)
+    const res = await chai
+      .request(app)
       .post('/api/v1/facilities/register')
       .set('Authorization', `Bearer ${loginToken}`)
       .send(facility);
@@ -119,7 +126,8 @@ describe('/Handle Accomodation CRUD operations', () => {
       description: 'Best rooms for accomodation',
       accomodation: accomId
     };
-    const res = await request(app)
+    const res = await chai
+      .request(app)
       .patch(`/api/v1/facilities/update/${facilityId}`)
       .set('Authorization', `Bearer ${loginToken}`)
       .send(facilityUpdate);
@@ -128,14 +136,16 @@ describe('/Handle Accomodation CRUD operations', () => {
   });
 
   it('It should get facilities in Accomodation', async () => {
-    const res = await request(app)
+    const res = await chai
+      .request(app)
       .get(`/api/v1/facilities/all/${accomId}`)
       .set('Authorization', `Bearer ${loginToken}`);
     expect(res).to.have.status(200);
     expect(res.body.data).to.have.property('facilities');
   });
   it('It should get facility by Id', async () => {
-    const res = await request(app)
+    const res = await chai
+      .request(app)
       .get(`/api/v1/facilities/${facilityId}`)
       .set('Authorization', `Bearer ${loginToken}`);
     expect(res).to.have.status(200);
@@ -143,7 +153,8 @@ describe('/Handle Accomodation CRUD operations', () => {
   });
 
   it('It should remove accomodation by Id', async () => {
-    const res = await request(app)
+    const res = await chai
+      .request(app)
       .delete(`/api/v1/accommodations/remove/${accomId}`)
       .set('Authorization', `Bearer ${loginToken}`)
       .send(accomodation);
@@ -162,7 +173,8 @@ describe('/Handle Accomodation CRUD operations', () => {
       price: '10$',
       allowBooking: 'false'
     };
-    const res = await request(app)
+    const res = await chai
+      .request(app)
       .post('/api/v1/facility/components')
       .set('Authorization', `Bearer ${loginToken}`)
       .send(component);
@@ -183,7 +195,8 @@ describe('/Handle Accomodation CRUD operations', () => {
       price: '40$',
       allowBooking: 'true'
     };
-    const res = await request(app)
+    const res = await chai
+      .request(app)
       .patch(`/api/v1/facility/components/${componentId}`)
       .set('Authorization', `Bearer ${loginToken}`)
       .send(componentupdate);
@@ -191,7 +204,8 @@ describe('/Handle Accomodation CRUD operations', () => {
     expect(res.body.data).to.have.property('message');
   });
   it('It should get a component by facility Id', async () => {
-    const res = await request(app)
+    const res = await chai
+      .request(app)
       .get(`/api/v1/facility/components/${facilityId}`)
       .set('Authorization', `Bearer ${loginToken}`);
     expect(res).to.have.status(200);
@@ -199,14 +213,16 @@ describe('/Handle Accomodation CRUD operations', () => {
   });
 
   it('It should remove a component by Id', async () => {
-    const res = await request(app)
+    const res = await chai
+      .request(app)
       .delete(`/api/v1/facility/components/${componentId}`)
       .set('Authorization', `Bearer ${loginToken}`);
     expect(res).to.have.status(200);
     expect(res.body.data).to.have.property('message');
   });
   it('It should remove facility by Id', async () => {
-    const res = await request(app)
+    const res = await chai
+      .request(app)
       .delete(`/api/v1/facilities/delete/${facilityId}`)
       .set('Authorization', `Bearer ${loginToken}`);
     expect(res).to.have.status(200);

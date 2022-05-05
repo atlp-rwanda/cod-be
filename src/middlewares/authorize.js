@@ -87,12 +87,20 @@ const authorizeCommenter = async (req, res, next) => {
   const check = await checkCommenter(req.user.id, req.params.tripId);
   return check ? next() : isAuthorized.isNotAuthorized('Access denied', res);
 };
-
+const authorizeTripSearch = async (req, res, next) => {
+  const check = await superUser(req.valid.email, req.valid.id);
+  if (!check) {
+    next();
+  } else {
+    isAuthorized.isNotAuthorized('Access denied', res);
+  }
+};
 export {
   isSuperAdmin,
   adminUser,
   superAdmin,
   isRequester,
   authorizeCommenter,
-  isManagerUser
+  isManagerUser,
+  authorizeTripSearch
 };
