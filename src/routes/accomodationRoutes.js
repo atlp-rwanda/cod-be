@@ -1,16 +1,27 @@
 import express from 'express';
-import * as validate from '../middlewares/validateInputs';
-import * as Accomodation from '../controllers/accomodationController';
-import isLoggedIn from '../middlewares/authenticate';
-import { adminUser } from '../middlewares/authorize';
+import { Accomodation, destinationController } from '../controllers';
+import { accomodationIdSchema } from '../validations';
+import {
+  isLoggedIn,
+  authorizeCommenter as adminUser,
+  validateAccommodation,
+  errorHandler,
+  paramsValidate
+} from '../middlewares';
 
 const accomodationRouter = express.Router();
+
 accomodationRouter.post(
   '/v1/accommodations/register',
   isLoggedIn,
   adminUser,
-  validate.addAccomodation,
+  validateAccommodation.addAccomodation,
   Accomodation.newEntry
+);
+accomodationRouter.get(
+  '/v1/accommodations/destinationStats',
+  isLoggedIn,
+  errorHandler(destinationController.getAllDestinationStats)
 );
 
 accomodationRouter.get(
@@ -27,11 +38,18 @@ accomodationRouter.get(
   Accomodation.getById
 );
 
+accomodationRouter.get(
+  '/v1/accommodations/:accomodationId/destinationStats',
+  paramsValidate(accomodationIdSchema),
+  isLoggedIn,
+  errorHandler(destinationController.getAccommodationDestinationStats)
+);
+
 accomodationRouter.patch(
   '/v1/accommodations/update/:Id',
   isLoggedIn,
   adminUser,
-  validate.updateAccomodation,
+  validateAccommodation.updateAccomodation,
   Accomodation.doUpdate
 );
 

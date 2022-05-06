@@ -117,6 +117,43 @@ paths:
           description: Unauthorized
         '401':
           description: Unauthenticated
+  /api/v1/accommodations/{accomodationId}/destinationStats:  
+    get:                 
+      tags:               
+        - Accomodations         
+      summary: Get Most travelled locations for one accomodation
+      parameters:
+      - in: path
+        name: accomodationId
+        schema:
+          type: integer
+        required: true
+        description: Accommodation Id           
+      responses:
+        '200':
+          description: Most travelled location/centers statistics
+        '400':
+          description: Bad Request
+        '401':
+          description: Not Authenticated
+        '403':
+          description: Unauthorized
+        '500':
+          description: Internal server error
+  /api/v1/accommodations/destinationStats:  
+    get:                 
+      tags:               
+        - Accomodations         
+      summary: Get Most travelled locations for all accomodation         
+      responses:
+        '200':
+          description: Most travelled location/centers statistics
+        '401':
+          description: Not Authenticated
+        '403':
+          description: Unauthorized
+        '500':
+          description: Internal server error
   /api/v1/accommodations/remove/{Id}:  
     delete:                 
       tags:               
