@@ -1,39 +1,60 @@
-import { addNotificationsStatus } from '../services/notificationService';
+import {
+  addNotificationsStatus,
+  allNotifications,
+  checkIfBlocked,
+  getById
+} from '../services/notificationService';
 import * as applicationError from '../utils/errors/applicationsErrors';
 import { successResponse } from '../utils/responseHandler';
+import * as notFound from '../utils/errors/notFoundError';
 
-export const allowNofications = async (req, res) => {
+export const addNoficationStatus = async (req, res) => {
   try {
-    const { type } = req.body;
+    const { type, status } = req.body;
     const notification = {
       userId: req.user.id,
       type,
-      isAllowed: true
+      isAllowed: status
     };
-    const addNew = await addNotificationsStatus(notification);
-    console.log(addNew);
+    await addNotificationsStatus(notification);
     successResponse(res, 200, 'Notification status updated');
   } catch (error) {
-    console.log(error);
     return applicationError.internalServerError(
       { data: { message: `Error: ${error} ,try again!` } },
       res
     );
   }
 };
-export const blockNotifications = async (req, res) => {
+export const getNotifications = async (req, res) => {
   try {
-    const { type } = req.body;
-    const notification = {
+    const checkBlocked = await checkIfBlocked({
       userId: req.user.id,
-      type,
+      type: 'application',
       isAllowed: false
-    };
-    const addNew = await addNotificationsStatus(notification);
-    console.log(addNew);
-    successResponse(res, 200, 'Notification status updated');
+    });
+    if (checkBlocked) {
+      return notFound.isNotFound(
+        { data: { message: 'Please enable notifications!' } },
+        res
+      );
+    }
+    const notifications = await allNotifications(req.user.id);
+    successResponse(res, 200, 'Notifications', notifications);
   } catch (error) {
-    console.log(error);
+    return applicationError.internalServerError(
+      { data: { message: `Error: ${error} ,try again!` } },
+      res
+    );
+  }
+};
+export const getNotificationById = async (req, res) => {
+  try {
+    const notification = await getById(req.params.Id);
+    if (notification) {
+      return successResponse(res, 200, 'Notifications', notification);
+    }
+    return notFound.isNotFound({ data: { message: 'Not Found!' } }, res);
+  } catch (error) {
     return applicationError.internalServerError(
       { data: { message: `Error: ${error} ,try again!` } },
       res

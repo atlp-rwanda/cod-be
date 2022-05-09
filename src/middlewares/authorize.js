@@ -6,7 +6,8 @@ import * as notFound from '../utils/errors/notFoundError';
 import {
   isAdmin,
   isSuperAdmin as superUser,
-  isManager
+  isManager,
+  getUserRole
 } from '../services/rolesService';
 import { Users } from '../database/models';
 import {
@@ -95,6 +96,14 @@ const authorizeTripSearch = async (req, res, next) => {
     isAuthorized.isNotAuthorized('Access denied', res);
   }
 };
+const notificationOwner = async (req, res, next) => {
+  const roleName = await getUserRole(req.user.id);
+  if (roleName === 'Requester' || roleName === 'Manager') {
+    next();
+  } else {
+    isAuthorized.isNotAuthorized('Access denied', res);
+  }
+};
 export {
   isSuperAdmin,
   adminUser,
@@ -102,5 +111,6 @@ export {
   isRequester,
   authorizeCommenter,
   isManagerUser,
-  authorizeTripSearch
+  authorizeTripSearch,
+  notificationOwner
 };

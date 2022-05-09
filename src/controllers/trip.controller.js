@@ -10,6 +10,10 @@ import {
 } from '../utils/responseHandler';
 import { addProfileInfo } from './tripProfileController';
 import * as notification from '../services/notificationService';
+import {
+  sendNotification,
+  sendStatusNotification
+} from '../utils/helpers/sendNotificationEmail';
 
 export const makeTripRequest = async (req, res) => {
   const {
@@ -34,10 +38,6 @@ export const makeTripRequest = async (req, res) => {
   );
   if (badRequest) return ApplicationError.badRequestError(badRequest, res);
   if (trip) {
-    return (
-      (await addProfileInfo(trip, req, res)) ||
-      createdResponse(res, 'New trip request made successfully', trip)
-    );
     /** raise a notification for a new trip */
     const newNotification = {
       title: 'New Trip Request Created',
@@ -48,11 +48,13 @@ export const makeTripRequest = async (req, res) => {
       category: 'created'
     };
     await notification.addTripStatusNotification(newNotification);
-    createdResponse(res, 'New trip request made successfully', trip);
-  } else {
-    ApplicationError.internalServerError(error, res);
+    await sendNotification(req.user.email, accomodationId);
+    return (
+      (await addProfileInfo(trip, req, res)) ||
+      createdResponse(res, 'New trip request made successfully', trip)
+    );
   }
-  ApplicationError.internalServerError(error, res);
+  return ApplicationError.internalServerError(error, res);
 };
 
 export const getAllTripRequest = async (req, res) => {
@@ -152,6 +154,7 @@ export const approveOrRejectTripRequest = async (req, res) => {
         category: 'status'
       };
       await notification.addTripStatusNotification(updatingStatus);
+      await sendStatusNotification(updatedTrip.ownedBy.email, req.body.status);
       successResponse(
         res,
         200,
@@ -175,6 +178,7 @@ export const approveOrRejectTripRequest = async (req, res) => {
         category: 'status'
       };
       await notification.addTripStatusNotification(updatingStatus);
+      await sendStatusNotification(updatedTrip.ownedBy.email, req.body.status);
       successResponse(
         res,
         200,
@@ -198,6 +202,7 @@ export const approveOrRejectTripRequest = async (req, res) => {
         category: 'status'
       };
       await notification.addTripStatusNotification(updatingStatus);
+      await sendStatusNotification(updatedTrip.ownedBy.email, req.body.status);
       successResponse(
         res,
         200,
@@ -221,6 +226,7 @@ export const approveOrRejectTripRequest = async (req, res) => {
         category: 'status'
       };
       await notification.addTripStatusNotification(updatingStatus);
+      await sendStatusNotification(updatedTrip.ownedBy.email, req.body.status);
       successResponse(
         res,
         200,
@@ -244,6 +250,7 @@ export const approveOrRejectTripRequest = async (req, res) => {
         category: 'status'
       };
       await notification.addTripStatusNotification(updatingStatus);
+      await sendStatusNotification(updatedTrip.ownedBy.email, req.body.status);
 
       successResponse(
         res,
@@ -268,6 +275,7 @@ export const approveOrRejectTripRequest = async (req, res) => {
         category: 'status'
       };
       await notification.addTripStatusNotification(updatingStatus);
+      await sendStatusNotification(updatedTrip.ownedBy.email, req.body.status);
       successResponse(
         res,
         200,

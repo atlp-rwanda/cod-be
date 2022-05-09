@@ -20,7 +20,7 @@ export const addComment = async (req, res) => {
     /** raise a notification */
     const newNotification = {
       title: 'New Comment To A trip You Made',
-      message: 'Check A new Comment Message',
+      message: req.body.comment,
       type: 'application',
       tripId,
       addedBy: userId,

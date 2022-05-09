@@ -5,12 +5,15 @@ import { getUserRole } from '../../services/rolesService';
 const getNotifications = async (userId) => {
   try {
     const userRole = await getUserRole(userId);
-    if (userRole === 'Requester') {
+    if (
+      userRole === 'Requester' ||
+      userRole === 'Travel Administrator' ||
+      userRole === 'Super Administrator'
+    ) {
       const query =
-        'SELECT * FROM notifications ' +
-        `WHERE "isRead"='false'` +
+        'SELECT id,title,message,"tripId","isRead","createdAt" FROM notifications ' +
+        `WHERE type='application'` +
         ` AND (category ='status' OR category='comment')` +
-        ` AND type='application'` +
         ` AND "addedBy"<>'${userId}'` +
         ` AND "tripId" IN ` +
         `(SELECT id FROM trips WHERE "userId"='${userId}')`;
@@ -20,8 +23,8 @@ const getNotifications = async (userId) => {
 
     if (userRole === 'Manager') {
       const query =
-        'SELECT * FROM notifications ' +
-        `WHERE "isRead"='false'` +
+        'SELECT id,title,message,"tripId","isRead","createdAt" FROM notifications ' +
+        `WHERE type='application'` +
         ` AND (category ='created' OR category='updated' OR category='comment')` +
         ` AND "tripId" IN ` +
         `(SELECT id FROM trips WHERE "accomodationId" IN (SELECT id FROM accomodations WHERE "managerId"='${userId}'))`;
@@ -30,7 +33,6 @@ const getNotifications = async (userId) => {
     }
     return [];
   } catch (error) {
-    console.log(error);
     return [];
   }
 };

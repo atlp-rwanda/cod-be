@@ -18,8 +18,10 @@ ioHandle.use(async (socket, next) => {
 });
 
 ioHandle.on('connection', async (socket) => {
-  const notifications = await getNotifications(userId);
-  socket.emit('notifications', notifications);
+  setInterval(async () => {
+    const notifications = await getNotifications(userId);
+    socket.emit('notifications', notifications);
+  }, 30000);
   ioHandle.on('disconnect', () => {
     socket.emit('disconnected', 'Client disconnected');
   });

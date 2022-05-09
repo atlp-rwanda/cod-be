@@ -20,6 +20,10 @@ export async function up(queryInterface, DataTypes) {
       type: DataTypes.ENUM('email', 'application'),
       defaultValue: 'application'
     },
+    category: {
+      type: DataTypes.ENUM('created', 'updated', 'status', 'comment'),
+      allowNull: false
+    },
     isRead: {
       type: DataTypes.BOOLEAN,
       defaultValue: 'false'

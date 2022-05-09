@@ -1,23 +1,26 @@
 import express from 'express';
 import {
-  allowNofications,
-  blockNotifications
+  addNoficationStatus,
+  getNotifications,
+  getNotificationById
 } from '../controllers/notificationsController';
-import { isValid } from '../middlewares/notificationValidate';
-import isLoggedIn from '../middlewares/authenticate';
+import { validate, isLoggedIn, paramsValidate } from '../middlewares';
+import { validateType, validateParameter } from '../validations/notifications';
 
 const notificationsRouter = express.Router();
 notificationsRouter.post(
-  '/v1/allow/notifications',
+  '/v1/notifications/status',
   isLoggedIn,
-  isValid,
-  allowNofications
+  validate(validateType),
+  addNoficationStatus
 );
-notificationsRouter.post(
-  '/v1/block/notifications',
+notificationsRouter.get('/v1/notifications', isLoggedIn, getNotifications);
+
+notificationsRouter.get(
+  '/v1/:Id/notifications',
   isLoggedIn,
-  isValid,
-  blockNotifications
+  paramsValidate(validateParameter),
+  getNotificationById
 );
 
 export default notificationsRouter;

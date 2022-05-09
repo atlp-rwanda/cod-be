@@ -1,4 +1,5 @@
 import models from '../database/models';
+import { getNotifications } from '../utils/helpers/notifications';
 
 const { Notification, UserNotification } = models;
 const addTripStatusNotification = async (notification) => {
@@ -22,8 +23,32 @@ const addNotificationsStatus = async (notification) => {
   );
   return { item, created: false };
 };
+const getById = async (id) => {
+  const foundItem = await Notification.findOne({ where: { id: `${id}` } });
+  if (!foundItem) {
+    return null;
+  }
+  return foundItem;
+};
+
+const allNotifications = async (user) => {
+  const found = await getNotifications(user);
+  return found;
+};
+
+const checkIfBlocked = async (where) => {
+  const foundItem = await UserNotification.findOne({ where });
+  if (!foundItem) {
+    return false;
+  }
+  return true;
+};
+
 export {
   addTripStatusNotification,
   addTripCommentNotification,
-  addNotificationsStatus
+  addNotificationsStatus,
+  allNotifications,
+  checkIfBlocked,
+  getById
 };
