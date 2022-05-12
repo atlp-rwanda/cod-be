@@ -189,5 +189,43 @@ describe('Manage user notifications', () => {
       expect(res).to.have.status(200);
       expect(res.body.data).to.have.property('data');
     });
+    it('The user logged in can mark notification as read', async () => {
+      const res2 = await chai
+        .request(app)
+        .post(`/api/v1/read/notification/${notificationId}`)
+        .set({ Authorization: `Bearer ${loginToken}` });
+      expect(res2).to.have.property('status', 200);
+      expect(res2.body.data).to.have.property(
+        'message',
+        `Notification marked as read succesfully`
+      );
+    });
+    it('The Notification read can not be read again', async () => {
+      const res2 = await chai
+        .request(app)
+        .post(`/api/v1/read/notification/${notificationId}`)
+        .set({ Authorization: `Bearer ${loginToken}` });
+      expect(res2).to.have.property('status', 200);
+      expect(res2.body.data).to.have.property(
+        'message',
+        `The notification is already read`
+      );
+    });
+    it('If notification does not exist user can not read it', async () => {
+      const res2 = await chai
+        .request(app)
+        .post(`/api/v1/read/notification/0c58cb56-40f7-4e5b-905e-b7a915604253`)
+        .set({ Authorization: `Bearer ${loginToken}` });
+      expect(res2).to.have.property('status', 404);
+      expect(res2.body).to.have.property('Error', `Notification not found`);
+    });
+    it('If user has no notification can not mark them', async () => {
+      const res2 = await chai
+        .request(app)
+        .post(`/api/v1/read/notifications`)
+        .set({ Authorization: `Bearer ${loginToken}` });
+      expect(res2).to.have.property('status', 404);
+      expect(res2.body).to.have.property('Error', `You have no notification`);
+    });
   });
 });
