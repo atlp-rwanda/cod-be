@@ -3,6 +3,7 @@ import 'dotenv/config';
 import http from 'http';
 import app from './app';
 import io from './utils/websocket.io';
+import ioHandle from './utils/helpers/notification.socket';
 import swaggerDocs from '../public/api-docs/swagger';
 import { sequelize } from './database/models';
 import validateVariables from './validations/envValidation';
@@ -14,6 +15,7 @@ import validateVariables from './validations/envValidation';
 const serverPort = process.env.PORT;
 const server = http.createServer(app);
 io.attach(server);
+ioHandle.attach(server);
 
 const connectServer = () => {
   server.listen(serverPort, async () => {

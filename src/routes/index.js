@@ -12,6 +12,7 @@ import tripRouter from './trip.route';
 import commentRouter from './commentRouter';
 import chatRouter from './chatRouter';
 import tripSearchRouter from './tripRequestsSearchRoutes';
+import notificationsRouter from './notifications';
 
 const indexRouter = express.Router();
 /**
@@ -36,4 +37,5 @@ indexRouter.use('/api/v1', commentRouter);
 indexRouter.use('/api', chatRouter);
 indexRouter.use('/api', tripSearchRouter);
 
+indexRouter.use('/api', notificationsRouter);
 export default indexRouter;

@@ -137,7 +137,7 @@ export const approveOrRejectTrip = async (tripId, newTripStatus) => {
         {
           model: Users,
           as: 'ownedBy',
-          attributes: ['firstname', 'lastname']
+          attributes: ['firstname', 'lastname', 'email']
         }
       ],
       attributes: { exclude: ['createdAt', 'updatedAt', 'firstname'] }

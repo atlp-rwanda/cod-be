@@ -9,6 +9,11 @@ import {
   confictResponse
 } from '../utils/responseHandler';
 import { addProfileInfo } from './tripProfileController';
+import * as notification from '../services/notificationService';
+import {
+  sendNotification,
+  sendStatusNotification
+} from '../utils/helpers/sendNotificationEmail';
 
 export const makeTripRequest = async (req, res) => {
   const {
@@ -33,12 +38,23 @@ export const makeTripRequest = async (req, res) => {
   );
   if (badRequest) return ApplicationError.badRequestError(badRequest, res);
   if (trip) {
+    /** raise a notification for a new trip */
+    const newNotification = {
+      title: 'New Trip Request Created',
+      message: 'Check for A new Trip Made in Your Accomodation',
+      type: 'application',
+      tripId: trip.id,
+      addedBy: req.user.id,
+      category: 'created'
+    };
+    await notification.addTripStatusNotification(newNotification);
+    await sendNotification(req.user.email, accomodationId);
     return (
       (await addProfileInfo(trip, req, res)) ||
       createdResponse(res, 'New trip request made successfully', trip)
     );
   }
-  ApplicationError.internalServerError(error, res);
+  return ApplicationError.internalServerError(error, res);
 };
 
 export const getAllTripRequest = async (req, res) => {
@@ -96,6 +112,16 @@ export const updateTripRequest = async (req, res) => {
     req.body.destination = changeToArray(req.body.destination);
     const { error } = await tripService.updateTrip(req.params.id, req.body);
     if (error) return ApplicationError.internalServerError(error, res);
+    /** raise a notification for updating trip trequest */
+    const updating = {
+      title: 'Trip Request Updated',
+      message: 'Check for An Update To A Trip Made in Your Accomodation',
+      type: 'application',
+      tripId: trip.id,
+      addedBy: req.user.id,
+      category: 'updated'
+    };
+    await notification.addTripStatusNotification(updating);
     successResponse(res, 200, 'Trip request updated successfully');
   } else {
     ApplicationError.AuthorizationError(
@@ -118,6 +144,17 @@ export const approveOrRejectTripRequest = async (req, res) => {
         managerId
       );
       if (error) return ApplicationError.databaseError(error, res);
+      /** raise a notification on trip request status changed */
+      const updatingStatus = {
+        title: 'Trip Request Status Changed',
+        message: 'Your Trip Request is Approved',
+        type: 'application',
+        tripId: trip.id,
+        addedBy: req.user.id,
+        category: 'status'
+      };
+      await notification.addTripStatusNotification(updatingStatus);
+      await sendStatusNotification(updatedTrip.ownedBy.email, req.body.status);
       successResponse(
         res,
         200,
@@ -131,6 +168,17 @@ export const approveOrRejectTripRequest = async (req, res) => {
         managerId
       );
       if (error) return ApplicationError.databaseError(error, res);
+      /** raise a notification on trip request status changed */
+      const updatingStatus = {
+        title: 'Trip Request Status Changed',
+        message: 'Your Trip Request is Rejected',
+        type: 'application',
+        tripId: trip.id,
+        addedBy: req.user.id,
+        category: 'status'
+      };
+      await notification.addTripStatusNotification(updatingStatus);
+      await sendStatusNotification(updatedTrip.ownedBy.email, req.body.status);
       successResponse(
         res,
         200,
@@ -144,6 +192,17 @@ export const approveOrRejectTripRequest = async (req, res) => {
         managerId
       );
       if (error) return ApplicationError.databaseError(error, res);
+      /** raise a notification on trip request status changed */
+      const updatingStatus = {
+        title: 'Trip Request Status Changed',
+        message: 'Your Trip Request is Rejected',
+        type: 'application',
+        tripId: trip.id,
+        addedBy: req.user.id,
+        category: 'status'
+      };
+      await notification.addTripStatusNotification(updatingStatus);
+      await sendStatusNotification(updatedTrip.ownedBy.email, req.body.status);
       successResponse(
         res,
         200,
@@ -157,6 +216,17 @@ export const approveOrRejectTripRequest = async (req, res) => {
         managerId
       );
       if (error) return ApplicationError.databaseError(error, res);
+      /** raise a notification on trip request status changed */
+      const updatingStatus = {
+        title: 'Trip Request Status Changed',
+        message: 'Check for An Update To A Trip You Made',
+        type: 'application',
+        tripId: trip.id,
+        addedBy: req.user.id,
+        category: 'status'
+      };
+      await notification.addTripStatusNotification(updatingStatus);
+      await sendStatusNotification(updatedTrip.ownedBy.email, req.body.status);
       successResponse(
         res,
         200,
@@ -170,6 +240,18 @@ export const approveOrRejectTripRequest = async (req, res) => {
         managerId
       );
       if (error) return ApplicationError.databaseError(error, res);
+      /** raise a notification on trip request status changed */
+      const updatingStatus = {
+        title: 'Trip Request Status Changed',
+        message: 'Your Trip Request is Approved',
+        type: 'application',
+        tripId: trip.id,
+        addedBy: req.user.id,
+        category: 'status'
+      };
+      await notification.addTripStatusNotification(updatingStatus);
+      await sendStatusNotification(updatedTrip.ownedBy.email, req.body.status);
+
       successResponse(
         res,
         200,
@@ -183,6 +265,17 @@ export const approveOrRejectTripRequest = async (req, res) => {
         managerId
       );
       if (error) return ApplicationError.databaseError(error, res);
+      /** raise a notification on trip request status changed */
+      const updatingStatus = {
+        title: 'Trip Request Status Changed',
+        message: 'Check for An Update To A Trip You Made',
+        type: 'application',
+        tripId: trip.id,
+        addedBy: req.user.id,
+        category: 'status'
+      };
+      await notification.addTripStatusNotification(updatingStatus);
+      await sendStatusNotification(updatedTrip.ownedBy.email, req.body.status);
       successResponse(
         res,
         200,
