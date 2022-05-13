@@ -27,8 +27,7 @@ export const findTripById = async (tripId) => {
           model: Accomodation,
           attributes: ['id', 'name']
         }
-      ],
-      attributes: { exclude: ['accomodationId'] }
+      ]
     });
     return { trip };
   } catch (err) {

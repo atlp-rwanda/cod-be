@@ -17,7 +17,9 @@ app.use(cors());
 app.use('/', indexRouter);
 
 app.use((err, req, res, next) => {
-  res.status(500).send({ status: 500, data: { message: err.message } });
+  res
+    .status(500)
+    .send({ status: 500, data: { message: err.message, details: err } });
 });
 
 export default app;

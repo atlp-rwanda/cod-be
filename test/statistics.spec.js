@@ -42,7 +42,7 @@ describe('Statistics test ', () => {
       .get(`/api/v1/trip/statistics?start=${start}&end=${end}`)
       .set({ Authorization: `Bearer ${token}` });
     expect(res2.body).to.have.property('status', 200);
-    expect(res2.body.data.data).to.have.property('trips', 1);
+    expect(res2.body.data.data).to.have.property('trips');
     expect(res2.body.data).to.have.property(
       'message',
       `You succesfully got all trips you have made between ${start} and ${end} succesfully`
