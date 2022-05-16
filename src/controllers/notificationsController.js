@@ -2,7 +2,8 @@ import {
   addNotificationsStatus,
   allNotifications,
   checkIfBlocked,
-  getById
+  getById,
+  markNotification
 } from '../services/notificationService';
 import * as applicationError from '../utils/errors/applicationsErrors';
 import { successResponse } from '../utils/responseHandler';
@@ -59,5 +60,43 @@ export const getNotificationById = async (req, res) => {
       { data: { message: `Error: ${error} ,try again!` } },
       res
     );
+  }
+};
+export const readNotification = async (req, res) => {
+  try {
+    const { Id } = req.params;
+    const notification = await getById(Id);
+    if (!notification) {
+      return applicationError.notFoundError('Notification not found', res);
+    }
+    if (!notification.isRead) {
+      await markNotification(notification);
+      return successResponse(
+        res,
+        200,
+        'Notification marked as read succesfully'
+      );
+    }
+    return successResponse(res, 200, 'The notification is already read');
+  } catch (error) {
+    return applicationError.internalServerError(error, res);
+  }
+};
+
+export const readAllNotifications = async (req, res) => {
+  try {
+    const { id: userId } = req.user;
+    const notifications = await allNotifications(userId);
+    notifications.forEach(async (notification) => {
+      const Id = notification.id;
+      const notificationQuery = await getById(Id);
+      await markNotification(notificationQuery);
+    });
+    if (!notifications.length) {
+      return applicationError.notFoundError('You have no notification', res);
+    }
+    return successResponse(res, 200, 'All notification were marked as read');
+  } catch (error) {
+    return applicationError.internalServerError(error, res);
   }
 };

@@ -120,9 +120,13 @@ const login = async (req, res) => {
       return ApplicationError.validationError('Invalid Password', res);
     }
     const token = await storeToken(user);
-    return res
-      .status(200)
-      .json({ ...token, message: 'User logged in successfully', status: 200 });
+    const roleId = user.roleId;
+    return res.status(200).json({
+      ...token,
+      roleId,
+      message: 'User logged in successfully',
+      status: 200
+    });
   } catch (error) {
     return ApplicationError.validationError('Invalid input', res);
   }

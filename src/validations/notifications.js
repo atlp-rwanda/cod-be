@@ -15,7 +15,7 @@ const validateType = Joi.object().keys({
     .messages({ Type: 'Give a valid notification status(true or false)' })
 });
 const validateParameter = Joi.object().keys({
-  Id: Joi.string().min(4).label('Id').messages({
+  Id: Joi.string().guid().min(4).label('Id').messages({
     Type: 'Give a valid notification Id)'
   })
 });
