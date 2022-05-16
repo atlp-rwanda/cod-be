@@ -70,3 +70,34 @@ paths:
           description: Not Found
         '401':
           description: Unauthenticated               
+  /api/v1/read/notification/{Id}:           
+    post:                 
+      tags:              
+        - Notifications        
+      summary: Marking notification as read
+      parameters:
+        - in: path
+          name: Id
+          schema:
+            type: string
+          required: true
+          description: Notification id
+      responses:          
+        '200':
+          description: Marked notification succesfully
+        '404':
+          description: Notification not found
+        '500':
+          description: internal server error
+  /api/v1/read/notifications:           
+    post:                 
+      tags:               
+        - Notifications         
+      summary: Marking all notification as read
+      responses:         
+        '200':
+          description: Marked all notification successfully
+        '404':
+          description: No notifications found
+        '500':
+          description: internal server error

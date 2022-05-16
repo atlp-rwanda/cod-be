@@ -5,9 +5,10 @@ import { getUserRole } from '../services/rolesService';
 
 export const tripStatistics = async (req, res) => {
   const userId = req.user.id;
-  const { start } = req.query;
+  let { start } = req.query;
   let { end } = req.query;
-  const endingDate = end;
+  const startString = start;
+  const endString = end;
   const isToday =
     new Date(end).toLocaleDateString() === new Date().toLocaleDateString();
   if (isToday) {
@@ -16,7 +17,7 @@ export const tripStatistics = async (req, res) => {
     end = new Date(end);
     end.setDate(end.getDate() + 1);
   }
-
+  start = new Date(start);
   const userRole = await getUserRole(userId);
   if (userRole !== 'Requester' && userRole !== 'Manager') {
     return ApplicationError.AuthorizationError(
@@ -29,7 +30,7 @@ export const tripStatistics = async (req, res) => {
     return successResponse(
       res,
       200,
-      `You succesfully got all trips you have made between ${start} and ${endingDate} succesfully`,
+      `You succesfully got all trips you have made between ${startString} and ${endString} succesfully`,
       { trips: trips.count }
     );
   }

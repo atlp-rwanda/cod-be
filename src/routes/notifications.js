@@ -2,7 +2,9 @@ import express from 'express';
 import {
   addNoficationStatus,
   getNotifications,
-  getNotificationById
+  getNotificationById,
+  readAllNotifications,
+  readNotification
 } from '../controllers/notificationsController';
 import { validate, isLoggedIn, paramsValidate } from '../middlewares';
 import { validateType, validateParameter } from '../validations/notifications';
@@ -21,6 +23,18 @@ notificationsRouter.get(
   isLoggedIn,
   paramsValidate(validateParameter),
   getNotificationById
+);
+notificationsRouter.post(
+  '/v1/read/notification/:Id',
+  isLoggedIn,
+  paramsValidate(validateParameter),
+  readNotification
+);
+
+notificationsRouter.post(
+  '/v1/read/notifications',
+  isLoggedIn,
+  readAllNotifications
 );
 
 export default notificationsRouter;

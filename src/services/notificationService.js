@@ -43,12 +43,16 @@ const checkIfBlocked = async (where) => {
   }
   return true;
 };
-
+const markNotification = async (notification) => {
+  notification.isRead = true;
+  await notification.save();
+};
 export {
   addTripStatusNotification,
   addTripCommentNotification,
   addNotificationsStatus,
   allNotifications,
   checkIfBlocked,
-  getById
+  getById,
+  markNotification
 };
