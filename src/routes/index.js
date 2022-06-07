@@ -24,7 +24,7 @@ indexRouter.get('/', (req, res) => {
   res.send({ Message: 'Barefoot Nomad API' });
 });
 
-indexRouter.use('/auth', socialAuthRouter);
+indexRouter.use('/api/auth', socialAuthRouter);
 indexRouter.use('/api', userRouter);
 indexRouter.use('/api', roleRouter);
 indexRouter.use('/api/v1', profileRouter);
