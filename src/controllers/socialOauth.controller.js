@@ -1,26 +1,15 @@
 /* eslint-disable */
-import strategy from 'passport-google-oauth';
-import facebookStrategy from 'passport-facebook';
-import passport from 'passport';
-import models from '../database/models';
+import { OAuth2Client } from 'google-auth-library';
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 import storeToken from '../services/storeToken';
-
-const { Users } = models;
-const GoogleStrategy = strategy.OAuth2Strategy;
-const FacebookStrategy = facebookStrategy.Strategy;
+import { Users } from '../database/models';
 
 /**
  *  Generate token for user after authentication
  */
 
-export const userToken = async (req, res) => {
-  const user = {
-    id: req.user.id,
-    firstname: req.user.firstname,
-    lastname: req.user.lastname,
-    email: req.user.email
-  };
+export const userToken = async (res, user) => {
   const token = await storeToken(user);
   return res.status(200).send({
     status: 200,
@@ -33,27 +22,25 @@ export const userToken = async (req, res) => {
  * @returns return a user
  */
 
-export const googleCb = async (token, tokenSecret, profile, done) => {
-  try {
-    const email = { email: profile._json.email };
-    const update = {
-      firstname: profile._json.given_name,
-      lastname: profile._json.family_name,
-      email: profile._json.email,
-      isVerified: profile._json.email_verified,
-      googleId: profile._json.sub
-    };
-
-    const [user, created] = await Users.findOrCreate({
-      where: email,
-      defaults: update
-    });
-
-    if (created) return done(null, user);
-    return done(null, user);
-  } catch (error) {
-    done(error);
-  }
+export const googleCb = async (req, res) => {
+  const { token } = req.body;
+  const ticket = await client.verifyIdToken({
+    idToken: token,
+    audience: process.env.GOOGLE_CLIENT_ID
+  });
+  const {
+    given_name: firstname,
+    family_name: lastname,
+    email,
+    email_verified: isVerified,
+    sub: googleId
+  } = ticket.getPayload();
+  const update = { firstname, lastname, email, isVerified, googleId };
+  const [user] = await Users.findOrCreate({
+    where: { email: email },
+    defaults: update
+  });
+  return userToken(res, user);
 };
 
 /**
@@ -61,53 +48,22 @@ export const googleCb = async (token, tokenSecret, profile, done) => {
  * @returns return a user
  */
 
-export const facebookCb = async (accessToken, refreshToken, profile, done) => {
-  try {
-    const facebookId = { facebookId: profile._json.id };
-
-    const update = {
-      facebookId: profile._json.id,
-      firstname: profile._json.last_name,
-      lastname: profile._json.first_name,
-      email: profile._json.email ? profile._json.email : null,
-      isVerified: true
-    };
-    const [user, created] = await Users.findOrCreate({
-      where: facebookId,
-      defaults: update
-    });
-
-    if (created) return done(null, user);
-    return done(null, user);
-  } catch (error) {
-    done(error);
-  }
+export const facebookCb = async (req, res) => {
+  const { userID: facebookId, email, name } = req.body.user;
+  const firstname = name.split(' ')[0];
+  const lastname = name.split(' ').splice(1, name.length).join(' '); // Retrieve the last name from the name
+  const update = {
+    facebookId,
+    firstname,
+    lastname,
+    email: email ? email : null,
+    isVerified: true
+  };
+  const [user] = await Users.findOrCreate({
+    where: { facebookId: facebookId },
+    defaults: update
+  });
+  return userToken(res, user);
 };
 
-passport.use(
-  new GoogleStrategy(
-    {
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: process.env.GOOGLE_CALLBACK_URL
-    },
-    googleCb
-  )
-);
-
-passport.use(
-  new FacebookStrategy(
-    {
-      clientID: process.env.FB_CLIENT_ID,
-      clientSecret: process.env.FB_CLIENT_SECRET,
-      callbackURL: process.env.FB_CALLBACK_URL,
-      profileFields: ['id', 'email', 'gender', 'link', 'name', , 'verified']
-    },
-    facebookCb
-  )
-);
-
-passport.serializeUser((user, done) => done(null, user.id));
-passport.deserializeUser((id, done) => {});
-
-export default passport;
+export default googleCb;
