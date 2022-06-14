@@ -161,8 +161,9 @@ const logout = async (req, res) => {
   }
 };
 
-const forgotPassword = async (req, res, appUrl, next) => {
+const forgotPassword = async (req, res, next) => {
   try {
+    const appUrl = process.env.FRONT_END_APP;
     const validate = forgotPasswordValidation.forgotPassword.validate(req);
     if (!validate.error) {
       const findIfUserExist = await userService.findByEmail(req.email);
