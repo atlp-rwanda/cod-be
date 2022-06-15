@@ -13,7 +13,7 @@ const sendResetVerification = async (
   res
 ) => {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-  const verificationUrl = `http://${appUrl}/api/v1/reset-password?token=${emailToken}`;
+  const verificationUrl = `${appUrl}/password/${emailToken}/reset`;
   const msg = {
     to: email,
     from: process.env.SENDER_EMAIL,

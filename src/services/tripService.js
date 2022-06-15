@@ -98,8 +98,7 @@ export const findTripByTripAndManagerId = async (managerId, tripId) => {
     if (accomodations !== null) {
       const trip = await Trips.findOne({
         where: {
-          accomodationId: `${accomodations.dataValues.id}`,
-          id: `${tripId}`
+          id: tripId
         },
         include: [
           {

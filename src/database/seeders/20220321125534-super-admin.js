@@ -7,7 +7,7 @@ export default {
   async up(queryInterface, Sequelize) {
     /**
      * Super Admin Default User
-     * email:iyaremyef@gmail.com
+     * email:superadmin@gmail.com
      * password: test@me123
      */
     const salt = await bcrypt.genSalt(10);
@@ -15,9 +15,9 @@ export default {
     await queryInterface.bulkInsert('users', [
       {
         id: uuidv4(),
-        firstname: 'Faustin',
-        lastname: ' IYAREMYE',
-        email: 'iyaremyef@gmail.com',
+        firstname: 'Admin',
+        lastname: ' Admin',
+        email: 'superadmin@gmail.com',
         password: userPassword,
         isVerified: true,
         roleId: 1,
@@ -30,7 +30,7 @@ export default {
   async down(queryInterface, Sequelize) {
     await queryInterface.bulkDelete(
       'users',
-      { email: 'iyaremyef@gmail.com' },
+      { email: 'superadmin@gmail.com' },
       {}
     );
   }

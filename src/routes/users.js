@@ -60,8 +60,7 @@ userRouter.delete('/user/logout', isLoggedIn, async (req, res, next) => {
 
 userRouter.post('/v1/forgot-password', async (req, res, next) => {
   try {
-    const appUrl = req.headers.host;
-    userControl.default.forgotPassword(req.body, res, appUrl, next);
+    userControl.default.forgotPassword(req.body, res, next);
   } catch (error) {
     console.log(error);
     res.status(500).json({

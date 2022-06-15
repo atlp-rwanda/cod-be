@@ -12,7 +12,7 @@ use(chaiHttp);
 
 let loginToken;
 const loginAdmin = {
-  email: 'iyaremyef@gmail.com',
+  email: 'superadmin@gmail.com',
   password: 'test@me123'
 };
 
