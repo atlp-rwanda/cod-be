@@ -21,7 +21,7 @@ before(async () => {
   });
   managerToken = res2.body.accessToken;
   const res3 = await request(server).post('/api/user/login').send({
-    email: 'iyaremyef@gmail.com',
+    email: 'superadmin@gmail.com',
     password: 'test@me123'
   });
   adminToken = res3.body.accessToken;

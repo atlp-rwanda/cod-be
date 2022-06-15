@@ -19,7 +19,7 @@ describe('Manage user notifications', () => {
   let notificationId;
   let today = new Date();
   const loginAdmin = {
-    email: 'iyaremyef@gmail.com',
+    email: 'superadmin@gmail.com',
     password: 'test@me123'
   };
   const user = {
