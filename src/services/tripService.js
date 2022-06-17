@@ -15,9 +15,18 @@ export const createTripRequest = async (trip) => {
   }
 };
 export const findAllTripRequest = async () => {
-  const trips = await Trips.findAll({});
+  const trips = await Trips.findAll({
+    include: [
+      {
+        model: Accomodation,
+        attributes: ['id', 'name']
+      }
+    ],
+    attributes: { exclude: ['accomodationId'] }
+  });
   return { trips };
 };
+
 export const findTripById = async (tripId) => {
   try {
     const trip = await Trips.findOne({
